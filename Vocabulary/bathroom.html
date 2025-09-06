@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bathroom Essentials</title>
+    <style>
+      /* General Styling */
+      body {
+        background-color: #1a1a2e;
+        color: #ffffff;
+        font-family: "Verdana", "Nunito", "Arial Rounded MT Bold", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+        padding: 20px;
+      }
+
+      /* Main Container & Layout */
+      .container {
+        position: relative;
+        text-align: center;
+        width: 100%;
+        max-width: 1200px;
+      }
+
+      /* Close Button */
+      #close-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: transparent;
+        border: 2px solid white;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      #close-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+      }
+
+      /* Image Container (now draggable items) */
+      .image-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 80px;
+        margin-bottom: 40px;
+      }
+
+      .draggable-image {
+        width: 180px;
+        height: 180px;
+        border-radius: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        object-fit: cover;
+        cursor: grab;
+        transition: all 0.3s ease;
+      }
+
+      .draggable-image:active {
+        cursor: grabbing;
+        transform: scale(1.05);
+      }
+
+      /* Drop Box Layout (now holds words) */
+      .word-box-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .drop-box {
+        width: 180px;
+        height: 180px;
+        background-color: #0f3460;
+        border: 1px dashed #ffffff; /* Slimmer dashed border */
+        border-radius: 15px;
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8em;
+        transition: all 0.3s;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Inset shadow for depth */
+      }
+
+      .drop-box.hovered {
+        background-color: #164a8a;
+        border-color: #f07489;
+        box-shadow: inset 0 0 15px rgba(240, 116, 137, 0.5),
+          0 0 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .drop-box.dropped {
+        background-color: #2e7d32;
+        border-style: solid;
+        border-color: #5ddc5f;
+        color: #ffffff;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2),
+          0 0 15px rgba(93, 220, 95, 0.5);
+      }
+
+      .word-label {
+        font-size: 1.2em;
+        margin-top: 10px;
+        font-weight: normal;
+        letter-spacing: -0.5px;
+      }
+
+      /* Reward Stars: Jumping and Wandering */
+      .star {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        background: gold;
+        box-shadow: 0 0 10px 5px gold;
+        clip-path: polygon(
+          50% 0%,
+          61% 35%,
+          98% 35%,
+          68% 57%,
+          79% 91%,
+          50% 70%,
+          21% 91%,
+          32% 57%,
+          2% 35%,
+          39% 35%
+        );
+        animation: jump-and-wander 1.5s forwards;
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      @keyframes jump-and-wander {
+        0% {
+          transform: scale(0) translate(0, 0);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.5) translate(var(--x-wander), var(--y-jump));
+          opacity: 0;
+        }
+      }
+
+      /* Media Queries for Tablet and Mobile Responsiveness */
+      @media (max-width: 768px) {
+        .image-container {
+          gap: 15px;
+          margin-top: 70px;
+        }
+        .draggable-image {
+          width: 140px;
+          height: 140px;
+        }
+        .word-box-container {
+          flex-direction: column;
+          gap: 30px;
+        }
+        .drop-box {
+          width: 140px;
+          height: 140px;
+        }
+        .word-label {
+          font-size: 1em;
+        }
+        #close-btn {
+          top: 10px;
+          right: 10px;
+          width: 35px;
+          height: 35px;
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button id="close-btn" onclick="window.close()">✖</button>
+
+      <header class="image-container">
+        <img
+          src="media/towel.png"
+          alt="An image of a towel"
+          class="draggable-image"
+          draggable="true"
+          id="towel"
+          data-correct="towel"
+        />
+        <img
+          src="media/mirror.png"
+          alt="An image of a mirror"
+          class="draggable-image"
+          draggable="true"
+          id="mirror"
+          data-correct="mirror"
+        />
+        <img
+          src="media/toothbrush.png"
+          alt="An image of a toothbrush"
+          class="draggable-image"
+          draggable="true"
+          id="toothbrush"
+          data-correct="toothbrush"
+        />
+        <img
+          src="media/slippers.png"
+          alt="An image of slippers"
+          class="draggable-image"
+          draggable="true"
+          id="slippers"
+          data-correct="slippers"
+        />
+        <img
+          src="media/soap.png"
+          alt="An image of soap"
+          class="draggable-image"
+          draggable="true"
+          id="soap"
+          data-correct="soap"
+        />
+        <img
+          src="media/toothpaste.png"
+          alt="An image of toothpaste"
+          class="draggable-image"
+          draggable="true"
+          id="toothpaste"
+          data-correct="toothpaste"
+        />
+      </header>
+
+      <main class="word-box-container">
+        <section class="box">
+          <div class="drop-box" data-accept="toothpaste"></div>
+          <p class="word-label">Toothpaste</p>
+        </section>
+        <section class="box">
+          <div class="drop-box" data-accept="soap"></div>
+          <p class="word-label">Soap</p>
+        </section>
+        <section class="box">
+          <div class="drop-box" data-accept="towel"></div>
+          <p class="word-label">Towel</p>
+        </section>
+        <section class="box">
+          <div class="drop-box" data-accept="slippers"></div>
+          <p class="word-label">Slippers</p>
+        </section>
+        <section class="box">
+          <div class="drop-box" data-accept="mirror"></div>
+          <p class="word-label">Mirror</p>
+        </section>
+        <section class="box">
+          <div class="drop-box" data-accept="toothbrush"></div>
+          <p class="word-label">Toothbrush</p>
+        </section>
+      </main>
+    </div>
+
+    <audio id="audio-toothbrush" src="media/toothbrush.wav"></audio>
+    <audio id="audio-toothpaste" src="media/tooth-paste.wav"></audio>
+    <audio id="audio-towel" src="media/towel.wav"></audio>
+    <audio id="audio-soap" src="media/soap.wav"></audio>
+    <audio id="audio-slippers" src="media/slippers.wav"></audio>
+    <audio id="audio-mirror" src="media/mirror.wav"></audio>
+
+    <audio id="audio-no" src="no.mp3"></audio>
+    <audio id="audio-success" src="success.mp3"></audio>
+    <audio id="audio-celebration-music" src="media/end1.mp3"></audio>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const draggableImages = document.querySelectorAll(".draggable-image");
+        const dropBoxes = document.querySelectorAll(".drop-box");
+        let correctCount = 0;
+        const TOTAL_ITEMS = 6;
+
+        // --- Drag and Drop Logic ---
+
+        draggableImages.forEach((image) => {
+          image.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData("text/plain", e.target.id);
+          });
+        });
+
+        dropBoxes.forEach((box) => {
+          box.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            if (!box.classList.contains("dropped")) {
+              box.classList.add("hovered");
+            }
+          });
+
+          box.addEventListener("dragleave", () => {
+            box.classList.remove("hovered");
+          });
+
+          box.addEventListener("drop", (e) => {
+            e.preventDefault();
+            box.classList.remove("hovered");
+
+            if (box.classList.contains("dropped")) return;
+
+            const droppedImageId = e.dataTransfer.getData("text/plain");
+            const droppedImageElem = document.getElementById(droppedImageId);
+
+            if (box.dataset.accept === droppedImageId) {
+              // --- Correct Drop --- ✅
+              box.innerHTML = ""; // Clear any existing content
+              box.appendChild(droppedImageElem); // Move the image into the drop box
+              droppedImageElem.style.width = "100%"; // Adjust size to fit box
+              droppedImageElem.style.height = "100%";
+              droppedImageElem.style.borderRadius = "10px"; // Adjust border-radius
+              droppedImageElem.style.boxShadow = "none"; // Remove shadow
+              droppedImageElem.style.cursor = "default"; // No longer draggable once dropped
+              droppedImageElem.draggable = false; // Make it not draggable after drop
+              box.classList.add("dropped");
+
+              document.getElementById(`audio-${droppedImageId}`).play();
+
+              correctCount++;
+              if (correctCount === TOTAL_ITEMS) {
+                celebrate();
+              }
+            } else {
+              // --- Incorrect Drop --- ❌
+              document.getElementById("audio-no").play();
+            }
+          });
+        });
+
+        // --- Celebration Function --- 🎉
+        function celebrate() {
+          document.getElementById("audio-success").play();
+          document.getElementById("audio-celebration-music").play();
+
+          for (let i = 0; i < 100; i++) {
+            createStar();
+          }
+        }
+
+        function createStar() {
+          const star = document.createElement("div");
+          star.className = "star";
+
+          // Generate a random "jump" (upward movement) and "wander" (horizontal movement)
+          const xWander = (Math.random() - 0.5) * 200; // -100 to 100 pixels horizontally
+          const yJump = Math.random() * -200 - 50; // -50 to -250 pixels vertically (upward)
+
+          // Set the CSS variables for the animation
+          star.style.setProperty("--x-wander", `${xWander}px`);
+          star.style.setProperty("--y-jump", `${yJump}px`);
+
+          star.style.top = `${Math.random() * 100}%`;
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.animationDelay = `${Math.random() * 1}s`;
+
+          document.body.appendChild(star);
+
+          star.addEventListener("animationend", () => {
+            star.remove();
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

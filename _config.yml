@@ -1,0 +1,24 @@
+# GitHub Pages Configuration for Wizbee English School
+
+# Site settings
+title: Wizbee English School
+description: The eye to see the world through - An interactive English learning platform
+author: Regional English Support Center, Ampara
+
+# GitHub Pages settings
+theme: null  # Using custom styling with Tailwind CSS
+baseurl: "" # Change this to your repository name if not using custom domain
+url: "" # Your custom domain if you have one
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-seo-tag
+
+# Exclude files from build
+exclude:
+  - README.md
+  - .gitignore
+  - package.json
+  - package-lock.json
+  - node_modules

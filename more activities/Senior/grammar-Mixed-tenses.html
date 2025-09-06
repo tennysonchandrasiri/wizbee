@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mixed Tense Verb Practice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f0f9ff;
+        color: #1e293b;
+        overflow-x: hidden;
+      }
+      .game-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+      }
+      .card {
+        background-color: #ffffff;
+        border-radius: 1.5rem;
+        padding: 2rem;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        text-align: center;
+        width: 100%;
+        max-width: 900px;
+        border: 1px solid #e0f2fe;
+        position: relative;
+      }
+      .close-btn {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background-color: #f1f5f9;
+        color: #64748b;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: none;
+      }
+      .close-btn:hover {
+        background-color: #e2e8f0;
+        transform: scale(1.1);
+      }
+      #top-bar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        width: 100%;
+      }
+      #score-container {
+        display: flex;
+        gap: 1rem;
+      }
+      .score-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      #correct-score {
+        background-color: #22c55e;
+      }
+      #incorrect-score {
+        background-color: #ef4444;
+      }
+
+      #sentences-container {
+        list-style-type: decimal;
+        list-style-position: inside;
+        text-align: left;
+        font-size: 1.2rem;
+        line-height: 3;
+      }
+      .sentence-item {
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.5rem;
+        margin-bottom: 0.1rem;
+      }
+      .blank-select {
+        display: inline-block;
+        width: 150px; /* Adjusted width for verb forms */
+        height: 40px;
+        background-color: #e2e8f0;
+        border: 2px solid #cbd5e1;
+        border-radius: 0.5rem;
+        margin: 0 4px -10px 4px;
+        transition: all 0.3s ease;
+        vertical-align: middle;
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding-left: 10px; /* Add some padding */
+      }
+      .blank-select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        background-color: #e0f2fe;
+      }
+      .blank-select.correct {
+        background-color: #4ade80;
+        border-color: #22c55e;
+        color: white;
+      }
+      .blank-select.incorrect {
+        background-color: #f87171;
+        border-color: #ef4444;
+        color: white;
+      }
+      .feedback-mark {
+        display: inline-block;
+        margin-left: 0.75rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        visibility: hidden;
+      }
+      .feedback-mark.correct {
+        color: #22c55e;
+        visibility: visible;
+      }
+      .feedback-mark.incorrect {
+        color: #ef4444;
+        visibility: visible;
+      }
+      .btn {
+        padding: 0.75rem 2rem;
+        border-radius: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: none;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .btn-primary {
+        background-color: #3b82f6;
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #2563eb;
+        transform: translateY(-2px);
+      }
+      .btn-secondary {
+        background-color: #e2e8f0;
+        color: #334155;
+      }
+      .btn-secondary:hover {
+        background-color: #cbd5e1;
+        transform: translateY(-2px);
+      }
+      #reward-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="card">
+        <button id="close-btn" class="close-btn" aria-label="Close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <h1
+          class="text-4xl font-bold text-slate-800 mb-2"
+          style="font-family: 'Pacifico', cursive"
+        >
+          Mixed Tense Verb Practice: All Tenses
+        </h1>
+        <p class="mb-6 text-lg text-slate-500">
+          Choose the correct verb form to complete each sentence.
+        </p>
+
+        <div id="top-bar">
+          <div id="score-container">
+            <div id="correct-score" class="score-circle">0</div>
+            <div id="incorrect-score" class="score-circle">0</div>
+          </div>
+        </div>
+
+        <ol id="sentences-container"></ol>
+
+        <div class="mt-8 flex justify-center space-x-4">
+          <button id="reset-btn" class="btn btn-secondary">Try Again</button>
+          <button id="check-btn" class="btn btn-primary">Check Answers</button>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="reward-canvas"></canvas>
+
+    <script>
+      // --- Game Data ---
+      const sentencesData = [
+        {
+          start: "I",
+          correctVerb: "am reading",
+          options: ["am reading", "was reading", "read"],
+          end: "a novel right now.",
+        },
+        {
+          start: "She",
+          correctVerb: "was cooking",
+          options: ["was cooking", "is cooking", "cooked"],
+          end: "dinner when I called her yesterday.",
+        },
+        {
+          start: "We",
+          correctVerb: "are watching",
+          options: ["are watching", "were watching", "watch"],
+          end: "TV at the moment.",
+        },
+        {
+          start: "They",
+          correctVerb: "were playing",
+          options: ["were playing", "are playing", "played"],
+          end: "football when it started to rain.",
+        },
+        {
+          start: "He",
+          correctVerb: "is writing",
+          options: ["is writing", "was writing", "writes"],
+          end: "an email to his teacher now.",
+        },
+        {
+          start: "I",
+          correctVerb: "was walking",
+          options: ["was walking", "am walking", "walked"],
+          end: "to school when I saw my friend.",
+        },
+        {
+          start: "My parents",
+          correctVerb: "are decorating",
+          options: ["are decorating", "were decorating", "decorate"],
+          end: "the house at this moment.",
+        },
+        {
+          start: "The children",
+          correctVerb: "were swimming",
+          options: ["were swimming", "are swimming", "swam"],
+          end: "in the pool yesterday afternoon.",
+        },
+        {
+          start: "She",
+          correctVerb: "is studying",
+          options: ["is studying", "was studying", "studies"],
+          end: "for her exam right now.",
+        },
+        {
+          start: "We",
+          correctVerb: "were traveling",
+          options: ["were traveling", "are traveling", "traveled"],
+          end: "to Colombo when the bus broke down.",
+        },
+        {
+          start: "I",
+          correctVerb: "am listening",
+          options: ["am listening", "was listening", "listen"],
+          end: "to music at the moment.",
+        },
+        {
+          start: "They",
+          correctVerb: "were having",
+          options: ["were having", "are having", "had"],
+          end: "lunch when the phone rang.",
+        },
+        {
+          start: "He",
+          correctVerb: "is cleaning",
+          options: ["is cleaning", "was cleaning", "cleans"],
+          end: "his room now.",
+        },
+        {
+          start: "She",
+          correctVerb: "was sleeping",
+          options: ["was sleeping", "is sleeping", "slept"],
+          end: "when the alarm went off.",
+        },
+        {
+          start: "We",
+          correctVerb: "are playing",
+          options: ["are playing", "were playing", "play"],
+          end: "chess right now.",
+        },
+        {
+          start: "I",
+          correctVerb: "was reading",
+          options: ["was reading", "am reading", "read"],
+          end: "a magazine when you entered the room.",
+        },
+        {
+          start: "The teacher",
+          correctVerb: "is explaining",
+          options: ["is explaining", "was explaining", "explains"],
+          end: "the lesson right now.",
+        },
+        {
+          start: "They",
+          correctVerb: "were walking",
+          options: ["were walking", "are walking", "walked"],
+          end: "home when it got dark.",
+        },
+        {
+          start: "She",
+          correctVerb: "is painting",
+          options: ["is painting", "was painting", "paints"],
+          end: "a picture now.",
+        },
+        {
+          start: "We",
+          correctVerb: "were studying",
+          options: ["were studying", "are studying", "studied"],
+          end: "together when the lights went out.",
+        },
+        {
+          start: "I",
+          correctVerb: "have finished",
+          options: ["have finished", "had finished", "finished"],
+          end: "my homework already.",
+        },
+        {
+          start: "She",
+          correctVerb: "had eaten",
+          options: ["had eaten", "has eaten", "ate"],
+          end: "lunch before the meeting started.",
+        },
+        {
+          start: "We",
+          correctVerb: "have visited",
+          options: ["have visited", "had visited", "visited"],
+          end: "Galle twice this year.",
+        },
+        {
+          start: "They",
+          correctVerb: "had left",
+          options: ["had left", "have left", "left"],
+          end: "the party before I arrived.",
+        },
+        {
+          start: "He",
+          correctVerb: "has seen",
+          options: ["has seen", "had seen", "saw"],
+          end: "that movie three times.",
+        },
+        {
+          start: "I",
+          correctVerb: "had called",
+          options: ["had called", "have called", "called"],
+          end: "you before you sent me the message.",
+        },
+        {
+          start: "She",
+          correctVerb: "has won",
+          options: ["has won", "had won", "won"],
+          end: "several prizes in dancing competitions.",
+        },
+        {
+          start: "We",
+          correctVerb: "had cleaned",
+          options: ["had cleaned", "have cleaned", "cleaned"],
+          end: "the classroom before the teacher came in.",
+        },
+        {
+          start: "My parents",
+          correctVerb: "have traveled",
+          options: ["have traveled", "had traveled", "traveled"],
+          end: "to India before.",
+        },
+        {
+          start: "He",
+          correctVerb: "had broken",
+          options: ["had broken", "has broken", "broke"],
+          end: "his leg before the football season began.",
+        },
+        {
+          start: "I",
+          correctVerb: "have read",
+          options: ["have read", "had read", "read"],
+          end: "two books this month.",
+        },
+        {
+          start: "She",
+          correctVerb: "had finished",
+          options: ["had finished", "has finished", "finished"],
+          end: "the project before the deadline.",
+        },
+        {
+          start: "They",
+          correctVerb: "have learned",
+          options: ["have learned", "had learned", "learned"],
+          end: "new songs for the concert.",
+        },
+        {
+          start: "I",
+          correctVerb: "had forgotten",
+          options: ["had forgotten", "have forgotten", "forgot"],
+          end: "to lock the door before I left.",
+        },
+        {
+          start: "We",
+          correctVerb: "have eaten",
+          options: ["have eaten", "had eaten", "ate"],
+          end: "breakfast already.",
+        },
+        {
+          start: "He",
+          correctVerb: "had written",
+          options: ["had written", "has written", "wrote"],
+          end: "three letters before noon.",
+        },
+        {
+          start: "She",
+          correctVerb: "had visited",
+          options: ["had visited", "has visited", "visited"],
+          end: "London before she moved to Paris.",
+        },
+        {
+          start: "I",
+          correctVerb: "have never seen",
+          options: ["have never seen", "had never seen", "never saw"],
+          end: "such a beautiful sunset.",
+        },
+        {
+          start: "They",
+          correctVerb: "had finished",
+          options: ["had finished", "have finished", "finished"],
+          end: "their homework before going to the park.",
+        },
+        {
+          start: "We",
+          correctVerb: "have watched",
+          options: ["have watched", "had watched", "watched"],
+          end: "that film before.",
+        },
+      ];
+
+      // --- DOM Elements ---
+      const sentencesContainer = document.getElementById("sentences-container");
+      const closeBtn = document.getElementById("close-btn");
+      const checkBtn = document.getElementById("check-btn");
+      const resetBtn = document.getElementById("reset-btn");
+      const correctScoreEl = document.getElementById("correct-score");
+      const incorrectScoreEl = document.getElementById("incorrect-score");
+      const canvas = document.getElementById("reward-canvas");
+      const ctx = canvas.getContext("2d");
+
+      // --- Game State ---
+      let correctCount = 0;
+      let incorrectCount = 0;
+
+      // --- Shuffle Array Function ---
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
+      }
+
+      // --- Initialization ---
+      function initializeGame() {
+        sentencesContainer.innerHTML = "";
+        correctCount = 0;
+        incorrectCount = 0;
+        updateScores();
+        checkBtn.disabled = false;
+
+        // Shuffle the sentences data
+        shuffleArray(sentencesData);
+
+        sentencesData.forEach((item) => {
+          const li = document.createElement("li");
+          li.className = "sentence-item flex items-center";
+
+          // Add the start of the sentence
+          li.innerHTML = `${item.start} `;
+
+          // Create and append the select dropdown
+          const select = document.createElement("select");
+          select.className = "blank-select";
+          select.dataset.correctVerb = item.correctVerb;
+
+          // Default blank option
+          const defaultOption = document.createElement("option");
+          defaultOption.value = "";
+          defaultOption.textContent = "---";
+          select.appendChild(defaultOption);
+
+          // Add the verb options
+          const shuffledOptions = [...item.options].sort(
+            () => 0.5 - Math.random()
+          ); // Shuffle a copy
+          shuffledOptions.forEach((optionText) => {
+            const option = document.createElement("option");
+            option.textContent = optionText;
+            option.value = optionText;
+            select.appendChild(option);
+          });
+
+          li.appendChild(select);
+          // Add the remainder of the sentence and feedback mark
+          li.innerHTML += ` ${item.end} <span class="feedback-mark"></span>`;
+
+          sentencesContainer.appendChild(li);
+        });
+      }
+
+      // --- Answer Checking ---
+      function checkAnswers() {
+        const selects = document.querySelectorAll(".blank-select");
+        correctCount = 0;
+        incorrectCount = 0;
+
+        selects.forEach((select) => {
+          const userAnswer = select.value.trim();
+          const correctVerb = select.dataset.correctVerb;
+          const feedbackMark =
+            select.parentElement.querySelector(".feedback-mark");
+
+          select.classList.remove("correct", "incorrect");
+          feedbackMark.classList.remove("correct", "incorrect");
+          feedbackMark.style.visibility = "hidden";
+
+          if (userAnswer) {
+            if (userAnswer === correctVerb) {
+              feedbackMark.textContent = "✓";
+              feedbackMark.classList.add("correct");
+              select.classList.add("correct");
+              correctCount++;
+            } else {
+              feedbackMark.textContent = "✗";
+              feedbackMark.classList.add("incorrect");
+              select.classList.add("incorrect");
+              incorrectCount++;
+            }
+            feedbackMark.style.visibility = "visible";
+          } else {
+            // If the input is empty, leave feedback hidden
+          }
+        });
+
+        updateScores();
+        checkBtn.disabled = true;
+
+        if (correctCount + incorrectCount === sentencesData.length) {
+          triggerReward(correctCount);
+        }
+      }
+
+      function updateScores() {
+        correctScoreEl.textContent = correctCount;
+        incorrectScoreEl.textContent = incorrectCount;
+      }
+
+      // --- Reward System ---
+      function triggerReward(score) {
+        if (score >= 1 && score <= 10) {
+          launchStars(1);
+        } else if (score >= 11 && score <= 20) {
+          launchStars(2);
+        } else if (score >= 21 && score <= 30) {
+          launchStars(3);
+        } else if (score >= 31 && score <= 39) {
+          launchStars(4);
+        } else if (score === 40) {
+          starRain();
+        }
+      }
+
+      // --- Canvas Animation (unchanged) ---
+      let stars = [];
+      let animationFrameId;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      class Star {
+        constructor(x, y, radius, color, velocity) {
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.color = color;
+          this.velocity = velocity;
+          this.alpha = 1;
+          this.gravity = 0.05;
+          this.friction = 0.99;
+        }
+        draw() {
+          ctx.save();
+          ctx.globalAlpha = this.alpha;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+          ctx.restore();
+        }
+        update() {
+          this.velocity.y += this.gravity;
+          this.velocity.x *= this.friction;
+          this.x += this.velocity.x;
+          this.y += this.velocity.y;
+          this.alpha -= 0.01;
+          this.draw();
+        }
+      }
+
+      function animateStars() {
+        animationFrameId = requestAnimationFrame(animateStars);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach((star, index) => {
+          if (star.alpha > 0) star.update();
+          else stars.splice(index, 1);
+        });
+        if (stars.length === 0) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+      }
+
+      function launchStars(count) {
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const colors = ["#fde047", "#f97316", "#84cc16", "#38bdf8"];
+        for (let i = 0; i < count; i++) {
+          const radius = 25 + Math.random() * 15;
+          const x = centerX - 200 + i * 200;
+          const y = centerY;
+          const color = colors[i % colors.length];
+          const velocity = {
+            x: (Math.random() - 0.5) * 4,
+            y: -12 - Math.random() * 5,
+          };
+          stars.push(new Star(x, y, radius, color, velocity));
+        }
+        if (!animationFrameId) animateStars();
+      }
+
+      function starRain() {
+        for (let i = 0; i < 150; i++) {
+          const radius = Math.random() * 3 + 1;
+          const x = Math.random() * canvas.width;
+          const y = -Math.random() * canvas.height;
+          const color = `hsl(${Math.random() * 360}, 100%, 75%)`;
+          const velocity = {
+            x: (Math.random() - 0.5) * 2,
+            y: 4 + Math.random() * 5,
+          };
+          stars.push(new Star(x, y, radius, color, velocity));
+        }
+        if (!animationFrameId) animateStars();
+      }
+
+      // --- Event Listeners ---
+      closeBtn.addEventListener("click", () => window.close());
+      checkBtn.addEventListener("click", checkAnswers);
+      resetBtn.addEventListener("click", initializeGame);
+      window.addEventListener("resize", resizeCanvas);
+
+      // --- Initial Load ---
+      window.onload = () => {
+        resizeCanvas();
+        initializeGame();
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Little Mermaid - Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f0f9ff;
+            color: #1e293b;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            width: 100%;
+            max-width: 900px;
+            border: 1px solid #e2e8f0;
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            text-align: center;
+        }
+        .story-section {
+            text-align: left;
+            background-color: #e0f7f7; /* Light aquamarine background for the story */
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            border: 1px solid #b2ebf2;
+        }
+        .story-section p {
+            margin-bottom: 0.5rem;
+            font-style: italic;
+            color: #475569;
+        }
+        .story-moral {
+            font-weight: 600;
+            margin-top: 1.5rem;
+            font-style: normal;
+            color: #1e293b;
+        }
+        .quiz-section {
+            text-align: left;
+            background-color: #f1f5f9;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .story-section h2, .quiz-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .question-group {
+            margin-bottom: 1.5rem;
+        }
+        .question-group p {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .answer-options button, .fill-in-blank input {
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .answer-options button:hover {
+            background-color: #e2e8f0;
+        }
+        .answer-options button.selected {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .answer-options button.correct {
+            background-color: #4ade80;
+            color: white;
+            border-color: #22c55e;
+        }
+        .answer-options button.incorrect {
+            background-color: #f87171;
+            color: white;
+            border-color: #ef4444;
+        }
+        .fill-in-blank input {
+            width: 200px;
+            height: 40px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .fill-in-blank input.correct {
+            border-color: #22c55e;
+            background-color: #f0fdf4;
+        }
+        .fill-in-blank input.incorrect {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .btn-primary:hover:not(:disabled) {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #334155;
+        }
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+        #feedback {
+            margin-top: 1.5rem;
+            font-weight: 600;
+            min-height: 24px;
+            font-size: 1.1rem;
+        }
+        .correct-feedback { color: #22c55e; }
+        .incorrect-feedback { color: #ef4444; }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1 class="text-4xl font-bold text-slate-800 mb-6">
+            <span style="color: #06b6d4;">The</span>
+            <span style="color: #6366f1;">Little</span>
+            <span style="color: #a855f7;">Mermaid</span>
+        </h1>
+        
+        <div class="story-section mb-6">
+            <h2 class="text-xl">Story</h2>
+            <p>Deep under the sea, the Little Mermaid spoke to her grandmother.</p>
+            <p><strong>Little Mermaid:</strong> “Grandmother, tell me about the human world again. I want to see it!”</p>
+            <p><strong>Grandmother:</strong> “Patience, child. When you turn fifteen, you may swim to the surface.”</p>
+            <p>On her fifteenth birthday, she rose to the waves and saw a ship. A handsome prince stood on deck.</p>
+            <p><strong>Little Mermaid (whispering):</strong> “He’s so beautiful.”</p>
+            <p>Suddenly, a storm struck. The prince fell into the sea.</p>
+            <p><strong>Little Mermaid:</strong> “I must save him!”</p>
+            <p>She pulled him to shore and sang softly until people came. She slipped away before he woke.</p>
+            <p>Later, she visited the Sea Witch.</p>
+            <p><strong>Sea Witch:</strong> “I can give you legs, but you must give me your voice. If the prince loves you, you’ll stay human. If not, you’ll turn to sea foam.”</p>
+            <p><strong>Little Mermaid:</strong> “I agree.”</p>
+            <p>On land, she met the prince, but he loved another. On his wedding day, she stood by the shore.</p>
+            <p><strong>Little Mermaid (thinking):</strong> “I’d rather see him happy than harm him.”</p>
+            <p>She leapt into the sea, becoming foam, but rose into the sky as a spirit of the air, her kindness shining forever.</p>
+            <p class="story-moral">Moral: True love is selfless.</p>
+        </div>
+
+        <div class="quiz-section">
+            <h2 class="text-xl">Quiz Time!</h2>
+            <p class="mb-4 text-slate-500">Read the story and answer the questions below.</p>
+            
+            <form id="quiz-form">
+                <div class="true-false-section question-group">
+                    <p class="text-base font-semibold mb-2">True or False</p>
+                    <div class="mb-4">
+                        <label for="q1" class="block mb-2">1. The Little Mermaid was allowed to visit the surface when she was ten.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q1" data-answer="true">True</button>
+                            <button type="button" data-question="q1" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q2" class="block mb-2">2. She saved the prince during a calm, sunny day.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q2" data-answer="true">True</button>
+                            <button type="button" data-question="q2" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q3" class="block mb-2">3. The Sea Witch took her voice in exchange for her tail.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q3" data-answer="true">True</button>
+                            <button type="button" data-question="q3" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q4" class="block mb-2">4. The prince loved the Little Mermaid and they got married.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q4" data-answer="true">True</button>
+                            <button type="button" data-question="q4" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q5" class="block mb-2">5. The moral of the story is that true love is selfless.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q5" data-answer="true">True</button>
+                            <button type="button" data-question="q5" data-answer="false">False</button>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-6 border-slate-300" />
+
+                <div class="fill-in-blanks-section question-group">
+                    <p class="text-base font-semibold mb-2">Fill in the Blanks</p>
+                    <div class="mb-4">
+                        <label for="q6" class="block mb-2">6. The Little Mermaid wanted to see the _________ world.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q6" data-answer="human" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q7" class="block mb-2">7. She saw a handsome _________ on a ship.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q7" data-answer="prince" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q8" class="block mb-2">8. The prince fell into the sea during a _________.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q8" data-answer="storm" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q9" class="block mb-2">9. The Little Mermaid traded her voice for a pair of _________.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q9" data-answer="legs" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q10" class="block mb-2">10. When the prince married another, she turned into sea _________.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q10" data-answer="foam" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div id="feedback" class="text-center mt-6"></div>
+            
+            <div class="mt-8 flex justify-center space-x-4">
+                <button id="reset-btn" class="btn btn-secondary">Reset</button>
+                <button id="check-btn" class="btn btn-primary">Check Answers</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('quiz-form');
+            const checkBtn = document.getElementById('check-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const feedbackDiv = document.getElementById('feedback');
+
+            // Store the correct answers
+            const correctAnswers = {
+                q1: 'false',
+                q2: 'false',
+                q3: 'true',
+                q4: 'false',
+                q5: 'true',
+                q6: 'human',
+                q7: 'prince',
+                q8: 'storm',
+                q9: 'legs',
+                q10: 'foam'
+            };
+
+            // Event listeners for True/False buttons
+            document.querySelectorAll('.answer-options button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const questionId = e.target.dataset.question;
+                    // Deselect any other button for this question
+                    document.querySelectorAll(`button[data-question="${questionId}"]`).forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                    // Select the clicked button
+                    e.target.classList.add('selected');
+                });
+            });
+
+            // Check Answers button logic
+            checkBtn.addEventListener('click', () => {
+                let score = 0;
+                const totalQuestions = Object.keys(correctAnswers).length;
+
+                // Check True/False answers
+                document.querySelectorAll('.answer-options button.selected').forEach(button => {
+                    const questionId = button.dataset.question;
+                    const userAnswer = button.dataset.answer;
+                    const correctAnswer = correctAnswers.hasOwnProperty(questionId) ? correctAnswers[`${questionId}`] : null;
+
+                    if (userAnswer === correctAnswer) {
+                        button.classList.add('correct');
+                        score++;
+                    } else {
+                        button.classList.add('incorrect');
+                    }
+                });
+
+                // Check Fill-in-the-Blanks answers
+                document.querySelectorAll('.fill-in-blank input').forEach(input => {
+                    const questionId = input.id;
+                    const userAnswer = input.value.toLowerCase().trim();
+                    const correctAnswer = correctAnswers.hasOwnProperty(questionId) ? correctAnswers[`${questionId}`].toLowerCase().trim() : null;
+
+                    if (userAnswer === correctAnswer) {
+                        input.classList.add('correct');
+                        score++;
+                    } else {
+                        input.classList.add('incorrect');
+                        input.value = correctAnswer; // Show correct answer
+                    }
+                });
+
+                // Display feedback
+                feedbackDiv.textContent = `You got ${score} out of ${totalQuestions} questions correct!`;
+                if (score === totalQuestions) {
+                    feedbackDiv.className = 'correct-feedback';
+                } else {
+                    feedbackDiv.className = 'incorrect-feedback';
+                }
+
+                // Disable buttons and inputs after checking
+                checkBtn.disabled = true;
+                document.querySelectorAll('.answer-options button, .fill-in-blank input').forEach(el => el.disabled = true);
+            });
+
+            // Reset button logic
+            resetBtn.addEventListener('click', () => {
+                // Reset True/False buttons
+                document.querySelectorAll('.answer-options button').forEach(button => {
+                    button.classList.remove('selected', 'correct', 'incorrect');
+                    button.disabled = false;
+                });
+                // Reset Fill-in-the-Blanks inputs
+                document.querySelectorAll('.fill-in-blank input').forEach(input => {
+                    input.value = '';
+                    input.classList.remove('correct', 'incorrect');
+                    input.disabled = false;
+                });
+                // Reset feedback
+                feedbackDiv.textContent = '';
+                feedbackDiv.className = '';
+                // Enable check button
+                checkBtn.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Wolf in Sheep's Clothing - Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f0f9ff;
+            color: #1e293b;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            width: 100%;
+            max-width: 900px;
+            border: 1px solid #e2e8f0;
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            text-align: center;
+        }
+        .story-section {
+            text-align: left;
+            background-color: #e0f2f7; /* Light teal background for the story */
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            border: 1px solid #b2ebf2; /* Optional: Add a subtle border */
+        }
+        .story-text p {
+            margin-bottom: 0.5rem;
+        }
+        .story-text {
+            font-style: italic;
+            color: #475569;
+        }
+        .story-moral {
+            font-weight: 600;
+            margin-top: 1.5rem;
+        }
+        .quiz-section {
+            text-align: left;
+            background-color: #f1f5f9;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .story-section h2, .quiz-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .question-group {
+            margin-bottom: 1.5rem;
+        }
+        .question-group p {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .answer-options button, .fill-in-blank input {
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .answer-options button:hover {
+            background-color: #e2e8f0;
+        }
+        .answer-options button.selected {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .answer-options button.correct {
+            background-color: #4ade80;
+            color: white;
+            border-color: #22c55e;
+        }
+        .answer-options button.incorrect {
+            background-color: #f87171;
+            color: white;
+            border-color: #ef4444;
+        }
+        .fill-in-blank input {
+            width: 200px;
+            height: 40px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .fill-in-blank input.correct {
+            border-color: #22c55e;
+            background-color: #f0fdf4;
+        }
+        .fill-in-blank input.incorrect {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .btn-primary:hover:not(:disabled) {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #334155;
+        }
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+        #feedback {
+            margin-top: 1.5rem;
+            font-weight: 600;
+            min-height: 24px;
+            font-size: 1.1rem;
+        }
+        .correct-feedback { color: #22c55e; }
+        .incorrect-feedback { color: #ef4444; }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1 class="text-4xl font-bold text-slate-800 mb-6">
+            <span style="color: #ef4444;">The</span>
+            <span style="color: #f97316;">Wolf</span>
+            <span style="color: #22c55e;">in</span>
+            <span style="color: #3b82f6;">Sheep’s</span>
+            <span style="color: #a855f7;">Clothing</span>
+        </h1>
+        
+        <div class="story-section mb-6">
+            <h2 class="text-xl">Story</h2>
+            <div class="story-text">
+                <p>One sunny morning, a wolf spotted a flock of sheep.</p>
+                <p><strong>Wolf (thinking):</strong> “Hmm… I’m hungry, but the shepherd is watching. Wait… what’s that? A sheepskin!”</p>
+                <p><strong>Wolf:</strong> “Perfect! If I wear this, I can walk right among them.”</p>
+                <p>The wolf draped the skin over himself and strolled into the field.</p>
+                <p><strong>Sheep 1:</strong> “Hello, new friend! Where did you come from?”</p>
+                <p><strong>Wolf (in a gentle voice):</strong> “Oh, I… wandered away from another flock.”</p>
+                <p><strong>Sheep 2:</strong> “You look tired. Come graze with us.”</p>
+                <p><strong>Wolf (grinning inside):</strong> “Thank you, I will.”</p>
+                <p>All day, the wolf pretended to eat grass but dreamed of lamb chops.</p>
+                <p><strong>Wolf (thinking):</strong> “Tonight, I’ll choose the fattest one.”</p>
+                <p>Evening came. The shepherd entered the pen.</p>
+                <p><strong>Shepherd:</strong> “Ah, there’s my supper for tonight. This one looks plump.”</p>
+                <p>He grabbed the “sheep” wearing the skin — the wolf!</p>
+                <p><strong>Wolf:</strong> “Wait! I’m not—”</p>
+                <p>Too late. The shepherd ended the wolf’s trick forever.</p>
+            </div>
+            <p class="story-moral">Moral: Deceiving others often leads to your own downfall.</p>
+        </div>
+
+        <div class="quiz-section">
+            <h2 class="text-xl">Quiz Time!</h2>
+            <p class="mb-4 text-slate-500">Read the story and answer the questions below.</p>
+            
+            <form id="quiz-form">
+                <div class="true-false-section question-group">
+                    <p class="text-base font-semibold mb-2">True or False</p>
+                    <div class="mb-4">
+                        <label for="q1" class="block mb-2">1. The wolf found a sheepskin to wear.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q1" data-answer="true">True</button>
+                            <button type="button" data-question="q1" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q2" class="block mb-2">2. The sheep immediately recognized the wolf.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q2" data-answer="true">True</button>
+                            <button type="button" data-question="q2" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q3" class="block mb-2">3. The wolf planned to eat the shepherd.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q3" data-answer="true">True</button>
+                            <button type="button" data-question="q3" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q4" class="block mb-2">4. The shepherd chose the wolf for his supper.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q4" data-answer="true">True</button>
+                            <button type="button" data-question="q4" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q5" class="block mb-2">5. The moral of the story is to be kind to everyone.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q5" data-answer="true">True</button>
+                            <button type="button" data-question="q5" data-answer="false">False</button>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-6 border-slate-300" />
+
+                <div class="fill-in-blanks-section question-group">
+                    <p class="text-base font-semibold mb-2">Fill in the Blanks</p>
+                    <div class="mb-4">
+                        <label for="q6" class="block mb-2">6. The wolf was hungry and wanted to eat a _________.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q6" data-answer="sheep" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q7" class="block mb-2">7. He wore a _________ to disguise himself.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q7" data-answer="sheepskin" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q8" class="block mb-2">8. The wolf entered the _________ to hide with the flock.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q8" data-answer="field" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q9" class="block mb-2">9. The shepherd chose the plumpest "sheep" for his _________.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q9" data-answer="supper" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q10" class="block mb-2">10. The wolf's trick led to his own _________.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q10" data-answer="downfall" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div id="feedback" class="text-center mt-6"></div>
+            
+            <div class="mt-8 flex justify-center space-x-4">
+                <button id="reset-btn" class="btn btn-secondary">Reset</button>
+                <button id="check-btn" class="btn btn-primary">Check Answers</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('quiz-form');
+            const checkBtn = document.getElementById('check-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const feedbackDiv = document.getElementById('feedback');
+
+            // Store the correct answers
+            const correctAnswers = {
+                q1: 'true',
+                q2: 'false',
+                q3: 'false',
+                q4: 'true',
+                q5: 'false',
+                q6: 'sheep',
+                q7: 'sheepskin',
+                q8: 'field',
+                q9: 'supper',
+                q10: 'downfall'
+            };
+
+            // Event listeners for True/False buttons
+            document.querySelectorAll('.answer-options button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const questionId = e.target.dataset.question;
+                    // Deselect any other button for this question
+                    document.querySelectorAll(`button[data-question="${questionId}"]`).forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                    // Select the clicked button
+                    e.target.classList.add('selected');
+                });
+            });
+
+            // Check Answers button logic
+            checkBtn.addEventListener('click', () => {
+                let score = 0;
+                const totalQuestions = Object.keys(correctAnswers).length;
+
+                // Check True/False answers
+                document.querySelectorAll('.answer-options button.selected').forEach(button => {
+                    const questionId = button.dataset.question;
+                    const userAnswer = button.dataset.answer;
+                    const correctAnswer = correctAnswers.hasOwnProperty(questionId) ? correctAnswers[`${questionId}`] : null;
+
+                    if (userAnswer === correctAnswer) {
+                        button.classList.add('correct');
+                        score++;
+                    } else {
+                        button.classList.add('incorrect');
+                    }
+                });
+
+                // Check Fill-in-the-Blanks answers
+                document.querySelectorAll('.fill-in-blank input').forEach(input => {
+                    const questionId = input.id;
+                    const userAnswer = input.value.toLowerCase().trim();
+                    const correctAnswer = correctAnswers.hasOwnProperty(questionId) ? correctAnswers[`${questionId}`].toLowerCase().trim() : null;
+
+                    if (userAnswer === correctAnswer) {
+                        input.classList.add('correct');
+                        score++;
+                    } else {
+                        input.classList.add('incorrect');
+                        input.value = correctAnswer; // Show correct answer
+                    }
+                });
+
+                // Display feedback
+                feedbackDiv.textContent = `You got ${score} out of ${totalQuestions} questions correct!`;
+                if (score === totalQuestions) {
+                    feedbackDiv.className = 'correct-feedback';
+                } else {
+                    feedbackDiv.className = 'incorrect-feedback';
+                }
+
+                // Disable buttons and inputs after checking
+                checkBtn.disabled = true;
+                document.querySelectorAll('.answer-options button, .fill-in-blank input').forEach(el => el.disabled = true);
+            });
+
+            // Reset button logic
+            resetBtn.addEventListener('click', () => {
+                // Reset True/False buttons
+                document.querySelectorAll('.answer-options button').forEach(button => {
+                    button.classList.remove('selected', 'correct', 'incorrect');
+                    button.disabled = false;
+                });
+                // Reset Fill-in-the-Blanks inputs
+                document.querySelectorAll('.fill-in-blank input').forEach(input => {
+                    input.value = '';
+                    input.classList.remove('correct', 'incorrect');
+                    input.disabled = false;
+                });
+                // Reset feedback
+                feedbackDiv.textContent = '';
+                feedbackDiv.className = '';
+                // Enable check button
+                checkBtn.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>

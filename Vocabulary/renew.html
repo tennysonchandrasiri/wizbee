@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cleaning Supplies</title>
+    <style>
+      /* General Styling */
+      body {
+        background-color: #1a1a2e;
+        color: #ffffff;
+        font-family: "Verdana", "Arial Rounded MT Bold", "Nunito", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden; /* Prevent horizontal scrollbar */
+        padding: 20px;
+      }
+
+      /* Main Container & Layout */
+      .container {
+        position: relative; /* Establishes a positioning context for the close button */
+        text-align: center;
+        width: 100%;
+        max-width: 1200px; /* Increased max-width for more items */
+      }
+
+      /* Close Button */
+      #close-btn {
+        position: absolute; /* Positioned relative to the .container */
+        top: 0;
+        right: 0;
+        background: transparent;
+        border: 2px solid white;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      #close-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+      }
+
+      /* Image Container (now draggable items) */
+      .image-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 80px; /* Add space for the close button */
+        margin-bottom: 40px;
+      }
+
+      .draggable-image {
+        width: 180px; /* Bigger image size */
+        height: 180px; /* Bigger image size */
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Bigger shadow */
+        object-fit: cover;
+        cursor: grab; /* Indicate it's draggable */
+        transition: transform 0.2s;
+      }
+
+      .draggable-image:active {
+        cursor: grabbing;
+        transform: scale(1.1);
+      }
+
+      /* Drop Box Layout (now holds words) */
+      .word-box-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .drop-box {
+        width: 180px; /* Square shape - same as image width */
+        height: 180px; /* Square shape - same as image height */
+        background-color: #0f3460;
+        border: 3px dashed #ffffff;
+        border-radius: 15px; /* Keep consistent with images */
+        margin-top: 15px; /* Space between image and word */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8em; /* Font size for dropped text (if applicable) */
+        transition: background-color 0.3s, border-style 0.3s;
+      }
+
+      .drop-box.hovered {
+        background-color: #164a8a;
+        border-color: #f07489;
+      }
+
+      .drop-box.dropped {
+        background-color: #2e7d32;
+        border-style: solid;
+        border-color: #5ddc5f;
+        color: #ffffff;
+      }
+
+      .word-label {
+        font-size: 1.2em; /* Smaller font size for words below the boxes */
+        margin-top: 10px; /* Space between drop box and word */
+        font-weight: normal; /* Slimmer font weight */
+        letter-spacing: -0.5px; /* Adjust for slimness */
+      }
+
+      /* Celebration Animation: Popping Stars */
+      .star {
+        position: fixed; /* Use fixed to cover the whole viewport */
+        width: 10px;
+        height: 10px;
+        background: white;
+        clip-path: polygon(
+          50% 0%,
+          61% 35%,
+          98% 35%,
+          68% 57%,
+          79% 91%,
+          50% 70%,
+          21% 91%,
+          32% 57%,
+          2% 35%,
+          39% 35%
+        );
+        animation: pop 1s forwards;
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      @keyframes pop {
+        0% {
+          transform: scale(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.5) rotate(180deg);
+          opacity: 0;
+        }
+      }
+
+      /* Media Queries for Tablet and Mobile Responsiveness */
+      @media (max-width: 768px) {
+        .image-container {
+          gap: 15px;
+          margin-top: 70px;
+        }
+        .draggable-image {
+          width: 140px; /* Adjust for smaller screens */
+          height: 140px;
+        }
+        .word-box-container {
+          flex-direction: column;
+          gap: 30px;
+        }
+        .drop-box {
+          width: 140px; /* Adjust for smaller screens */
+          height: 140px;
+        }
+        .word-label {
+          font-size: 1em; /* Adjust for smaller screens */
+        }
+        #close-btn {
+          top: 10px;
+          right: 10px;
+          width: 35px;
+          height: 35px;
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button id="close-btn" onclick="window.close()">✖</button>
+
+      <header class="image-container">
+        <img
+          src="media/broom.png"
+          alt="An image of a broom"
+          class="draggable-image"
+          draggable="true"
+          id="broom"
+          data-correct="broom"
+        />
+        <img
+          src="media/paint-brush.png"
+          alt="An image of a paint-brush"
+          class="draggable-image"
+          draggable="true"
+          id="paint-brush"
+          data-correct="paint-brush"
+        />
+        <img
+          src="media/paint.png"
+          alt="An image of paint"
+          class="draggable-image"
+          draggable="true"
+          id="paint"
+          data-correct="paint"
+        />
+        <img
+          src="media/duster.png"
+          alt="An image of a duster"
+          class="draggable-image"
+          draggable="true"
+          id="duster"
+          data-correct="duster"
+        />
+        <img
+          src="media/clean.png"
+          alt="An image of something clean"
+          class="draggable-image"
+          draggable="true"
+          id="clean"
+          data-correct="clean"
+        />
+        <img
+          src="media/sweep.png"
+          alt="An image of sweeping"
+          class="draggable-image"
+          draggable="true"
+          id="sweep"
+          data-correct="sweep"
+        />
+      </header>
+
+      <main class="word-box-container">
+        <section class="box">
+          <div class="drop-box" data-accept="broom"></div>
+          <p class="word-label">Broom</p>
+        </section>
+        <section class="box">
+          <div class="drop-box" data-accept="paint-brush"></div>
+          <p class="word-label">Paint-Brush</p>
+        </section>
+        <section class="box">
+          <div class="drop-box" data-accept="paint"></div>
+          <p class="word-label">Paint</p>
+        </section>
+        <section class="box">
+          <div class="drop-box" data-accept="duster"></div>
+          <p class="word-label">Duster</p>
+        </section>
+        <section class="box">
+          <div class="drop-box" data-accept="clean"></div>
+          <p class="word-label">Clean</p>
+        </section>
+        <section class="box">
+          <div class="drop-box" data-accept="sweep"></div>
+          <p class="word-label">Sweep</p>
+        </section>
+      </main>
+    </div>
+
+    <audio id="audio-broom" src="media/broom.mp3"></audio>
+    <audio id="audio-paint-brush" src="media/paint-brush.mp3"></audio>
+    <audio id="audio-paint" src="media/paint.mp3"></audio>
+    <audio id="audio-duster" src="media/duster.mp3"></audio>
+    <audio id="audio-clean" src="media/clean.mp3"></audio>
+    <audio id="audio-sweep" src="media/sweep.mp3"></audio>
+
+    <audio id="audio-no" src="no.mp3"></audio>
+    <audio id="audio-success" src="success.mp3"></audio>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const draggableImages = document.querySelectorAll(".draggable-image");
+        const dropBoxes = document.querySelectorAll(".drop-box");
+        let correctCount = 0;
+        const TOTAL_ITEMS = 6; // Changed to 6 as there are now 6 items
+
+        // --- Drag and Drop Logic ---
+
+        draggableImages.forEach((image) => {
+          image.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData("text/plain", e.target.id);
+          });
+        });
+
+        dropBoxes.forEach((box) => {
+          box.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            if (!box.classList.contains("dropped")) {
+              box.classList.add("hovered");
+            }
+          });
+
+          box.addEventListener("dragleave", () => {
+            box.classList.remove("hovered");
+          });
+
+          box.addEventListener("drop", (e) => {
+            e.preventDefault();
+            box.classList.remove("hovered");
+
+            if (box.classList.contains("dropped")) return;
+
+            const droppedImageId = e.dataTransfer.getData("text/plain");
+            const droppedImageElem = document.getElementById(droppedImageId);
+
+            if (box.dataset.accept === droppedImageId) {
+              // --- Correct Drop --- ✅
+              box.appendChild(droppedImageElem); // Move the image into the drop box
+              droppedImageElem.style.width = "100%"; // Adjust size to fit box
+              droppedImageElem.style.height = "100%";
+              droppedImageElem.style.borderRadius = "10px"; // Adjust border-radius
+              droppedImageElem.style.boxShadow = "none"; // Remove shadow
+              droppedImageElem.style.cursor = "default"; // No longer draggable once dropped
+              droppedImageElem.draggable = false; // Make it not draggable after drop
+              box.classList.add("dropped");
+
+              document.getElementById(`audio-${droppedImageId}`).play();
+
+              correctCount++;
+              if (correctCount === TOTAL_ITEMS) {
+                celebrate();
+              }
+            } else {
+              // --- Incorrect Drop --- ❌
+              document.getElementById("audio-no").play();
+            }
+          });
+        });
+
+        // --- Celebration Function --- 🎉
+        function celebrate() {
+          document.getElementById("audio-success").play();
+
+          for (let i = 0; i < 100; i++) {
+            createStar();
+          }
+        }
+
+        function createStar() {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.top = `${Math.random() * 100}%`;
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.animationDelay = `${Math.random() * 1}s`;
+          document.body.appendChild(star);
+
+          star.addEventListener("animationend", () => {
+            star.remove();
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

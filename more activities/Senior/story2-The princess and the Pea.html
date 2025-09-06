@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Princess and the Pea - Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f0f9ff;
+            color: #1e293b;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            width: 100%;
+            max-width: 900px;
+            border: 1px solid #e2e8f0;
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            text-align: center;
+        }
+        .story-section {
+            text-align: left;
+            background-color: #e6f7ff; /* Light blue background for the story */
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            border: 1px solid #90cdf4;
+        }
+        .story-section p {
+            margin-bottom: 0.5rem;
+        }
+        .story-text {
+            font-style: italic;
+            color: #475569;
+        }
+        .story-moral {
+            font-weight: 600;
+            margin-top: 1.5rem;
+            font-style: normal;
+            color: #1e293b;
+        }
+        .quiz-section {
+            text-align: left;
+            background-color: #f1f5f9;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .story-section h2, .quiz-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .question-group {
+            margin-bottom: 1.5rem;
+        }
+        .question-group p {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .answer-options button, .fill-in-blank input {
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .answer-options button:hover {
+            background-color: #e2e8f0;
+        }
+        .answer-options button.selected {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .answer-options button.correct {
+            background-color: #4ade80;
+            color: white;
+            border-color: #22c55e;
+        }
+        .answer-options button.incorrect {
+            background-color: #f87171;
+            color: white;
+            border-color: #ef4444;
+        }
+        .fill-in-blank input {
+            width: 200px;
+            height: 40px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .fill-in-blank input.correct {
+            border-color: #22c55e;
+            background-color: #f0fdf4;
+        }
+        .fill-in-blank input.incorrect {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .btn-primary:hover:not(:disabled) {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #334155;
+        }
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+        #feedback {
+            margin-top: 1.5rem;
+            font-weight: 600;
+            min-height: 24px;
+            font-size: 1.1rem;
+        }
+        .correct-feedback { color: #22c55e; }
+        .incorrect-feedback { color: #ef4444; }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1 class="text-4xl font-bold text-slate-800 mb-6">
+            <span style="color: #6366f1;">The</span>
+            <span style="color: #f59e0b;">Princess</span>
+            <span style="color: #10b981;">and</span>
+            <span style="color: #ef4444;">the</span>
+            <span style="color: #22c55e;">Pea</span>
+        </h1>
+        
+        <div class="story-section mb-6">
+            <h2 class="text-xl">Story</h2>
+            <p>One stormy night, lightning lit up the royal castle. A knock sounded at the gate.</p>
+            <p><strong>King:</strong> “Who could be out in this weather?”</p>
+            <p>The guard opened the door to a young woman, soaked from head to toe.</p>
+            <p><strong>Young Woman:</strong> “Please, may I stay the night? I’m a princess.”</p>
+            <p><strong>Queen (whispering to the King):</strong> “A princess? We must be sure. I have a test.”</p>
+            <p>The Queen went to the guest room, placed a tiny green pea on the bedframe, and piled twenty mattresses and twenty featherbeds on top.</p>
+            <p><strong>Queen (smiling):</strong> “There. If she’s a real princess, she’ll feel it.”</p>
+            <p>The next morning, the Queen asked:</p>
+            <p><strong>Queen:</strong> “How did you sleep, dear?”</p>
+            <p><strong>Princess:</strong> “Oh, terribly! Something hard was under the bed. My body aches all over.”</p>
+            <p><strong>Queen (clapping her hands):</strong> “Only a true princess could feel a pea through so many layers!”</p>
+            <p><strong>King (laughing):</strong> “Then she shall marry our son.”</p>
+            <p>The Prince and the Princess smiled at each other, and the tiny pea was placed in the royal treasure room, a reminder that true nobility shows in the smallest details.</p>
+            <p class="story-moral">Moral: Real sensitivity cannot be hidden.</p>
+        </div>
+
+        <div class="quiz-section">
+            <h2 class="text-xl">Quiz Time!</h2>
+            <p class="mb-4 text-slate-500">Read the story and answer the questions below.</p>
+            
+            <form id="quiz-form">
+                <div class="true-false-section question-group">
+                    <p class="text-base font-semibold mb-2">True or False</p>
+                    <div class="mb-4">
+                        <label for="q1" class="block mb-2">1. The princess arrived on a sunny day.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q1" data-answer="true">True</button>
+                            <button type="button" data-question="q1" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q2" class="block mb-2">2. The Queen believed the young woman was a real princess immediately.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q2" data-answer="true">True</button>
+                            <button type="button" data-question="q2" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q3" class="block mb-2">3. The Queen hid a rock under the mattresses to test the princess.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q3" data-answer="true">True</button>
+                            <button type="button" data-question="q3" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q4" class="block mb-2">4. The young woman slept very well because the bed was so soft.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q4" data-answer="true">True</button>
+                            <button type="button" data-question="q4" data-answer="false">False</button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q5" class="block mb-2">5. The moral of the story is that real sensitivity cannot be hidden.</label>
+                        <div class="answer-options flex justify-center gap-4">
+                            <button type="button" data-question="q5" data-answer="true">True</button>
+                            <button type="button" data-question="q5" data-answer="false">False</button>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-6 border-slate-300" />
+
+                <div class="fill-in-blanks-section question-group">
+                    <p class="text-base font-semibold mb-2">Fill in the Blanks</p>
+                    <div class="mb-4">
+                        <label for="q6" class="block mb-2">6. The young woman knocked on the door during a stormy _________.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q6" data-answer="night" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q7" class="block mb-2">7. To test the princess, the queen placed a tiny _________ on the bedframe.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q7" data-answer="pea" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q8" class="block mb-2">8. The bed had twenty mattresses and twenty _________ on top.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q8" data-answer="featherbeds" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q9" class="block mb-2">9. The princess said her body ached all over because of a hard _________.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q9" data-answer="object" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="q10" class="block mb-2">10. After the test, the King said the young woman would marry their _________.</label>
+                        <div class="fill-in-blank flex justify-center">
+                            <input type="text" id="q10" data-answer="son" class="p-2 border rounded" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div id="feedback" class="text-center mt-6"></div>
+            
+            <div class="mt-8 flex justify-center space-x-4">
+                <button id="reset-btn" class="btn btn-secondary">Reset</button>
+                <button id="check-btn" class="btn btn-primary">Check Answers</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('quiz-form');
+            const checkBtn = document.getElementById('check-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const feedbackDiv = document.getElementById('feedback');
+
+            // Store the correct answers
+            const correctAnswers = {
+                q1: 'false',
+                q2: 'false',
+                q3: 'false',
+                q4: 'false',
+                q5: 'true',
+                q6: 'night',
+                q7: 'pea',
+                q8: 'featherbeds',
+                q9: 'object',
+                q10: 'son'
+            };
+
+            // Event listeners for True/False buttons
+            document.querySelectorAll('.answer-options button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const questionId = e.target.dataset.question;
+                    document.querySelectorAll(`button[data-question="${questionId}"]`).forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                    e.target.classList.add('selected');
+                });
+            });
+
+            // Check Answers button logic
+            checkBtn.addEventListener('click', () => {
+                let score = 0;
+                const totalQuestions = Object.keys(correctAnswers).length;
+
+                // Check True/False answers
+                document.querySelectorAll('.answer-options button.selected').forEach(button => {
+                    const questionId = button.dataset.question;
+                    const userAnswer = button.dataset.answer;
+                    const correctAnswer = correctAnswers.hasOwnProperty(questionId) ? correctAnswers[`${questionId}`] : null;
+
+                    if (userAnswer === correctAnswer) {
+                        button.classList.add('correct');
+                        score++;
+                    } else {
+                        button.classList.add('incorrect');
+                    }
+                });
+
+                // Check Fill-in-the-Blanks answers
+                document.querySelectorAll('.fill-in-blank input').forEach(input => {
+                    const questionId = input.id;
+                    const userAnswer = input.value.toLowerCase().trim();
+                    const correctAnswer = correctAnswers.hasOwnProperty(questionId) ? correctAnswers[`${questionId}`].toLowerCase().trim() : null;
+
+                    if (userAnswer === correctAnswer) {
+                        input.classList.add('correct');
+                        score++;
+                    } else {
+                        input.classList.add('incorrect');
+                        input.value = correctAnswer;
+                    }
+                });
+
+                feedbackDiv.textContent = `You got ${score} out of ${totalQuestions} questions correct!`;
+                if (score === totalQuestions) {
+                    feedbackDiv.className = 'correct-feedback';
+                } else {
+                    feedbackDiv.className = 'incorrect-feedback';
+                }
+
+                checkBtn.disabled = true;
+                document.querySelectorAll('.answer-options button, .fill-in-blank input').forEach(el => el.disabled = true);
+            });
+
+            // Reset button logic
+            resetBtn.addEventListener('click', () => {
+                document.querySelectorAll('.answer-options button').forEach(button => {
+                    button.classList.remove('selected', 'correct', 'incorrect');
+                    button.disabled = false;
+                });
+                document.querySelectorAll('.fill-in-blank input').forEach(input => {
+                    input.value = '';
+                    input.classList.remove('correct', 'incorrect');
+                    input.disabled = false;
+                });
+                feedbackDiv.textContent = '';
+                feedbackDiv.className = '';
+                checkBtn.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>

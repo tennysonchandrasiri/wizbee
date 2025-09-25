@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sort Metal, Wood, and Paper Things</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f0f4f8; /* Light gray-blue background */
+        color: #1e293b;
+        overflow-x: hidden;
+      }
+      /* --- Close Button Style --- */
+      #close-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        width: 40px;
+        height: 40px;
+        background-color: #ef4444; /* Red color */
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 101; /* Higher than reward canvas */
+        transition: all 0.2s ease;
+      }
+      #close-btn:hover {
+        transform: scale(1.1);
+        background-color: #dc2626;
+      }
+      .game-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+      }
+      .card {
+        background-color: #ffffff;
+        border-radius: 1.5rem;
+        padding: 2rem;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        text-align: center;
+        width: 100%;
+        max-width: 1000px;
+        border: 1px solid #cbd5e1;
+      }
+      #word-bank {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-bottom: 2.5rem;
+        padding: 1rem;
+        background-color: #e2e8f0;
+        border-radius: 1rem;
+        min-height: 100px;
+      }
+      .word {
+        background-color: #3b82f6;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px; /* Pill shape */
+        cursor: grab;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        font-weight: 600;
+      }
+      .word.dragging {
+        opacity: 0.5;
+        transform: scale(1.1);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+      .word.correct {
+        background-color: #22c55e;
+      }
+      .word.incorrect {
+        background-color: #ef4444;
+      }
+      #categories {
+        display: flex;
+        justify-content: space-around;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .category-circle {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 1.5rem;
+        border-width: 4px;
+        border-style: dashed;
+        transition: all 0.3s ease;
+      }
+      .category-circle h2 {
+        font-family: "Pacifico", cursive;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        pointer-events: none;
+      }
+      .category-circle.drag-over {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+      #metal-circle {
+        border-color: #4b5563;
+        color: #4b5563;
+        background-color: #e5e7eb;
+      }
+      #metal-circle.drag-over {
+        border-color: #4b5563;
+        background-color: #d1d5db;
+      }
+      #wooden-circle {
+        border-color: #78350f;
+        color: #78350f;
+        background-color: #fef3e3;
+      }
+      #wooden-circle.drag-over {
+        border-color: #78350f;
+        background-color: #fde8c2;
+      }
+      #paper-circle {
+        border-color: #9ca3af;
+        color: #9ca3af;
+        background-color: #f3f4f6;
+      }
+      #paper-circle.drag-over {
+        border-color: #9ca3af;
+        background-color: #e5e7eb;
+      }
+      .dropped-words-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0.5rem;
+        height: 150px;
+        overflow-y: auto;
+      }
+
+      .btn {
+        padding: 0.75rem 2rem;
+        border-radius: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: none;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .btn-primary {
+        background-color: #3b82f6;
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #2563eb;
+        transform: translateY(-2px);
+      }
+      .btn-secondary {
+        background-color: #f3f4f6;
+        color: #374151;
+      }
+      .btn-secondary:hover {
+        background-color: #e5e7eb;
+        transform: translateY(-2px);
+      }
+      #reward-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        pointer-events: none;
+      }
+      #feedback {
+        margin-top: 1.5rem;
+        font-weight: 600;
+        height: 24px;
+        font-size: 1.1rem;
+      }
+      .correct-feedback {
+        color: #22c55e;
+      }
+      .incorrect-feedback {
+        color: #ef4444;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#" id="close-btn" title="Close Window">&times;</a>
+
+    <div class="game-container">
+      <div class="card">
+        <h1
+          class="text-4xl font-bold text-slate-800 mb-2"
+          style="font-family: 'Pacifico', cursive"
+        >
+          Sort Metal, Wood, and Paper Things
+        </h1>
+        <p class="mb-6 text-lg text-slate-500">
+          Drag each word from the word bank into its correct category circle.
+        </p>
+
+        <div id="word-bank"></div>
+
+        <div id="categories">
+          <div id="metal-circle" class="category-circle" data-category="Metal">
+            <h2>Metal Things</h2>
+            <div class="dropped-words-container"></div>
+          </div>
+          <div
+            id="wooden-circle"
+            class="category-circle"
+            data-category="Wooden"
+          >
+            <h2>Wooden Things</h2>
+            <div class="dropped-words-container"></div>
+          </div>
+          <div id="paper-circle" class="category-circle" data-category="Paper">
+            <h2>Paper Things</h2>
+            <div class="dropped-words-container"></div>
+          </div>
+        </div>
+
+        <div id="feedback"></div>
+
+        <div class="mt-8 flex justify-center space-x-4">
+          <button id="reset-btn" class="btn btn-secondary">Try Again</button>
+          <button id="check-btn" class="btn btn-primary">Check Answers</button>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="reward-canvas"></canvas>
+
+    <script>
+      // --- Game Data ---
+      const wordsData = [
+        { word: "Spoon", category: "Metal" },
+        { word: "Key", category: "Metal" },
+        { word: "Nail", category: "Metal" },
+        { word: "Hammer", category: "Metal" },
+        { word: "Wrench", category: "Metal" },
+        { word: "Car", category: "Metal" },
+        { word: "Chair", category: "Wooden" },
+        { word: "Table", category: "Wooden" },
+        { word: "Pencil", category: "Wooden" },
+        { word: "Log", category: "Wooden" },
+        { word: "Bat", category: "Wooden" },
+        { word: "Door", category: "Wooden" },
+        { word: "Book", category: "Paper" },
+        { word: "Letter", category: "Paper" },
+        { word: "Notebook", category: "Paper" },
+        { word: "Newspaper", category: "Paper" },
+        { word: "Envelope", category: "Paper" },
+        { word: "Tissue", category: "Paper" },
+      ];
+
+      // --- DOM Elements ---
+      const wordBank = document.getElementById("word-bank");
+      const checkBtn = document.getElementById("check-btn");
+      const resetBtn = document.getElementById("reset-btn");
+      const feedbackDiv = document.getElementById("feedback");
+      const categoryCircles = document.querySelectorAll(".category-circle");
+      const canvas = document.getElementById("reward-canvas");
+      const ctx = canvas.getContext("2d");
+      const closeBtn = document.getElementById("close-btn");
+
+      // --- Audio Element ---
+      // 2. Success sound object created
+      const successSound = new Audio("media/success.mp3");
+
+      // --- Game State ---
+      let draggedWord = null;
+
+      // --- Initialization ---
+      function initializeGame() {
+        wordBank.innerHTML = "";
+        feedbackDiv.textContent = "";
+        feedbackDiv.className = "";
+        checkBtn.disabled = false;
+
+        categoryCircles.forEach((circle) => {
+          circle.querySelector(".dropped-words-container").innerHTML = "";
+        });
+
+        const shuffledWords = [...wordsData].sort(() => Math.random() - 0.5);
+        shuffledWords.forEach((item) => {
+          const wordEl = document.createElement("div");
+          wordEl.className = "word";
+          wordEl.textContent = item.word;
+          wordEl.draggable = true;
+          wordEl.dataset.category = item.category;
+          wordBank.appendChild(wordEl);
+        });
+
+        addDragAndDropListeners();
+      }
+
+      // --- Drag and Drop Logic ---
+      function addDragAndDropListeners() {
+        const words = document.querySelectorAll(".word");
+        words.forEach((word) => {
+          word.addEventListener("dragstart", handleDragStart);
+          word.addEventListener("dragend", handleDragEnd);
+        });
+
+        categoryCircles.forEach((circle) => {
+          circle.addEventListener("dragover", handleDragOver);
+          circle.addEventListener("dragleave", handleDragLeave);
+          circle.addEventListener("drop", handleDrop);
+        });
+
+        // Allow dragging words back to the word bank
+        wordBank.addEventListener("dragover", handleDragOver);
+        wordBank.addEventListener("dragleave", handleDragLeave);
+        wordBank.addEventListener("drop", handleDrop);
+      }
+
+      function handleDragStart(e) {
+        draggedWord = e.target;
+        setTimeout(() => e.target.classList.add("dragging"), 0);
+      }
+
+      function handleDragEnd(e) {
+        e.target.classList.remove("dragging");
+      }
+
+      function handleDragOver(e) {
+        e.preventDefault();
+        const dropTarget =
+          e.target.closest(".category-circle") ||
+          e.target.closest("#word-bank");
+        if (dropTarget) {
+          dropTarget.classList.add("drag-over");
+        }
+      }
+
+      function handleDragLeave(e) {
+        const dropTarget =
+          e.target.closest(".category-circle") ||
+          e.target.closest("#word-bank");
+        if (dropTarget) {
+          dropTarget.classList.remove("drag-over");
+        }
+      }
+
+      function handleDrop(e) {
+        e.preventDefault();
+        const dropTarget =
+          e.target.closest(".category-circle") ||
+          e.target.closest("#word-bank");
+        if (dropTarget && draggedWord) {
+          dropTarget.classList.remove("drag-over");
+
+          const container =
+            dropTarget.id === "word-bank"
+              ? wordBank
+              : dropTarget.querySelector(".dropped-words-container");
+          container.appendChild(draggedWord);
+          draggedWord = null;
+        }
+      }
+
+      // --- Answer Checking and Rewards ---
+      function checkAnswers() {
+        let correctCount = 0;
+        const totalWords = wordsData.length;
+
+        categoryCircles.forEach((circle) => {
+          const correctCategory = circle.dataset.category;
+          const droppedWords = circle.querySelectorAll(".word");
+
+          droppedWords.forEach((word) => {
+            word.classList.remove("correct", "incorrect");
+            if (word.dataset.category === correctCategory) {
+              word.classList.add("correct");
+              correctCount++;
+            } else {
+              word.classList.add("incorrect");
+            }
+          });
+        });
+
+        displayFeedback(correctCount, totalWords);
+        triggerReward(correctCount);
+        checkBtn.disabled = true;
+      }
+
+      function displayFeedback(correct, total) {
+        if (correct === total) {
+          feedbackDiv.textContent =
+            "Perfect! You sorted all the words correctly!";
+          feedbackDiv.className = "correct-feedback";
+          // 2. Success sound is played on perfect score
+          successSound.play();
+        } else if (correct > 0) {
+          feedbackDiv.textContent = `Nice job! You got ${correct} out of ${total} correct.`;
+          feedbackDiv.className = "correct-feedback";
+        } else {
+          feedbackDiv.textContent = "Have another try! You can do it.";
+          feedbackDiv.className = "incorrect-feedback";
+        }
+      }
+
+      function triggerReward(score) {
+        const totalWords = wordsData.length;
+        if (score === totalWords) {
+          starRain();
+        } else if (score >= totalWords - 4) {
+          launchStars(3);
+        } else if (score >= totalWords - 8) {
+          launchStars(2);
+        } else if (score > 0) {
+          launchStars(1);
+        }
+      }
+
+      // --- Canvas Animation (reused from previous game) ---
+      let stars = [];
+      let animationFrameId;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      class Star {
+        constructor(x, y, radius, color, velocity) {
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.color = color;
+          this.velocity = velocity;
+          this.alpha = 1;
+          this.gravity = 0.05;
+          this.friction = 0.99;
+        }
+        draw() {
+          ctx.save();
+          ctx.globalAlpha = this.alpha;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+          ctx.restore();
+        }
+        update() {
+          this.velocity.y += this.gravity;
+          this.velocity.x *= this.friction;
+          this.x += this.velocity.x;
+          this.y += this.velocity.y;
+          this.alpha -= 0.01;
+          this.draw();
+        }
+      }
+
+      function animateStars() {
+        animationFrameId = requestAnimationFrame(animateStars);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach((star, index) => {
+          if (star.alpha > 0) star.update();
+          else stars.splice(index, 1);
+        });
+        if (stars.length === 0) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+      }
+
+      function launchStars(count) {
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const colors = ["#fde047", "#f97316", "#84cc16", "#38bdf8"];
+
+        for (let i = 0; i < count; i++) {
+          const radius = 25 + Math.random() * 15;
+          const x = centerX - 200 + i * 200;
+          const y = centerY;
+          const color = colors[i % colors.length];
+          const velocity = {
+            x: (Math.random() - 0.5) * 4,
+            y: -12 - Math.random() * 5,
+          };
+          stars.push(new Star(x, y, radius, color, velocity));
+        }
+        if (!animationFrameId) animateStars();
+      }
+
+      function starRain() {
+        for (let i = 0; i < 150; i++) {
+          const radius = Math.random() * 3 + 1;
+          const x = Math.random() * canvas.width;
+          const y = -Math.random() * canvas.height;
+          const color = `hsl(${Math.random() * 360}, 100%, 75%)`;
+          const velocity = {
+            x: (Math.random() - 0.5) * 2,
+            y: 4 + Math.random() * 5,
+          };
+          stars.push(new Star(x, y, radius, color, velocity));
+        }
+        if (!animationFrameId) animateStars();
+      }
+
+      // --- Event Listeners ---
+      checkBtn.addEventListener("click", checkAnswers);
+      resetBtn.addEventListener("click", initializeGame);
+      window.addEventListener("resize", resizeCanvas);
+
+      // 1. Event listener for the close button
+      // Note: window.close() may not work in all browsers for security reasons,
+      // especially if the window was not opened by a script.
+      closeBtn.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent default anchor behavior
+        window.close();
+      });
+
+      // --- Initial Load ---
+      window.onload = () => {
+        resizeCanvas();
+        initializeGame();
+      };
+    </script>
+  </body>
+</html>

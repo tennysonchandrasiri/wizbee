@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Picture Description Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #1a202c;
+        color: #e2e8f0;
+        overflow-x: hidden;
+      }
+      .game-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem 1rem;
+      }
+      .card {
+        background-color: #2d3748;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        width: 100%;
+        max-width: 800px;
+      }
+      .picture-container {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        margin: 0 auto 1.5rem auto;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        border: 4px solid #4a5568;
+      }
+      .picture-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .description-container {
+        text-align: left;
+        font-size: 1.1rem;
+        line-height: 2.5;
+      }
+      .description-sentence {
+        margin-bottom: 0.5rem;
+      }
+      .preposition-select {
+        background-color: #4a5568;
+        color: #e2e8f0;
+        border: 2px solid #718096;
+        border-radius: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: border-color 0.3s, background-color 0.3s;
+      }
+      .preposition-select:focus {
+        outline: none;
+        border-color: #63b3ed;
+      }
+      .preposition-select.correct {
+        border-color: #68d391;
+        background-color: #2f855a;
+      }
+      .preposition-select.incorrect {
+        border-color: #fc8181;
+        background-color: #c53030;
+      }
+      .feedback-container {
+        margin-top: 1.5rem;
+        height: 40px;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .correct-text { color: #68d391; }
+      .incorrect-text { color: #fc8181; }
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: none;
+      }
+      .btn-primary {
+        background-color: #4299e1;
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #3182ce;
+      }
+      .btn-secondary {
+        background-color: #4a5568;
+        color: #e2e8f0;
+      }
+      .btn-secondary:hover {
+        background-color: #718096;
+      }
+      #reward-canvas {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
+      }
+      #magic-wand {
+        position: fixed; bottom: 20px; right: 20px; width: 100px; height: 100px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g transform="rotate(45 50 50)"><path d="M85,15 L90,20 L80,30 L75,25 Z" fill="%23D4AF37"/><rect x="20" y="28" width="60" height="4" rx="2" fill="%238B4513"/><path d="M15,25 L25,15 L30,20 L20,30 Z" fill="%23D4AF37"/><path d="M24,20 C20,16 16,20 20,24 L24,20 Z" fill="yellow"/><path d="M80,24 C84,20 80,16 76,20 L80,24 Z" fill="yellow"/><path d="M10,50 L0,48 L2,40 L12,42 Z" fill="white" opacity="0.8"/><path d="M90,50 L100,52 L98,60 L88,58 Z" fill="white" opacity="0.8"/></g></svg>');
+        background-size: contain; background-repeat: no-repeat; transform-origin: bottom right;
+        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s; opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="card">
+        <h1 class="text-3xl font-bold text-white mb-4">Picture Description</h1>
+        <p class="mb-6 text-lg text-gray-300">Choose the correct preposition to complete the sentences.</p>
+
+        <div class="picture-container">
+          <img src="https://placehold.co/600x400/87CEEB/FFFFFF?text=A+Happy+Day+at+the+Park" alt="A sunny day at a playground">
+        </div>
+
+        <div id="description-container" class="description-container"></div>
+
+        <div id="feedback" class="feedback-container"></div>
+
+        <div class="mt-6 flex justify-center space-x-4">
+          <button id="try-again-btn" class="btn btn-secondary">Try Again</button>
+          <button id="check-btn" class="btn btn-primary">Check Answers</button>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="reward-canvas"></canvas>
+    <div id="magic-wand"></div>
+
+    <script>
+      // --- DOM Elements ---
+      const descriptionContainer = document.getElementById("description-container");
+      const feedbackDiv = document.getElementById("feedback");
+      const tryAgainBtn = document.getElementById("try-again-btn");
+      const checkBtn = document.getElementById("check-btn");
+      const canvas = document.getElementById("reward-canvas");
+      const ctx = canvas.getContext("2d");
+      const magicWand = document.getElementById("magic-wand");
+
+      // --- Game Data ---
+      const descriptions = [
+        { parts: [ { text: "A boy is smiling and swinging high " }, { options: ["at", "on", "in"], correct: "at" }, { text: " the playground." } ] },
+        { parts: [ { text: "Two girls are riding the see-saw and laughing " }, { options: ["together", "apart", "beside"], correct: "together" }, { text: "." } ] },
+        { parts: [ { text: "A cute puppy is chasing butterflies " }, { options: ["near", "over", "through"], correct: "near" }, { text: " the flowers." } ] },
+        { parts: [ { text: "Parents are sitting " }, { options: ["on", "under", "in"], correct: "on" }, { text: " benches, watching the kids play." } ] },
+        { parts: [ { text: "An ice-cream man is giving " }, { options: ["out", "in", "off"], correct: "out" }, { text: " yummy cold treats." } ] },
+        { parts: [ { text: "Big trees make nice shady spots " }, { options: ["around", "above", "between"], correct: "around" }, { text: " the park." } ] },
+        { parts: [ { text: "A kite is flying " }, { options: ["in", "on", "at"], correct: "in" }, { text: " the sky as a kid runs below." } ] },
+        { parts: [ { text: "Two toddlers are having fun building a sandcastle " }, { options: ["with", "by", "for"], correct: "with" }, { text: " sand." } ] }, // Modified for clarity
+        { parts: [ { text: "You can hear laughter, birds, and the wind " }, { options: ["in", "at", "on"], correct: "in" }, { text: " the trees." } ] },
+        { parts: [ { text: "Everything looks bright and happy " }, { options: ["with", "of", "from"], correct: "with" }, { text: " lots of colors!" } ] },
+      ];
+
+      // --- Game Logic ---
+      function initializeGame() {
+        descriptionContainer.innerHTML = "";
+        feedbackDiv.textContent = "";
+        feedbackDiv.className = "feedback-container";
+        checkBtn.disabled = false;
+
+        descriptions.forEach(desc => {
+          const sentenceEl = document.createElement("p");
+          sentenceEl.className = "description-sentence";
+
+          desc.parts.forEach(part => {
+            if (part.text) {
+              sentenceEl.appendChild(document.createTextNode(part.text));
+            } else if (part.options) {
+              const selectEl = document.createElement("select");
+              selectEl.className = "preposition-select";
+              selectEl.dataset.correct = part.correct;
+
+              // Add a blank/default option first
+              const defaultOption = document.createElement("option");
+              defaultOption.value = "";
+              defaultOption.textContent = "---";
+              selectEl.appendChild(defaultOption);
+
+              const shuffledOptions = [...part.options].sort(() => Math.random() - 0.5);
+              shuffledOptions.forEach(optionText => {
+                const optionEl = document.createElement("option");
+                optionEl.value = optionText;
+                optionEl.textContent = optionText;
+                selectEl.appendChild(optionEl);
+              });
+              sentenceEl.appendChild(selectEl);
+            }
+          });
+          descriptionContainer.appendChild(sentenceEl);
+        });
+      }
+
+      function checkAnswers() {
+        const selects = descriptionContainer.querySelectorAll(".preposition-select");
+        let allCorrect = true;
+
+        selects.forEach(select => {
+          const isCorrect = select.value === select.dataset.correct;
+          select.classList.remove("correct", "incorrect");
+          select.classList.add(isCorrect ? "correct" : "incorrect");
+          if (!isCorrect) {
+            allCorrect = false;
+          }
+        });
+
+        if (allCorrect) {
+          feedbackDiv.textContent = "Excellent! You got everything right!";
+          feedbackDiv.className = "feedback-container correct-text";
+          triggerReward();
+          checkBtn.disabled = true;
+        } else {
+          feedbackDiv.textContent = "Some are incorrect. Please try again!";
+          feedbackDiv.className = "feedback-container incorrect-text";
+        }
+      }
+
+      function resetGame() {
+        initializeGame();
+      }
+
+      // --- Reward Animation ---
+      let animationFrameId;
+      function triggerReward() {
+        magicWand.style.opacity = "1";
+        magicWand.style.transform = "rotate(-45deg) scale(1.2)";
+        setTimeout(() => { magicWand.style.transform = "rotate(0deg) scale(1)"; }, 300);
+        setTimeout(() => { magicWand.style.opacity = "0"; }, 1500);
+        
+        const wandRect = magicWand.getBoundingClientRect();
+        const startX = wandRect.left - 20;
+        const startY = wandRect.top - 20;
+        let localStars = [];
+        
+        for (let i = 0; i < 70; i++) {
+          const radius = Math.random() * 3 + 1;
+          const color = `hsl(${Math.random() * 60 + 200}, 100%, 70%)`;
+          const angle = Math.random() * Math.PI * 0.8 + Math.PI * 1.1;
+          const speed = Math.random() * 6 + 4;
+          const velocity = { x: Math.cos(angle) * speed, y: Math.sin(angle) * speed };
+          localStars.push({ x: startX, y: startY, radius, color, velocity, alpha: 1 });
+        }
+
+        function animate() {
+          animationFrameId = requestAnimationFrame(animate);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          localStars.forEach((star, index) => {
+            star.x += star.velocity.x;
+            star.y += star.velocity.y;
+            star.alpha -= 0.015;
+            
+            ctx.save();
+            ctx.globalAlpha = star.alpha;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2, false);
+            ctx.fillStyle = star.color;
+            ctx.fill();
+            ctx.restore();
+
+            if (star.alpha <= 0) localStars.splice(index, 1);
+          });
+          if (localStars.length === 0) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
+        }
+        if (!animationFrameId) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            animate();
+        }
+      }
+
+      // --- Event Listeners ---
+      checkBtn.addEventListener("click", checkAnswers);
+      tryAgainBtn.addEventListener("click", resetGame);
+
+      // --- Initialization ---
+      window.onload = () => {
+        initializeGame();
+      };
+    </script>
+  </body>
+</html>

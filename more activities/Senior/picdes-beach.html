@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beach Day Description Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #1a202c;
+        color: #e2e8f0;
+        overflow-x: hidden;
+      }
+      .game-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem 1rem;
+      }
+      .card {
+        background-color: #2d3748;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        width: 100%;
+        max-width: 800px;
+      }
+      .picture-container {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        margin: 0 auto 1.5rem auto;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        border: 4px solid #4a5568;
+      }
+      .picture-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .description-container {
+        text-align: left;
+        font-size: 1.1rem;
+        line-height: 2.5;
+      }
+      .description-sentence {
+        margin-bottom: 0.5rem;
+      }
+      .gerund-select {
+        background-color: #4a5568;
+        color: #e2e8f0;
+        border: 2px solid #718096;
+        border-radius: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: border-color 0.3s, background-color 0.3s;
+      }
+      .gerund-select:focus {
+        outline: none;
+        border-color: #63b3ed;
+      }
+      .gerund-select.correct {
+        border-color: #68d391;
+        background-color: #2f855a;
+      }
+      .gerund-select.incorrect {
+        border-color: #fc8181;
+        background-color: #c53030;
+      }
+      .feedback-container {
+        margin-top: 1.5rem;
+        height: 60px;
+      }
+      .star-container {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .star {
+        width: 32px;
+        height: 32px;
+        fill: #718096; /* Default empty star color */
+        transition: fill 0.3s;
+      }
+      .star.filled {
+        fill: #f6e05e; /* Filled star color */
+      }
+      #feedback-text {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .correct-text {
+        color: #68d391;
+      }
+      .incorrect-text {
+        color: #fc8181;
+      }
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: none;
+      }
+      .btn-primary {
+        background-color: #4299e1;
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #3182ce;
+      }
+      .btn-secondary {
+        background-color: #4a5568;
+        color: #e2e8f0;
+      }
+      .btn-secondary:hover {
+        background-color: #718096;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="card">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-left">
+            <h1 class="text-3xl font-bold text-white">Beach Day Description</h1>
+            <p class="mt-2 text-lg text-gray-300">
+              Choose the correct 'ing' verb to complete the sentences.
+            </p>
+          </div>
+          <button
+            id="close-btn"
+            class="p-2 text-gray-400 hover:text-blue-400 transition-colors"
+            title="Close Game"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="picture-container">
+          <img src="media/beach.png" alt="A sunny day at a beach" />
+        </div>
+
+        <div id="description-container" class="description-container"></div>
+
+        <div class="feedback-container">
+          <div id="star-container" class="star-container"></div>
+          <div id="feedback-text"></div>
+        </div>
+
+        <div class="mt-6 flex justify-center space-x-4">
+          <button id="try-again-btn" class="btn btn-secondary">
+            Try Again
+          </button>
+          <button id="check-btn" class="btn btn-primary">Check Answers</button>
+        </div>
+      </div>
+    </div>
+
+    <audio id="success-sound" src="media/brass.mp3" preload="auto"></audio>
+    <script>
+      // --- DOM Elements ---
+      const descriptionContainer = document.getElementById(
+        "description-container"
+      );
+      const starContainer = document.getElementById("star-container");
+      const feedbackText = document.getElementById("feedback-text");
+      const tryAgainBtn = document.getElementById("try-again-btn");
+      const checkBtn = document.getElementById("check-btn");
+      // NEW: Selecting new elements
+      const closeBtn = document.getElementById("close-btn");
+      const successSound = document.getElementById("success-sound");
+      // REMOVED: canvas, magicWand elements are no longer needed.
+
+      // --- Game Data ---
+      const descriptions = [
+        {
+          parts: [
+            { text: "Kids are " },
+            { options: ["running", "sleeping", "crying"], correct: "running" },
+            { text: " and laughing along the sandy beach." },
+          ],
+        },
+        {
+          parts: [
+            { text: "Some children are " },
+            {
+              options: ["building", "kicking", "drawing"],
+              correct: "building",
+            },
+            { text: " big sandcastles with little flags." },
+          ],
+        },
+        {
+          parts: [
+            { text: "A friendly dog is wagging its tail and " },
+            { options: ["playing", "digging", "barking"], correct: "playing" },
+            { text: " in the sand." },
+          ],
+        },
+        {
+          parts: [
+            { text: "Parents are sitting on colorful towels, " },
+            { options: ["watching", "reading", "eating"], correct: "watching" },
+            { text: " and smiling." },
+          ],
+        },
+        {
+          parts: [
+            { text: "A few kids are " },
+            {
+              options: ["splashing", "throwing", "catching"],
+              correct: "splashing",
+            },
+            { text: " each other near the shallow water." },
+          ],
+        },
+        {
+          parts: [
+            { text: "Seagulls fly above, " },
+            { options: ["making", "singing", "whispering"], correct: "making" },
+            { text: " squawking sounds in the blue sky." },
+          ],
+        },
+        {
+          parts: [
+            { text: "Boats float far away on the sea, " },
+            { options: ["looking", "sinking", "growing"], correct: "looking" },
+            { text: " tiny and peaceful." },
+          ],
+        },
+        {
+          parts: [
+            { text: "One boy is " },
+            { options: ["flying", "holding", "dropping"], correct: "flying" },
+            { text: " a kite that’s dancing in the wind." },
+          ],
+        },
+        {
+          parts: [
+            { text: "Another group is " },
+            {
+              options: ["playing", "stopping", "starting"],
+              correct: "playing",
+            },
+            { text: " beach ball and having loads of fun." },
+          ],
+        },
+        {
+          parts: [
+            { text: "The sun is " },
+            { options: ["shining", "setting", "hiding"], correct: "shining" },
+            { text: " brightly over the happy scene! 🏖️" },
+          ],
+        },
+      ];
+
+      // --- NEW: Animation and Window Functions ---
+      function triggerReward() {
+        const emojiEl = document.createElement("div");
+        emojiEl.textContent = "🏆";
+        emojiEl.style.position = "fixed";
+        emojiEl.style.top = "50%";
+        emojiEl.style.left = "50%";
+        emojiEl.style.zIndex = "100";
+        emojiEl.style.fontSize = "150px";
+        emojiEl.style.opacity = "0";
+        emojiEl.style.transform = "translate(-50%, -50%) scale(0)";
+        emojiEl.style.transition =
+          "transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s";
+        document.body.appendChild(emojiEl);
+        setTimeout(() => {
+          emojiEl.style.opacity = "1";
+          emojiEl.style.transform = "translate(-50%, -70%) scale(1)";
+        }, 100);
+        setTimeout(() => {
+          emojiEl.style.opacity = "0";
+          emojiEl.style.transform = "translate(-50%, -50%) scale(0.5)";
+        }, 2200);
+        setTimeout(() => {
+          emojiEl.remove();
+        }, 2800);
+      }
+
+      function closeWindow() {
+        window.close();
+      }
+
+      // --- Game Logic ---
+      function initializeGame() {
+        descriptionContainer.innerHTML = "";
+        feedbackText.textContent = "";
+        feedbackText.className = "";
+        starContainer.innerHTML = "";
+        checkBtn.disabled = false;
+
+        for (let i = 0; i < 3; i++) {
+          const starSvg = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg"
+          );
+          starSvg.setAttribute("class", "star");
+          starSvg.setAttribute("viewBox", "0 0 24 24");
+          starSvg.innerHTML = `<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>`;
+          starContainer.appendChild(starSvg);
+        }
+
+        descriptions.forEach((desc) => {
+          const sentenceEl = document.createElement("p");
+          sentenceEl.className = "description-sentence";
+
+          desc.parts.forEach((part) => {
+            if (part.text) {
+              sentenceEl.appendChild(document.createTextNode(part.text));
+            } else if (part.options) {
+              const selectEl = document.createElement("select");
+              selectEl.className = "gerund-select";
+              selectEl.dataset.correct = part.correct;
+
+              const defaultOption = document.createElement("option");
+              defaultOption.value = "";
+              defaultOption.textContent = "---";
+              selectEl.appendChild(defaultOption);
+
+              const shuffledOptions = [...part.options].sort(
+                () => Math.random() - 0.5
+              );
+              shuffledOptions.forEach((optionText) => {
+                const optionEl = document.createElement("option");
+                optionEl.value = optionText;
+                optionEl.textContent = optionText;
+                selectEl.appendChild(optionEl);
+              });
+              sentenceEl.appendChild(selectEl);
+            }
+          });
+          descriptionContainer.appendChild(sentenceEl);
+        });
+      }
+
+      function checkAnswers() {
+        const selects = descriptionContainer.querySelectorAll(".gerund-select");
+        let correctCount = 0;
+
+        selects.forEach((select) => {
+          const isCorrect = select.value === select.dataset.correct;
+          select.classList.remove("correct", "incorrect");
+          select.classList.add(isCorrect ? "correct" : "incorrect");
+          if (isCorrect) {
+            correctCount++;
+          }
+        });
+
+        displayFeedback(correctCount);
+        checkBtn.disabled = true;
+      }
+
+      function displayFeedback(score) {
+        const stars = starContainer.querySelectorAll(".star");
+        stars.forEach((s) => s.classList.remove("filled"));
+
+        if (score >= 1) stars[0].classList.add("filled");
+        if (score >= 4) stars[1].classList.add("filled");
+        if (score >= 8) stars[2].classList.add("filled");
+
+        if (score === descriptions.length) {
+          feedbackText.textContent = "Perfect! You got all 10 correct!";
+          feedbackText.className = "correct-text";
+          // NEW: Play sound and show animation on perfect score
+          if (successSound) {
+            successSound.play();
+          }
+          triggerReward();
+        } else if (score > 0) {
+          feedbackText.textContent = `Good job! You got ${score} out of ${descriptions.length} correct.`;
+          feedbackText.className = "correct-text";
+        } else {
+          feedbackText.textContent = "Some are incorrect. Please try again.";
+          feedbackText.className = "incorrect-text";
+        }
+      }
+
+      function resetGame() {
+        initializeGame();
+      }
+
+      // --- Event Listeners ---
+      checkBtn.addEventListener("click", checkAnswers);
+      tryAgainBtn.addEventListener("click", resetGame);
+      // NEW: Added listener for close button
+      closeBtn.addEventListener("click", closeWindow);
+
+      // --- Initialization ---
+      window.onload = () => {
+        initializeGame();
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Living Room Word Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #1a202c;
+        color: #e2e8f0;
+      }
+      .card {
+        background-color: #2d3748;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .image-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem; /* 24px */
+      }
+      .image-container img {
+        border-radius: 0.75rem; /* 12px */
+      }
+      .blank {
+        display: inline-block;
+        width: 110px;
+        text-align: center;
+        border-bottom: 2px dashed #718096;
+        padding: 0.25rem;
+        margin: 0 0.25rem;
+        transition: all 0.2s ease-in-out;
+        min-height: 32px;
+      }
+      .blank.drag-over {
+        background-color: #4a5568;
+        border-bottom-style: solid;
+      }
+      .blank.correct {
+        color: #68d391;
+        border-color: #68d391;
+        font-weight: bold;
+      }
+      .blank.incorrect {
+        color: #fc8181;
+        border-color: #fc8181;
+        font-weight: bold;
+      }
+      .word-bank {
+        background-color: #1a202c;
+        border: 2px solid #4a5568;
+        border-radius: 0.75rem;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+      }
+      .draggable-word {
+        background-color: #4a5568;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        cursor: grab;
+        transition: background-color 0.2s;
+        user-select: none;
+        font-weight: 600;
+        width: 90%;
+        text-align: center;
+      }
+      .draggable-word:hover {
+        background-color: #718096;
+      }
+      .draggable-word.dragging {
+        opacity: 0.5;
+        cursor: grabbing;
+      }
+      .feedback-container {
+        margin-top: 1.5rem;
+        min-height: 80px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      #score-display {
+        font-size: 1.5rem;
+        font-weight: 700;
+        height: 30px;
+      }
+      #feedback-text {
+        font-weight: 600;
+        font-size: 1.1rem;
+        height: 20px;
+      }
+      .correct-text {
+        color: #68d391;
+      }
+      .incorrect-text {
+        color: #fc8181;
+      }
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: none;
+      }
+      .btn-primary {
+        background-color: #4299e1;
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #3182ce;
+      }
+      .btn-secondary {
+        background-color: #4a5568;
+        color: #e2e8f0;
+      }
+      .btn-secondary:hover {
+        background-color: #718096;
+      }
+    </style>
+  </head>
+  <body class="p-4">
+    <div class="card max-w-6xl mx-auto">
+      <div class="flex justify-between items-start mb-2">
+        <div class="text-left">
+          <h1 class="text-3xl font-bold text-white">Living Room Word Game</h1>
+          <p class="mt-2 text-lg text-gray-300">
+            Drag and drop the correct word from the word bank into each blank
+            space.
+          </p>
+        </div>
+        <button
+          id="close-btn"
+          class="p-2 text-gray-400 hover:text-blue-400 transition-colors"
+          title="Close Game"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-7 w-7"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="image-container">
+        <img
+          src="media/family.png"
+          alt="A cozy living room with a family."
+          width="600"
+          height="400"
+        />
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-8">
+        <div class="w-full md:w-3/4">
+          <div
+            id="description-container"
+            class="text-lg leading-loose space-y-2"
+          ></div>
+        </div>
+
+        <div class="w-full md:w-1/4">
+          <h2 class="text-xl font-bold mb-4 text-center">Word Bank</h2>
+          <div id="word-bank" class="word-bank min-h-[200px]"></div>
+        </div>
+      </div>
+
+      <div class="feedback-container">
+        <div id="score-display"></div>
+        <div id="feedback-text"></div>
+      </div>
+      <div class="mt-6 flex justify-center space-x-4">
+        <button id="try-again-btn" class="btn btn-secondary">Try Again</button>
+        <button id="check-btn" class="btn btn-primary">Check Answers</button>
+      </div>
+    </div>
+
+    <audio id="success-sound" src="media/brass.mp3" preload="auto"></audio>
+
+    <script>
+      const descriptionContainer = document.getElementById(
+        "description-container"
+      );
+      const wordBank = document.getElementById("word-bank");
+      const scoreDisplay = document.getElementById("score-display");
+      const feedbackText = document.getElementById("feedback-text");
+      const tryAgainBtn = document.getElementById("try-again-btn");
+      const checkBtn = document.getElementById("check-btn");
+      // NEW: Selecting new elements
+      const closeBtn = document.getElementById("close-btn");
+      const successSound = document.getElementById("success-sound");
+
+      const sentences = [
+        {
+          parts: ["...a sofa with two ", " chairs—one on the left..."],
+          correct: "matching",
+        },
+        {
+          parts: ["...and one on the right—", " a U-shape."],
+          correct: "forming",
+        },
+        {
+          parts: ["A glass table ", " a book on it is placed..."],
+          correct: "with",
+        },
+        {
+          parts: ["...a book ", " it is placed in front of the sofa."],
+          correct: "on",
+        },
+        { parts: ["...is placed ", " front of the sofa."], correct: "in" },
+        { parts: ["", " the sofa, there is a cupboard..."], correct: "Behind" },
+        {
+          parts: ["...a round wall clock ", " on the wall above it."],
+          correct: "hanging",
+        },
+        { parts: ["...on the wall ", " it."], correct: "above" },
+        {
+          parts: ["Their father is sitting on the sofa and ", " a phone call."],
+          correct: "answering",
+        },
+        {
+          parts: [
+            "A teenage girl is sitting on one of the chairs, quietly ",
+            " a book.",
+          ],
+          correct: "reading",
+        },
+      ];
+
+      // --- NEW: Animation and Window Functions ---
+      function triggerReward() {
+        const emojiEl = document.createElement("div");
+        emojiEl.textContent = "🏆";
+        emojiEl.style.position = "fixed";
+        emojiEl.style.top = "50%";
+        emojiEl.style.left = "50%";
+        emojiEl.style.zIndex = "100";
+        emojiEl.style.fontSize = "150px";
+        emojiEl.style.opacity = "0";
+        emojiEl.style.transform = "translate(-50%, -50%) scale(0)";
+        emojiEl.style.transition =
+          "transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s";
+        document.body.appendChild(emojiEl);
+        setTimeout(() => {
+          emojiEl.style.opacity = "1";
+          emojiEl.style.transform = "translate(-50%, -70%) scale(1)";
+        }, 100);
+        setTimeout(() => {
+          emojiEl.style.opacity = "0";
+          emojiEl.style.transform = "translate(-50%, -50%) scale(0.5)";
+        }, 2200);
+        setTimeout(() => {
+          emojiEl.remove();
+        }, 2800);
+      }
+
+      function closeWindow() {
+        window.close();
+      }
+
+      function shuffle(array) {
+        return array.sort(() => Math.random() - 0.5);
+      }
+
+      function initializeGame() {
+        descriptionContainer.innerHTML = "";
+        wordBank.innerHTML = "";
+        feedbackText.textContent = "";
+        scoreDisplay.textContent = "";
+        scoreDisplay.className = "";
+        checkBtn.disabled = false;
+
+        let fullText = "";
+        sentences.forEach((sentence, index) => {
+          fullText += `${sentence.parts[0]}<span class="blank" data-correct="${sentence.correct}" data-sentence-id="${index}"></span>${sentence.parts[1]} `;
+        });
+        descriptionContainer.innerHTML = `<p>${fullText.trim()}</p>`;
+
+        const allWords = shuffle(sentences.map((s) => s.correct));
+        allWords.forEach((word) => {
+          const wordEl = document.createElement("div");
+          wordEl.className = "draggable-word";
+          wordEl.draggable = true;
+          wordEl.textContent = word;
+          wordEl.dataset.word = word;
+          wordBank.appendChild(wordEl);
+        });
+
+        addDragDropListeners();
+      }
+
+      function addDragDropListeners() {
+        const draggables = document.querySelectorAll(".draggable-word");
+        const blanks = document.querySelectorAll(".blank");
+
+        draggables.forEach((draggable) => {
+          draggable.addEventListener("dragstart", () =>
+            draggable.classList.add("dragging")
+          );
+          draggable.addEventListener("dragend", () =>
+            draggable.classList.remove("dragging")
+          );
+        });
+
+        blanks.forEach((blank) => {
+          blank.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            blank.classList.add("drag-over");
+          });
+          blank.addEventListener("dragleave", () =>
+            blank.classList.remove("drag-over")
+          );
+          blank.addEventListener("drop", (e) => {
+            e.preventDefault();
+            blank.classList.remove("drag-over");
+            const draggingWordEl = document.querySelector(".dragging");
+
+            if (draggingWordEl) {
+              if (blank.textContent) {
+                const wordToReturn = Array.from(
+                  document.querySelectorAll(".draggable-word")
+                ).find(
+                  (el) =>
+                    el.dataset.word === blank.textContent &&
+                    el.style.display === "none"
+                );
+                if (wordToReturn) {
+                  wordToReturn.style.display = "block";
+                }
+              }
+              blank.textContent = draggingWordEl.textContent;
+              draggingWordEl.style.display = "none";
+            }
+          });
+        });
+      }
+
+      function checkAnswers() {
+        const blanks = document.querySelectorAll(".blank");
+        let correctCount = 0;
+        const totalQuestions = sentences.length;
+
+        blanks.forEach((blank) => {
+          blank.classList.remove("correct", "incorrect");
+          const isCorrect =
+            blank.textContent.toLowerCase() ===
+            blank.dataset.correct.toLowerCase();
+          blank.classList.add(isCorrect ? "correct" : "incorrect");
+          if (isCorrect) {
+            correctCount++;
+          }
+        });
+
+        scoreDisplay.textContent = `Score: ${correctCount} / ${totalQuestions}`;
+
+        if (correctCount === totalQuestions) {
+          scoreDisplay.className = "correct-text";
+          feedbackText.textContent = "Excellent! You got a perfect score!";
+          feedbackText.className = "correct-text";
+          // NEW: Play sound and show animation on perfect score
+          if (successSound) {
+            successSound.play();
+          }
+          triggerReward();
+        } else {
+          scoreDisplay.className = "incorrect-text";
+          feedbackText.textContent =
+            "Good effort! Try again for a perfect score.";
+          feedbackText.className = "incorrect-text";
+        }
+        checkBtn.disabled = true;
+      }
+
+      function resetGame() {
+        initializeGame();
+      }
+
+      // --- Event Listeners ---
+      checkBtn.addEventListener("click", checkAnswers);
+      tryAgainBtn.addEventListener("click", resetGame);
+      closeBtn.addEventListener("click", closeWindow); // NEW listener
+
+      window.onload = initializeGame;
+    </script>
+  </body>
+</html>

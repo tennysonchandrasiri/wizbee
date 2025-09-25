@@ -1,0 +1,161 @@
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bubblegum Sans";
+  src: url("fonts/BubblegumSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Pacifico";
+  src: url("fonts/Pacifico-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --twootle-font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --twootle-font-fun: "Bubblegum Sans", "Inter", sans-serif;
+  --twootle-font-script: "Pacifico", "Bubblegum Sans", cursive;
+  --twootle-color-bg: #f5f9ff;
+  --twootle-color-surface: #ffffff;
+  --twootle-color-primary: #2563eb; /* blue-600 */
+  --twootle-color-primary-accent: #3b82f6; /* blue-500 */
+  --twootle-color-primary-hover: #1d4ed8; /* blue-700 */
+  --twootle-color-secondary: #f59e0b; /* amber-500 for accents */
+  --twootle-color-border: #dbe4f3;
+  --twootle-color-text: #1e293b; /* slate-800 */
+  --twootle-color-text-light: #64748b; /* slate-500 */
+  --twootle-radius-sm: 4px;
+  --twootle-radius-md: 8px;
+  --twootle-radius-lg: 16px;
+  --twootle-shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --twootle-shadow-md: 0 4px 8px rgba(0,0,0,0.08);
+  --twootle-shadow-lg: 0 10px 20px rgba(0,0,0,0.10);
+}
+
+html, body {
+  font-family: var(--twootle-font-sans);
+  background: var(--twootle-color-bg);
+  color: var(--twootle-color-text);
+  margin: 0;
+  padding: 0;
+}
+
+.twootle-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.twootle-card {
+  background: var(--twootle-color-surface);
+  border: 1px solid var(--twootle-color-border);
+  border-radius: var(--twootle-radius-lg);
+  box-shadow: var(--twootle-shadow-sm);
+  padding: 1.25rem 1.5rem;
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+.twootle-card:hover {
+  box-shadow: var(--twootle-shadow-md);
+  transform: translateY(-2px);
+}
+
+.twootle-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .twootle-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 768px) {
+  .twootle-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1024px) {
+  .twootle-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+.twootle-button, .twootle-link-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--twootle-color-primary), var(--twootle-color-primary-accent));
+  color: #fff;
+  text-decoration: none;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--twootle-radius-md);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.twootle-button:hover, .twootle-link-btn:hover {
+  background: var(--twootle-color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.twootle-badge {
+  background: var(--twootle-color-secondary);
+  color: #fff;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.7rem;
+  border-radius: var(--twootle-radius-sm);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.twootle-header-title {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  margin: 0 0 0.75rem;
+  background: linear-gradient(90deg, var(--twootle-color-primary) 0%, var(--twootle-color-primary-accent) 50%, var(--twootle-color-secondary) 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.twootle-section-title {
+  margin: 2.5rem 0 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--twootle-color-primary);
+}
+
+.twootle-footer {
+  margin-top: 3rem;
+  padding: 2rem 0 3rem;
+  font-size: 0.85rem;
+  color: var(--twootle-color-text-light);
+  text-align: center;
+}
+.twootle-footer a {
+  color: var(--twootle-color-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.twootle-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Utility spacing helpers */
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+
+/* Simple typography refinements */
+p { line-height: 1.55; }
+li { line-height: 1.4; }
+
+/* Page specific subtle adjustments can be layered later */

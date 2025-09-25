@@ -1,0 +1,40 @@
+{
+  "name": "twootle-desktop",
+  "version": "0.1.0",
+  "description": "Twootle English School - Desktop Electron App",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build:css": "tailwindcss -i src/tailwind.css -o tailwind.css --minify",
+    "package": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "org.twootle.app",
+    "productName": "Twootle",
+    "files": [
+      "**/*",
+      "!dist",
+      "!node_modules/.cache"
+    ],
+    "mac": {
+      "category": "public.app-category.education"
+    },
+    "win": {
+      "target": ["nsis"],
+      "publisherName": "Twootle"
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "category": "Education"
+    }
+  },
+  "author": "Twootle",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "electron": "^31.2.0",
+    "electron-builder": "^24.13.3",
+    "tailwindcss": "^3.4.13"
+  }
+}

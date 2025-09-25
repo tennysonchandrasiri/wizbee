@@ -15,7 +15,7 @@
     "productName": "Twootle",
     "files": [
       "**/*",
-      "!dist",
+      "dist/**",
       "!node_modules/.cache"
     ],
     "mac": {

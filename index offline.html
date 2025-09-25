@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tootle English School</title>
+    <title>Twootle English School</title>
+    <link rel="stylesheet" href="twootle-theme.css" />
     <style>
       /* --- EMBEDDED GOOGLE FONTS CSS (font files are still external) --- */
       /* Inter font for body (kept for secondary text) */
@@ -61,18 +62,18 @@
       }
       .kiddie-title {
         font-family: "Bubblegum Sans", cursive;
-        color: #1e40af; /* Darker Blue */
+        color: var(--twootle-color-primary);
         text-shadow: 2px 2px 0px rgba(254, 240, 138, 0.8); /* Yellow shadow */
       }
       .senior-kiddie-title {
         font-family: "Bubblegum Sans", cursive;
-        color: #9a3412; /* Darker Brown */
+        color: var(--twootle-color-secondary);
         text-shadow: 2px 2px 0px rgba(253, 230, 138, 0.8); /* Orange shadow */
       }
       .topic-heading {
-        color: #059669; /* Vibrant Green heading */
+        color: var(--twootle-color-primary);
         font-weight: 700;
-        border-bottom: 2px solid #34d399; /* Light green underbar */
+        border-bottom: 2px solid var(--twootle-color-primary-accent);
         display: inline-block;
         padding-bottom: 0.15rem;
       }
@@ -103,13 +104,13 @@
         left: 0;
         width: 100%;
         height: 8px;
-        background-color: #f59e0b; /* Orange bottom border */
+        background-color: var(--twootle-color-secondary);
         border-bottom-left-radius: 0.5rem;
         border-bottom-right-radius: 0.5rem;
       }
-      /* Tootle Kids section gets a different bottom color */
+      /* Twootle Kids section gets a different bottom color */
       .tootle-kids-section::after {
-        background-color: #0ea5e9; /* Sky Blue bottom border */
+        background-color: var(--twootle-color-primary);
       }
 
       /* --- EMBEDDED TAILWIND CSS (Utilities used in HTML) --- */
@@ -401,7 +402,7 @@
       <div class="container mx-auto flex items-center justify-center">
         <div>
           <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
-            Tootle English School
+            Twootle English School
           </h1>
           <p class="text-lg mt-1 font-medium italic opacity-90 text-center">
             The eye to see the world through
@@ -416,7 +417,7 @@
           class="bg-white p-6 rounded-lg shadow-md border border-gray-200 section-box tootle-kids-section"
         >
           <h2 class="kiddie-title text-3xl font-bold mb-4 border-b pb-2">
-            Tootle Kids
+            Twootle Kids
           </h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div>
@@ -903,7 +904,7 @@
           class="bg-white p-6 rounded-lg shadow-md border border-gray-200 section-box"
         >
           <h2 class="senior-kiddie-title text-3xl font-bold mb-4 border-b pb-2">
-            Senior Tootle Kids
+            Senior Twootle Kids
           </h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
@@ -1261,30 +1262,26 @@
         <div
           class="flex flex-col md:flex-row justify-between items-center w-full space-y-4 md:space-y-0"
         >
-          <p>&copy; 2025 Tootle English School. All rights reserved.</p>
+          <p>&copy; 2025 Twootle English School. All rights reserved.</p>
           <div class="flex space-x-6">
             <a
-              href="#"
+              href="privacy-policy.html"
               class="hover:text-blue-300 transition duration-300"
-              target="_blank"
               >Privacy Policy</a
             >
             <a
-              href="#"
+              href="terms-of-service.html"
               class="hover:text-blue-300 transition duration-300"
-              target="_blank"
               >Terms of Service</a
             >
             <a
-              href="#"
+              href="contact.html"
               class="hover:text-blue-300 transition duration-300"
-              target="_blank"
               >Contact Us</a
             >
             <a
-              href="#"
+              href="about.html"
               class="hover:text-blue-300 transition duration-300"
-              target="_blank"
               >About Us</a
             >
           </div>

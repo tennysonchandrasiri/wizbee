@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Twootle English School</title>
+    <link rel="preload" href="fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="dist/output.css" />
+    <link rel="stylesheet" href="twootle-theme.css" />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--twootle-color-bg);
+      }
+      .page-title {
+        font-family: var(--twootle-font-playful, "Bubblegum Sans", cursive);
+        color: var(--twootle-color-primary);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+      .section-heading {
+        font-family: var(--twootle-font-heading, "Inter", sans-serif);
+        color: var(--twootle-color-primary-hover);
+      }
+      .value-card {
+        transition: transform 0.3s ease;
+      }
+      .value-card:hover {
+        transform: translateY(-5px);
+      }
+      .timeline-dot {
+        background: linear-gradient(135deg, var(--twootle-color-secondary) 0%, var(--twootle-color-primary) 100%);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col antialiased text-gray-800">
+    <header class="bg-yellow-500 text-gray-800 p-6 md:p-8 shadow-lg rounded-b-xl">
+      <div class="container mx-auto flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+            Twootle English School
+          </h1>
+          <p class="text-lg mt-1 font-medium italic opacity-90">
+            The eye to see the world through
+          </p>
+        </div>
+        <a href="index.html" class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition">
+          Home
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-grow container mx-auto p-4 md:p-6 mt-8 max-w-6xl">
+      <div class="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+        <h1 class="page-title text-4xl font-bold mb-6 text-center">About Twootle English School</h1>
+        
+        <div class="text-center mb-12">
+          <p class="text-xl text-gray-700 italic">
+            "The eye to see the world through"
+          </p>
+          <p class="text-gray-600 mt-4 max-w-3xl mx-auto">
+            Empowering young minds across Sri Lanka with engaging, interactive English language education that opens doors to global opportunities.
+          </p>
+        </div>
+
+        <!-- Mission & Vision -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-6 rounded-lg border border-yellow-200">
+            <h2 class="section-heading text-2xl font-semibold mb-4">Our Mission</h2>
+            <p class="text-gray-700 leading-relaxed">
+              To provide accessible, high-quality English language education to children across Sri Lanka, fostering communication skills, cultural understanding, and confidence that will serve them throughout their lives.
+            </p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
+            <h2 class="section-heading text-2xl font-semibold mb-4">Our Vision</h2>
+            <p class="text-gray-700 leading-relaxed">
+              To be the leading digital platform for English language learning in Sri Lanka, where every child, regardless of their background, has the opportunity to develop strong English skills through innovative and engaging educational experiences.
+            </p>
+          </div>
+        </div>
+
+        <!-- Our Story -->
+        <section class="mb-12">
+          <h2 class="section-heading text-3xl font-semibold mb-6 text-center">Our Story</h2>
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <p class="text-gray-700 leading-relaxed mb-4">
+              Twootle English School was born from a collaboration between dedicated educators at the Regional English Support Center in Ampara and the Ministry of Education Sri Lanka. Recognizing the critical importance of English language skills in today's interconnected world, we set out to create an innovative digital platform that would make quality English education accessible to all Sri Lankan children.
+            </p>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              Funded by the General Education Modernization Project, our platform represents a significant step forward in educational technology for Sri Lanka. We combine traditional pedagogical excellence with modern interactive technology to create an engaging learning environment that children love.
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+              Today, Twootle English School serves thousands of young learners across the country, helping them build the language skills they need to succeed in school, pursue higher education, and eventually contribute to Sri Lanka's growing presence in the global economy.
+            </p>
+          </div>
+        </section>
+
+        <!-- What Makes Us Different -->
+        <section class="mb-12">
+          <h2 class="section-heading text-3xl font-semibold mb-6 text-center">What Makes Us Different</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="value-card bg-white p-6 rounded-lg shadow-md border border-gray-200">
+              <div class="text-3xl mb-3">🎮</div>
+              <h3 class="font-semibold text-lg mb-2">Interactive Learning</h3>
+              <p class="text-gray-600">
+                Games, puzzles, and activities that make learning English fun and engaging for young minds.
+              </p>
+            </div>
+            
+            <div class="value-card bg-white p-6 rounded-lg shadow-md border border-gray-200">
+              <div class="text-3xl mb-3">🌍</div>
+              <h3 class="font-semibold text-lg mb-2">Culturally Relevant</h3>
+              <p class="text-gray-600">
+                Content designed specifically for Sri Lankan students, incorporating local contexts and experiences.
+              </p>
+            </div>
+            
+            <div class="value-card bg-white p-6 rounded-lg shadow-md border border-gray-200">
+              <div class="text-3xl mb-3">📚</div>
+              <h3 class="font-semibold text-lg mb-2">Comprehensive Curriculum</h3>
+              <p class="text-gray-600">
+                From vocabulary building to sentence construction, we cover all aspects of English language learning.
+              </p>
+            </div>
+            
+            <div class="value-card bg-white p-6 rounded-lg shadow-md border border-gray-200">
+              <div class="text-3xl mb-3">🆓</div>
+              <h3 class="font-semibold text-lg mb-2">Completely Free</h3>
+              <p class="text-gray-600">
+                All our resources are free and accessible to everyone, ensuring no child is left behind.
+              </p>
+            </div>
+            
+            <div class="value-card bg-white p-6 rounded-lg shadow-md border border-gray-200">
+              <div class="text-3xl mb-3">🎧</div>
+              <h3 class="font-semibold text-lg mb-2">Audio Support</h3>
+              <p class="text-gray-600">
+                Pronunciation guides and audio support help students develop proper speaking skills.
+              </p>
+            </div>
+            
+            <div class="value-card bg-white p-6 rounded-lg shadow-md border border-gray-200">
+              <div class="text-3xl mb-3">👨‍👩‍👧‍👦</div>
+              <h3 class="font-semibold text-lg mb-2">Family-Friendly</h3>
+              <p class="text-gray-600">
+                Safe, ad-free environment designed for children with parental involvement in mind.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Our Team -->
+        <section class="mb-12">
+          <h2 class="section-heading text-3xl font-semibold mb-6 text-center">Our Team</h2>
+          <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg">
+            <p class="text-gray-700 leading-relaxed mb-4">
+              Twootle English School is powered by a dedicated team of educators, curriculum designers, and technology specialists from the Regional English Support Center, Ampara. Our team brings together decades of experience in English language education and a deep understanding of the unique needs of Sri Lankan students.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+              <div class="text-center">
+                <div class="bg-white p-4 rounded-lg">
+                  <h3 class="font-semibold">Curriculum Development</h3>
+                  <p class="text-sm text-gray-600 mt-2">Expert educators creating age-appropriate content</p>
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="bg-white p-4 rounded-lg">
+                  <h3 class="font-semibold">Technical Team</h3>
+                  <p class="text-sm text-gray-600 mt-2">Developers ensuring smooth, accessible platform</p>
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="bg-white p-4 rounded-lg">
+                  <h3 class="font-semibold">Quality Assurance</h3>
+                  <p class="text-sm text-gray-600 mt-2">Educators testing and refining content</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Milestones -->
+        <section class="mb-12">
+          <h2 class="section-heading text-3xl font-semibold mb-6 text-center">Our Journey</h2>
+          <div class="relative">
+            <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-yellow-300"></div>
+            
+            <div class="space-y-8">
+              <div class="flex items-center">
+                <div class="flex-1 text-right pr-8">
+                  <h3 class="font-semibold text-lg">Project Initiation</h3>
+                  <p class="text-gray-600">Partnership formed with Ministry of Education</p>
+                </div>
+                <div class="timeline-dot w-4 h-4 rounded-full relative z-10"></div>
+                <div class="flex-1 pl-8">
+                  <p class="text-gray-500">2023</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="flex-1 text-right pr-8">
+                  <p class="text-gray-500">2024</p>
+                </div>
+                <div class="timeline-dot w-4 h-4 rounded-full relative z-10"></div>
+                <div class="flex-1 pl-8">
+                  <h3 class="font-semibold text-lg">Platform Development</h3>
+                  <p class="text-gray-600">Interactive learning modules created</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="flex-1 text-right pr-8">
+                  <h3 class="font-semibold text-lg">Official Launch</h3>
+                  <p class="text-gray-600">Platform goes live for all students</p>
+                </div>
+                <div class="timeline-dot w-4 h-4 rounded-full relative z-10"></div>
+                <div class="flex-1 pl-8">
+                  <p class="text-gray-500">2025</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Partners -->
+        <section class="mb-12">
+          <h2 class="section-heading text-3xl font-semibold mb-6 text-center">Our Partners</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+              <h3 class="font-semibold text-lg mb-3">Ministry of Education Sri Lanka</h3>
+              <p class="text-gray-700">
+                Providing strategic guidance and ensuring alignment with national educational standards and goals.
+              </p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+              <h3 class="font-semibold text-lg mb-3">General Education Modernization Project</h3>
+              <p class="text-gray-700">
+                Funding and supporting the development of innovative educational technologies for Sri Lankan students.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Call to Action -->
+        <div class="bg-gradient-to-r from-yellow-400 to-orange-400 p-8 rounded-lg text-center text-white">
+          <h2 class="text-3xl font-bold mb-4">Join Our Learning Community</h2>
+          <p class="text-lg mb-6">
+            Start your child's English learning journey today with Twootle English School
+          </p>
+          <a href="index.html" class="inline-block bg-white text-gray-800 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition transform hover:scale-105">
+            Explore Our Lessons
+          </a>
+        </div>
+
+        <div class="mt-12 p-6 bg-yellow-50 rounded-lg border border-yellow-200">
+          <p class="text-center text-gray-700">
+            This educational platform was designed by the Regional English Support Center, Ampara and funded by the General Education Modernization Project of Ministry of Education Sri Lanka.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white p-6 mt-12">
+      <div class="container mx-auto flex flex-col items-center text-sm space-y-4">
+        <div class="text-center md:text-left">
+          <p>
+            The contents of this site were designed by the Regional English
+            Support Center, Ampara and was funded by the General Education
+            Modernization Project of Ministry of Education Sri Lanka
+          </p>
+        </div>
+        <div class="flex flex-col md:flex-row justify-between items-center w-full space-y-4 md:space-y-0">
+          <p>&copy; 2025 Twootle English School. All rights reserved.</p>
+          <div class="flex space-x-6">
+            <a href="privacy-policy.html" class="hover:text-yellow-300 transition duration-300">Privacy Policy</a>
+            <a href="terms-of-service.html" class="hover:text-yellow-300 transition duration-300">Terms of Service</a>
+            <a href="contact.html" class="hover:text-yellow-300 transition duration-300">Contact Us</a>
+            <a href="about.html" class="hover:text-yellow-300 transition duration-300">About Us</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

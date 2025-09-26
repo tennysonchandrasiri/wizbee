@@ -6,7 +6,7 @@
     <title>Has or Have? The Verb Game!</title>
     <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../dist/output.css">
+    <link rel="stylesheet" href="../../src/output.css">
     <link rel="stylesheet" href="../../twootle-theme.css">
     <style>
       body {
@@ -222,7 +222,7 @@
 
       // --- NEW: Function to close the window ---
       function closeWindow() {
-        window.close();
+        window.location.href = '../../index.html';
       }
 
       function startGame() {
@@ -266,12 +266,12 @@
       function handleChoice(e) {
         const selectedChoice = e.target.dataset.choice;
         if (!selectedChoice) return;
-        const correctAnwer = shuffledQuestions[currentQuestionIndex].answer;
+        const correctAnswer = shuffledQuestions[currentQuestionIndex].answer;
         choiceBtns.forEach((btn) => {
           btn.disabled = true;
           btn.classList.add("opacity-50", "cursor-not-allowed");
         });
-        if (selectedChoice === correctAnwer) {
+        if (selectedChoice === correctAnswer) {
           score++;
           scoreDisplay.textContent = score;
           feedbackMessage.textContent = "Correct! 🎉";

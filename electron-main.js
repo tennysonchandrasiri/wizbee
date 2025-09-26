@@ -5,6 +5,7 @@ function createWindow(initialFile = 'index.html') {
   const win = new BrowserWindow({
     width: 1280,
     height: 800,
+    icon: path.join(__dirname, 'src/icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -13,6 +14,12 @@ function createWindow(initialFile = 'index.html') {
   });
 
   win.loadFile(initialFile);
+
+  win.webContents.on('new-window', (event, url) => {
+    event.preventDefault();
+    const filePath = path.join(__dirname, url);
+    win.loadFile(filePath);
+  });
 }
 
 function setAppMenu() {

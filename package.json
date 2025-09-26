@@ -1,6 +1,6 @@
 {
   "name": "twootle-desktop",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Twootle English School - Desktop Electron App",
   "main": "electron-main.js",
   "scripts": {
@@ -13,9 +13,10 @@
   "build": {
     "appId": "org.twootle.app",
     "productName": "Twootle",
+    "icon": "src/icon.png",
     "files": [
       "**/*",
-      "dist/**",
+      "!dist",
       "!node_modules/.cache"
     ],
     "mac": {

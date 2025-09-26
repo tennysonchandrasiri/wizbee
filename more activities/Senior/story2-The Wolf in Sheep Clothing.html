@@ -6,7 +6,7 @@
     <title>The Wolf in Sheep's Clothing - Quiz</title>
     <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../dist/output.css" />
+    <link rel="stylesheet" href="../../src/output.css" />
     <link rel="stylesheet" href="../../twootle-theme.css" />
     <link
       rel="stylesheet"
@@ -512,7 +512,7 @@
 
         // --- NEW: Close button logic ---
         closeBtn.addEventListener("click", () => {
-          window.close();
+          window.location.href = '../../index.html';
         });
         // --- END NEW ---
       });

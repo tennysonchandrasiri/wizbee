@@ -7,8 +7,5 @@
 # Mac specific
 .DS_Store
 
-# Media files
-**/media/
-
 # Environment variables
 .env

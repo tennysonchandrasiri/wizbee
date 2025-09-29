@@ -1,6 +1,6 @@
 {
   "name": "twootle-desktop",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Twootle English School - Desktop Electron App",
   "main": "electron-main.js",
   "scripts": {
@@ -60,7 +60,8 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Twootle",
-      "runAfterFinish": true
+      "runAfterFinish": true,
+      "perMachine": false
     },
     "linux": {
       "target": ["AppImage"],

@@ -260,8 +260,9 @@
     <audio id="audio-song" src="media/song.mp3"></audio>
     <audio id="audio-speech" src="media/speech.mp3"></audio>
     <audio id="audio-students" src="media/students.mp3"></audio>
-    <audio id="audio-celebration-music" src="media/end1.mp3"></audio>
     <audio id="audio-no" src="no.mp3"></audio>
+    <audio id="audio-success" src="success.mp3"></audio>
+    <audio id="audio-celebration-music" src="media/end1.mp3"></audio>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -322,7 +323,8 @@
 
         // --- Celebration Function --- 🎉
         function celebrate() {
-          // Play the new celebration audio
+          // Play the success sound followed by celebration music
+          document.getElementById("audio-success").play();
           document.getElementById("audio-celebration-music").play();
 
           // Trigger the golden glow effect

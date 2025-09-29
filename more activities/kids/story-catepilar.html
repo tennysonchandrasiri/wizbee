@@ -66,6 +66,9 @@
         align-items: center;
         padding: 0.5rem;
         transition: all 0.3s;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
       }
       .sentence-box.drag-over {
         background-color: #4a5568;
@@ -100,6 +103,10 @@
         user-select: none;
         flex-grow: 1;
         text-align: center;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        max-width: 100%;
       }
       .sentence-token:hover {
         background-color: #4299e1;
@@ -316,8 +323,11 @@
         if (dropZone && draggedItem) {
           // If there's already a sentence in the box, move it back to the bank
           if (dropZone.children.length > 0) {
-            sentenceBank.appendChild(dropZone.children[0]);
+            const existingItem = dropZone.children[0];
+            existingItem.classList.remove("hidden"); // Ensure returned item is visible
+            sentenceBank.appendChild(existingItem);
           }
+          draggedItem.classList.remove("hidden"); // Make sure the dropped item is visible
           dropZone.appendChild(draggedItem);
           draggedItem = null; // Item has been successfully dropped
         }

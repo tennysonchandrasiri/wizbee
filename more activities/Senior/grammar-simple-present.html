@@ -226,6 +226,7 @@
     </div>
 
     <canvas id="reward-canvas"></canvas>
+    <audio id="success-sound" src="../../Vocabulary/success.mp3" preload="auto"></audio>
 
     <script>
       // --- Game Data ---
@@ -431,6 +432,15 @@
 
       // --- Reward System (unchanged) ---
       function triggerReward(score) {
+        // Play success sound for any score > 0
+        if (score > 0) {
+          const successSound = document.getElementById("success-sound");
+          if (successSound) {
+            successSound.play();
+          }
+        }
+        
+        // Keep existing reward logic unchanged
         if (score >= 1 && score <= 10) {
           launchStars(1);
         } else if (score >= 11 && score <= 15) {

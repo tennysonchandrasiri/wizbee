@@ -219,6 +219,8 @@
     <canvas id="reward-canvas"></canvas>
     <div id="magic-wand"></div>
 
+    <audio id="success-sound" src="media/brass.mp3" preload="auto"></audio>
+
     <script>
       // --- DOM Elements ---
       const actionsGrid = document.getElementById("actions-grid");
@@ -299,6 +301,12 @@
         }
       }
       function triggerReward() {
+        // Play success sound
+        const successSound = document.getElementById("success-sound");
+        if (successSound) {
+          successSound.play();
+        }
+
         magicWand.style.opacity = "1";
         magicWand.style.transform = "rotate(-45deg) scale(1.2)";
         setTimeout(() => {

@@ -233,11 +233,12 @@
       </main>
     </div>
 
-    <audio id="audio-morning" src="media/morning.mp3"></audio>
-    <audio id="audio-afternoon" src="media/afternoon.mp3"></audio>
-    <audio id="audio-evening" src="media/evening.mp3"></audio>
-    <audio id="audio-night" src="media/night.mp3"></audio>
-    <audio id="audio-no" src="media/no.mp3"></audio>
+    <audio id="audio-morning" src="media/Morning.mp3"></audio>
+    <audio id="audio-afternoon" src="media/Afternoon.mp3"></audio>
+    <audio id="audio-evening" src="media/Evening.mp3"></audio>
+    <audio id="audio-night" src="media/Night.mp3"></audio>
+    <audio id="audio-no" src="no.mp3"></audio>
+    <audio id="audio-success" src="success.mp3"></audio>
     <audio id="audio-celebration" src="media/end1.MP3"></audio>
 
     <script>
@@ -299,7 +300,8 @@
 
         // --- Celebration Function --- 🎉
         function celebrate() {
-          // Play the new celebration audio
+          // Play the success sound followed by celebration music
+          document.getElementById("audio-success").play();
           document.getElementById("audio-celebration").play();
 
           // Trigger the golden glow effect

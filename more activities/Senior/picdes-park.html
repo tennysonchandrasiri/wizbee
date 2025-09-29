@@ -141,6 +141,7 @@
 
     <canvas id="reward-canvas"></canvas>
     <div id="magic-wand"></div>
+    <audio id="success-sound" src="../../Vocabulary/success.mp3"></audio>
 
     <script>
       // --- DOM Elements ---
@@ -236,6 +237,11 @@
       // --- Reward Animation ---
       let animationFrameId;
       function triggerReward() {
+        const successSound = document.getElementById("success-sound");
+        if (successSound) {
+          successSound.play().catch(e => console.log("Sound play failed:", e));
+        }
+        
         magicWand.style.opacity = "1";
         magicWand.style.transform = "rotate(-45deg) scale(1.2)";
         setTimeout(() => { magicWand.style.transform = "rotate(0deg) scale(1)"; }, 300);

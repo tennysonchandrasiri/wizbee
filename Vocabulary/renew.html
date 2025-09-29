@@ -283,6 +283,7 @@
 
     <audio id="audio-no" src="no.mp3"></audio>
     <audio id="audio-success" src="success.mp3"></audio>
+    <audio id="audio-celebration-music" src="media/end1.mp3"></audio>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -347,6 +348,7 @@
         // --- Celebration Function --- 🎉
         function celebrate() {
           document.getElementById("audio-success").play();
+          document.getElementById("audio-celebration-music").play();
 
           for (let i = 0; i < 100; i++) {
             createStar();

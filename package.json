@@ -1,6 +1,6 @@
 {
   "name": "twootle-desktop",
-  "version": "0.1.8",
+  "version": "0.7.8",
   "description": "Twootle English School - Desktop Electron App",
   "main": "electron-main.js",
   "scripts": {

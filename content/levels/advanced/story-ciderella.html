@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cinderella - Fill in the Blanks</title>
+    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../src/output.css" />
+    <link rel="stylesheet" href="../../twootle-theme.css" />
+    <link
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f0f9ff; /* Light blue background */
+        color: #1e293b;
+        overflow-x: hidden;
+      }
+      .game-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+      }
+      .card {
+        background-color: #ffffff;
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        text-align: center;
+        width: 100%;
+        max-width: 900px;
+        border: 1px solid #e2e8f0;
+        position: relative; /* Needed for positioning */
+      }
+      #word-bank {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background-color: #f8fafc;
+        border-radius: 1rem;
+      }
+      .word {
+        background-color: #38bdf8;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        cursor: grab;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        font-weight: 600;
+      }
+      .word.dragging {
+        opacity: 0.5;
+        transform: scale(1.1);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+      #story-container {
+        text-align: left;
+        background-color: #f1f5f9;
+        padding: 2rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
+        line-height: 2.2;
+      }
+      .drop-zone {
+        display: inline-block;
+        width: auto;
+        min-width: 70px;
+        height: 40px;
+        background-color: #cbd5e1;
+        border: 2px dashed #94a3b8;
+        border-radius: 0.5rem;
+        margin: 0 4px -10px 4px;
+        transition: all 0.3s ease;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0 0.5rem;
+      }
+      .drop-zone .emoji {
+        font-size: 24px;
+        line-height: 36px;
+        pointer-events: none;
+      }
+      .drop-zone.drag-over {
+        background-color: #93c5fd;
+        border-color: #3b82f6;
+        transform: scale(1.05);
+      }
+      .drop-zone.dropped {
+        border-style: solid;
+        background-color: #38bdf8;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        line-height: 36px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      .drop-zone.correct {
+        background-color: #4ade80;
+        border-color: #22c55e;
+      }
+      .drop-zone.incorrect {
+        background-color: #f87171;
+        border-color: #ef4444;
+      }
+      .btn {
+        padding: 0.75rem 2rem;
+        border-radius: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: none;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .btn-primary {
+        background-color: #3b82f6;
+        color: white;
+      }
+      .btn-primary:hover:not(:disabled) {
+        background-color: #2563eb;
+        transform: translateY(-2px);
+      }
+      .btn-secondary {
+        background-color: #e2e8f0;
+        color: #334155;
+      }
+      .btn-secondary:hover:not(:disabled) {
+        background-color: #cbd5e1;
+        transform: translateY(-2px);
+      }
+      #reward-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        pointer-events: none;
+      }
+      #feedback {
+        margin-top: 1.5rem;
+        font-weight: 600;
+        height: 24px;
+        font-size: 1.1rem;
+      }
+      .correct-feedback {
+        color: #22c55e;
+      }
+      .incorrect-feedback {
+        color: #ef4444;
+      }
+      .hidden {
+        display: none;
+      }
+
+      /* --- NEW STYLES --- */
+      #close-btn {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        color: #94a3b8;
+        cursor: pointer;
+        transition: color 0.2s;
+        background: none;
+        border: none;
+      }
+      #close-btn:hover {
+        color: #3b82f6;
+      }
+      #trophy-container {
+        font-size: 5rem;
+        margin-top: 1.5rem;
+        transform: scale(0);
+        transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      }
+      #trophy-container.show {
+        transform: scale(1);
+      }
+      /* --- END NEW STYLES --- */
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="card">
+        <button id="close-btn" title="Close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-7 w-7"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        <h1
+          class="text-4xl font-bold text-slate-800 mb-2"
+          style="font-family: 'Pacifico', cursive"
+        >
+          Cinderella's Story
+        </h1>
+        <p class="mb-6 text-lg text-slate-500">
+          Drag the words from the word bank to fill in the blanks in the story.
+        </p>
+
+        <div id="word-bank"></div>
+        <div id="story-container"></div>
+
+        <div id="feedback"></div>
+
+        <div id="trophy-container" class="hidden">🏆</div>
+
+        <div class="mt-8 flex justify-center space-x-4">
+          <button id="reset-btn" class="btn btn-secondary">Try Again</button>
+          <button id="check-btn" class="btn btn-primary">Check Answers</button>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="reward-canvas"></canvas>
+
+    <audio id="success-sound" src="../../media/audio/success.mp3" preload="auto"></audio>
+
+    <script>
+      // --- Game Data ---
+      const storyData = [
+        { word: "Cinderella", emoji: "👸" },
+        { word: "stepmother", emoji: "😈" },
+        { word: "sisters", emoji: "👯" },
+        { word: "chores", emoji: "🧹" },
+        { word: "king", emoji: "👑" },
+        { word: "ball", emoji: "💃" },
+        { word: "prince", emoji: "🤴" },
+        { word: "bride", emoji: "💍" },
+        { word: "refused", emoji: "🚫" },
+        { word: "fairy", emoji: "✨" },
+        { word: "godmother", emoji: "🧚‍♀️" },
+        { word: "pumpkin", emoji: "🎃" },
+        { word: "carriage", emoji: "🚗" },
+        { word: "mice", emoji: "🐭" },
+        { word: "horses", emoji: "🐴" },
+        { word: "rags", emoji: "🧦" },
+        { word: "gown", emoji: "👗" },
+        { word: "glass", emoji: "👠" },
+        { word: "slippers", emoji: "💎" },
+        { word: "midnight", emoji: "🕛" },
+        { word: "danced", emoji: "🕺" },
+        { word: "laughed", emoji: "😂" },
+        { word: "kingdom", emoji: "🗺️" },
+        { word: "forgave", emoji: "🤝" },
+        { word: "kindness", emoji: "💖" },
+      ];
+
+      let storyTemplate = ``; // Will be generated by initializeGame
+
+      // --- DOM Elements ---
+      const wordBank = document.getElementById("word-bank");
+      const storyContainer = document.getElementById("story-container");
+      const checkBtn = document.getElementById("check-btn");
+      const resetBtn = document.getElementById("reset-btn");
+      const feedbackDiv = document.getElementById("feedback");
+      const canvas = document.getElementById("reward-canvas");
+      const ctx = canvas.getContext("2d");
+
+      // --- NEW: Select new elements ---
+      const closeBtn = document.getElementById("close-btn");
+      const successSound = document.getElementById("success-sound");
+      const trophyContainer = document.getElementById("trophy-container");
+      // --- END NEW ---
+
+      // --- Game State ---
+      let draggedWord = null;
+
+      // --- Initialization ---
+      function initializeGame() {
+        wordBank.innerHTML = "";
+        feedbackDiv.textContent = "";
+        feedbackDiv.className = "";
+        checkBtn.disabled = false;
+
+        // --- NEW: Hide trophy on reset ---
+        trophyContainer.classList.remove("show");
+        trophyContainer.classList.add("hidden");
+        // --- END NEW ---
+
+        // Generate story template with drop zones
+        storyTemplate = `
+                ${createDropZone(
+                  "Cinderella",
+                  "👸"
+                )} was a kind and gentle girl who lived with her cruel ${createDropZone(
+          "stepmother",
+          "😈"
+        )} and two jealous ${createDropZone("sisters", "👯")}. 
+                They made her do all the ${createDropZone(
+                  "chores",
+                  "🧹"
+                )} and treated her badly. 
+                One day, the ${createDropZone(
+                  "king",
+                  "👑"
+                )} announced a grand ${createDropZone(
+          "ball",
+          "💃"
+        )} for the ${createDropZone(
+          "prince",
+          "🤴"
+        )} to choose a ${createDropZone("bride", "💍")}. 
+                Cinderella longed to go, but her stepmother ${createDropZone(
+                  "refused",
+                  "🚫"
+                )}.
+
+                Suddenly, her ${createDropZone("fairy", "✨")} ${createDropZone(
+          "godmother",
+          "🧚‍♀️"
+        )} appeared, turning a ${createDropZone(
+          "pumpkin",
+          "🎃"
+        )} into a ${createDropZone("carriage", "🚗")}, ${createDropZone(
+          "mice",
+          "🐭"
+        )} into ${createDropZone("horses", "🐴")}, and her ${createDropZone(
+          "rags",
+          "🧦"
+        )} into a sparkling ${createDropZone(
+          "gown",
+          "👗"
+        )} with ${createDropZone("glass", "👠")} ${createDropZone(
+          "slippers",
+          "💎"
+        )}. 
+                “But be home by ${createDropZone(
+                  "midnight",
+                  "🕛"
+                )},” she warned.
+
+                At the ball, the prince ${createDropZone(
+                  "danced",
+                  "🕺"
+                )} only with Cinderella. They ${createDropZone(
+          "laughed",
+          "😂"
+        )}, talked, and felt as if they had known each other forever. 
+                But at midnight, she fled, leaving behind a glass slipper.
+
+                The prince searched the ${createDropZone(
+                  "kingdom",
+                  "🗺️"
+                )} until he found her. The slipper fit perfectly, and they were married. 
+                Cinderella ${createDropZone(
+                  "forgave",
+                  "🤝"
+                )} her stepfamily and lived happily ever after, her ${createDropZone(
+          "kindness",
+          "💖"
+        )} shining brighter than any crown.
+            `;
+        storyContainer.innerHTML = storyTemplate;
+
+        // Create and shuffle words
+        const shuffledWords = [...storyData].sort(() => Math.random() - 0.5);
+        shuffledWords.forEach((item) => {
+          const wordEl = document.createElement("div");
+          wordEl.className = "word";
+          wordEl.textContent = item.word;
+          wordEl.draggable = true;
+          wordEl.dataset.word = item.word;
+          wordBank.appendChild(wordEl);
+        });
+
+        addDragAndDropListeners();
+      }
+
+      function createDropZone(correctWord, emoji) {
+        return `<div class="drop-zone" data-correct-word="${correctWord}"><span class="emoji">${emoji}</span></div>`;
+      }
+
+      // --- Drag and Drop Logic ---
+      function addDragAndDropListeners() {
+        const words = document.querySelectorAll(".word");
+        words.forEach((word) => {
+          word.addEventListener("dragstart", handleDragStart);
+          word.addEventListener("dragend", handleDragEnd);
+        });
+
+        const dropZones = document.querySelectorAll(".drop-zone");
+        dropZones.forEach((zone) => {
+          zone.addEventListener("dragover", handleDragOver);
+          zone.addEventListener("dragleave", handleDragLeave);
+          zone.addEventListener("drop", handleDrop);
+        });
+      }
+
+      function handleDragStart(e) {
+        draggedWord = e.target;
+        e.target.classList.add("dragging");
+      }
+
+      function handleDragEnd(e) {
+        e.target.classList.remove("dragging");
+      }
+
+      function handleDragOver(e) {
+        e.preventDefault();
+        if (e.target.classList.contains("drop-zone")) {
+          e.target.classList.add("drag-over");
+        }
+      }
+
+      function handleDragLeave(e) {
+        if (e.target.classList.contains("drop-zone")) {
+          e.target.classList.remove("drag-over");
+        }
+      }
+
+      function handleDrop(e) {
+        e.preventDefault();
+        const dropZone = e.target;
+
+        if (dropZone.classList.contains("drop-zone")) {
+          dropZone.classList.remove("drag-over");
+
+          const existingWord = dropZone.dataset.droppedWord;
+          if (existingWord) {
+            const returnedWordEl = document.createElement("div");
+            returnedWordEl.className = "word";
+            returnedWordEl.textContent = existingWord;
+            returnedWordEl.draggable = true;
+            returnedWordEl.dataset.word = existingWord;
+            returnedWordEl.addEventListener("dragstart", handleDragStart);
+            returnedWordEl.addEventListener("dragend", handleDragEnd);
+            wordBank.appendChild(returnedWordEl);
+          }
+
+          dropZone.textContent = draggedWord.textContent;
+          dropZone.dataset.droppedWord = draggedWord.dataset.word;
+          dropZone.classList.add("dropped");
+
+          if (draggedWord) {
+            draggedWord.remove();
+          }
+
+          draggedWord = null;
+        }
+      }
+
+      // --- Answer Checking and Rewards ---
+      function checkAnswers() {
+        const dropZones = document.querySelectorAll(".drop-zone");
+        let correctCount = 0;
+
+        dropZones.forEach((zone) => {
+          zone.classList.remove("correct", "incorrect");
+          const dropped = zone.dataset.droppedWord;
+          const correct = zone.dataset.correctWord;
+          if (dropped) {
+            if (dropped === correct) {
+              zone.classList.add("correct");
+              correctCount++;
+            } else {
+              zone.classList.add("incorrect");
+            }
+          }
+        });
+
+        displayFeedback(correctCount, dropZones.length);
+        triggerReward(correctCount);
+        checkBtn.disabled = true;
+      }
+
+      function displayFeedback(correct, total) {
+        if (correct === total) {
+          feedbackDiv.textContent =
+            "A perfect fairytale ending! You got all 25 correct!";
+          feedbackDiv.className = "correct-feedback";
+        } else if (correct > 0) {
+          feedbackDiv.textContent = `Great effort! You got ${correct} out of ${total} correct.`;
+          feedbackDiv.className = "correct-feedback";
+        } else {
+          feedbackDiv.textContent = "Keep trying! You can do it.";
+          feedbackDiv.className = "incorrect-feedback";
+        }
+      }
+
+      function triggerReward(score) {
+        if (score >= 1 && score <= 12) {
+          launchStars(1);
+        } else if (score >= 13 && score <= 18) {
+          launchStars(2);
+        } else if (score >= 19 && score <= 24) {
+          launchStars(3);
+        } else if (score === 25) {
+          // --- NEW: Play sound and show trophy on perfect score ---
+          successSound.play();
+          trophyContainer.classList.remove("hidden");
+          setTimeout(() => {
+            trophyContainer.classList.add("show");
+          }, 10);
+          // --- END NEW ---
+          starRain();
+        }
+      }
+
+      // --- Canvas Animation ---
+      let stars = [];
+      let animationFrameId;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      class Star {
+        constructor(x, y, radius, color, velocity) {
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.color = color;
+          this.velocity = velocity;
+          this.alpha = 1;
+          this.gravity = 0.05;
+          this.friction = 0.99;
+        }
+        draw() {
+          ctx.save();
+          ctx.globalAlpha = this.alpha;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+          ctx.restore();
+        }
+        update() {
+          this.velocity.y += this.gravity;
+          this.velocity.x *= this.friction;
+          this.x += this.velocity.x;
+          this.y += this.velocity.y;
+          this.alpha -= 0.01;
+          this.draw();
+        }
+      }
+
+      function animateStars() {
+        animationFrameId = requestAnimationFrame(animateStars);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach((star, index) => {
+          if (star.alpha > 0) star.update();
+          else stars.splice(index, 1);
+        });
+        if (stars.length === 0) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+      }
+
+      function launchStars(count) {
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const colors = ["#facc15", "#fb923c", "#4ade80", "#38bdf8"];
+
+        for (let i = 0; i < count; i++) {
+          const radius = 20 + Math.random() * 15;
+          const x = centerX - 150 + i * 150;
+          const y = centerY;
+          const color = colors[i % colors.length];
+          const velocity = {
+            x: (Math.random() - 0.5) * 4,
+            y: -10 - Math.random() * 5,
+          };
+          stars.push(new Star(x, y, radius, color, velocity));
+        }
+        if (!animationFrameId) animateStars();
+      }
+
+      function starRain() {
+        for (let i = 0; i < 100; i++) {
+          const radius = Math.random() * 3 + 1;
+          const x = Math.random() * canvas.width;
+          const y = -Math.random() * canvas.height;
+          const color = `hsl(${Math.random() * 60 + 200}, 100%, 70%)`;
+          const velocity = {
+            x: (Math.random() - 0.5) * 2,
+            y: 3 + Math.random() * 4,
+          };
+          stars.push(new Star(x, y, radius, color, velocity));
+        }
+        if (!animationFrameId) animateStars();
+      }
+
+      // --- Event Listeners ---
+      checkBtn.addEventListener("click", checkAnswers);
+      resetBtn.addEventListener("click", initializeGame);
+      window.addEventListener("resize", resizeCanvas);
+
+      // --- NEW: Add listener for close button ---
+      closeBtn.addEventListener("click", () => {
+        window.location.href = '../../index.html';
+      });
+      // --- END NEW ---
+
+      // --- Initial Load ---
+      window.onload = () => {
+        resizeCanvas();
+        initializeGame();
+      };
+    </script>
+  </body>
+</html>

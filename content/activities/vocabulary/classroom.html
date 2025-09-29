@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Classroom Fun</title>
+    <style>
+      /* General Styling */
+      body {
+        background-color: #1a1a2e;
+        color: #ffffff;
+        font-family: "Verdana", "Arial Rounded MT Bold", "Nunito", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+        padding: 20px;
+        position: relative; /* Needed for the absolute positioning of the glow and fireworks */
+      }
+
+      /* Main Container & Layout */
+      .container {
+        position: relative;
+        text-align: center;
+        width: 100%;
+        max-width: 1200px;
+        z-index: 2; /* Ensures the game content is above the celebration effects */
+      }
+
+      /* Close Button */
+      #close-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: transparent;
+        border: 2px solid white;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      #close-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+      }
+
+      .words {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 80px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+      }
+
+      .word {
+        background-color: #e94560;
+        padding: 15px 30px;
+        border-radius: 15px;
+        font-size: 2em;
+        cursor: grab;
+        transition: background-color 0.3s, transform 0.2s;
+        user-select: none;
+      }
+
+      .word:active {
+        cursor: grabbing;
+        transform: scale(1.1);
+      }
+
+      .image-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .box img {
+        width: 170px;
+        height: 170px;
+        border-radius: 20px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        object-fit: cover;
+      }
+
+      .drop-box {
+        width: 170px;
+        height: 70px;
+        background-color: #0f3460;
+        border: 3px dashed #ffffff;
+        border-radius: 15px;
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8em;
+        transition: background-color 0.3s, border-style 0.3s;
+      }
+
+      .drop-box.hovered {
+        background-color: #164a8a;
+        border-color: #f07489;
+      }
+
+      .drop-box.dropped {
+        background-color: #2e7d32;
+        border-style: solid;
+        border-color: #5ddc5f;
+        color: #ffffff;
+      }
+
+      /* Celebration Animation: Firework Particles */
+      .firework {
+        position: absolute;
+        width: 4px; /* Increased size */
+        height: 4px; /* Increased size */
+        background-color: white;
+        border-radius: 50%;
+        animation: spark 0.8s forwards;
+      }
+
+      @keyframes spark {
+        to {
+          transform: scale(15); /* Increased scale */
+          opacity: 0;
+        }
+      }
+
+      .firework-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 3;
+        pointer-events: none;
+      }
+
+      /* Celebration Animation: Golden Glow */
+      #golden-glow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 215, 0, 0.4) 0%,
+          rgba(255, 215, 0, 0) 70%
+        );
+        opacity: 0;
+        transition: opacity 2s ease-in;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      #golden-glow.active {
+        opacity: 1;
+      }
+
+      /* Media Queries for Tablet and Mobile Responsiveness */
+      @media (max-width: 768px) {
+        .words {
+          gap: 15px;
+          margin-top: 70px;
+        }
+        .word {
+          font-size: 1.5em;
+          padding: 10px 20px;
+        }
+        .image-container {
+          flex-direction: column;
+          gap: 30px;
+        }
+        #close-btn {
+          top: 10px;
+          right: 10px;
+          width: 35px;
+          height: 35px;
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="golden-glow"></div>
+    <div id="firework-container"></div>
+    <div class="container">
+      <button id="close-btn" onclick="window.location.href = '../index.html'">✖</button>
+
+      <header class="words"></header>
+
+      <main class="image-container">
+        <section class="box">
+          <img src="../../media/images/smartboard.png" alt="An image of a smartboard" />
+          <div class="drop-box" data-correct="smartboard"></div>
+        </section>
+        <section class="box">
+          <img src="../../media/images/timetable.png" alt="An image of a timetable" />
+          <div class="drop-box" data-correct="timetable"></div>
+        </section>
+        <section class="box">
+          <img src="../../media/images/student_chair.png" alt="An image of a chair" />
+          <div class="drop-box" data-correct="chair"></div>
+        </section>
+        <section class="box">
+          <img src="../../media/images/whiteboard.png" alt="An image of a whiteboard" />
+          <div class="drop-box" data-correct="whiteboard"></div>
+        </section>
+        <section class="box">
+          <img src="../../media/images/student_table.png" alt="An image of a table" />
+          <div class="drop-box" data-correct="table"></div>
+        </section>
+      </main>
+    </div>
+
+    <audio id="audio-timetable" src="../../media/audio/timetable.mp3"></audio>
+    <audio id="audio-table" src="../../media/audio/table.mp3"></audio>
+    <audio id="audio-chair" src="../../media/audio/chair.mp3"></audio>
+    <audio id="audio-whiteboard" src="../../media/audio/whiteboard.mp3"></audio>
+    <audio id="audio-smartboard" src="../../media/audio/smartboard.mp3"></audio>
+    <audio id="audio-no" src="../../media/audio/oh.mp3"></audio>
+    <audio id="audio-success" src="success.mp3"></audio>
+    <audio id="audio-celebration-music" src="../../media/audio/end1.mp3"></audio>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const wordList = [
+          "table",
+          "chair",
+          "whiteboard",
+          "smartboard",
+          "timetable",
+        ];
+        const wordsContainer = document.querySelector(".words");
+        const dropBoxes = document.querySelectorAll(".drop-box");
+        let correctCount = 0;
+        const TOTAL_ITEMS = wordList.length;
+        const fireworkContainer = document.getElementById("firework-container");
+        const goldenGlow = document.getElementById("golden-glow");
+
+        // Function to shuffle the order of words
+        function initializeWords() {
+          const shuffledWords = [...wordList]; // Create a copy of the word list
+          shuffledWords.sort(() => 0.5 - Math.random()); // Shuffle the order
+
+          wordsContainer.innerHTML = ""; // Clear existing words
+          shuffledWords.forEach((word) => {
+            const wordDiv = document.createElement("div");
+            wordDiv.className = "word";
+            wordDiv.draggable = true;
+            wordDiv.id = word; // ID is the actual word for matching
+            wordDiv.textContent = word; // Display the actual word
+            wordsContainer.appendChild(wordDiv);
+          });
+        }
+
+        initializeWords(); // Call this to set up the initial shuffled words
+
+        // --- Drag and Drop Logic ---
+
+        wordsContainer.addEventListener("dragstart", (e) => {
+          if (e.target.classList.contains("word")) {
+            e.dataTransfer.setData("text/plain", e.target.id); // Set the original word as ID
+          }
+        });
+
+        dropBoxes.forEach((box) => {
+          box.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            if (!box.classList.contains("dropped")) {
+              box.classList.add("hovered");
+            }
+          });
+
+          box.addEventListener("dragleave", () => {
+            box.classList.remove("hovered");
+          });
+
+          box.addEventListener("drop", (e) => {
+            e.preventDefault();
+            box.classList.remove("hovered");
+
+            if (box.classList.contains("dropped")) return;
+
+            const droppedWordId = e.dataTransfer.getData("text/plain"); // This is the actual word
+            const droppedWordElem = document.getElementById(droppedWordId);
+
+            if (box.dataset.correct === droppedWordId) {
+              // --- Correct Drop --- ✅
+              box.textContent = droppedWordId; // Display the correct word
+              box.classList.add("dropped");
+              droppedWordElem.style.display = "none";
+
+              document.getElementById(`audio-${droppedWordId}`).play();
+
+              correctCount++;
+              if (correctCount === TOTAL_ITEMS) {
+                celebrate();
+              }
+            } else {
+              // --- Incorrect Drop --- ❌
+              document.getElementById("audio-no").play();
+            }
+          });
+        });
+
+        // --- Celebration Function --- 🎉
+        function celebrate() {
+          // Play the success sound followed by celebration music
+          document.getElementById("audio-success").play();
+          document.getElementById("audio-celebration-music").play();
+
+          // Trigger the golden glow effect
+          goldenGlow.classList.add("active");
+
+          // Trigger the fireworks display
+          createFireworks(20);
+        }
+
+        function createFireworks(count) {
+          for (let i = 0; i < count; i++) {
+            setTimeout(() => {
+              createFirework(
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerHeight * 0.7
+              );
+            }, i * 150);
+          }
+        }
+
+        function createFirework(x, y) {
+          const particleCount = 120;
+          const colors = [
+            "#ff0000",
+            "#00ff00",
+            "#0000ff",
+            "#ffd700",
+            "#ffa500",
+            "#8a2be2",
+          ];
+          const selectedColor =
+            colors[Math.floor(Math.random() * colors.length)];
+
+          for (let i = 0; i < particleCount; i++) {
+            const firework = document.createElement("div");
+            firework.className = "firework";
+            firework.style.left = `${x}px`;
+            firework.style.top = `${y}px`;
+            firework.style.backgroundColor = selectedColor;
+
+            const angle = Math.random() * 2 * Math.PI;
+            const distance = Math.random() * 180 + 120;
+            const finalX = x + distance * Math.cos(angle);
+            const finalY = y + distance * Math.sin(angle);
+
+            firework.animate(
+              [
+                { transform: "translate(0, 0)", opacity: 1 },
+                {
+                  transform: `translate(${finalX - x}px, ${finalY - y}px)`,
+                  opacity: 0,
+                },
+              ],
+              {
+                duration: Math.random() * 1000 + 1000,
+                easing: "ease-out",
+                fill: "forwards",
+              }
+            );
+
+            fireworkContainer.appendChild(firework);
+
+            firework.addEventListener("animationend", () => {
+              firework.remove();
+            });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

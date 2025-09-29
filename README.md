@@ -74,16 +74,41 @@ To run the site locally:
 ## Project Structure
 
 ```
-Wizbee/
-├── index.html          # Main homepage
-├── index offline.html  # Offline version
-├── Vocabulary/         # Vocabulary lessons
-├── Sentences/          # Sentence exercises
-├── more activities/    # Additional activities
-├── Videos/            # Video content
-├── _config.yml        # GitHub Pages configuration
-├── .nojekyll          # Bypass Jekyll processing
-└── README.md          # This file
+twootle-v0/
+├── src/                    # Source code and configuration
+│   ├── main/              # Electron main process
+│   │   ├── electron-main.js
+│   │   └── preload.js
+│   ├── renderer/          # Web application files
+│   │   ├── index.html     # Main homepage
+│   │   ├── index offline.html
+│   │   ├── twootle-theme.css
+│   │   └── *.css          # Compiled stylesheets
+│   └── assets/            # Static assets
+│       ├── fonts/         # Font files
+│       └── icon.png       # Application icon
+├── content/               # Educational content
+│   ├── activities/        # Learning activities
+│   │   ├── vocabulary/    # Vocabulary lessons
+│   │   ├── sentences/     # Sentence exercises
+│   │   └── grammar/       # Grammar activities
+│   ├── media/            # Media files organized by type
+│   │   ├── audio/        # Audio files (.mp3, .wav)
+│   │   ├── images/       # Image files (.png, .jpg)
+│   │   └── videos/       # Video content
+│   └── levels/           # Content by difficulty level
+│       ├── kids/         # Activities for younger learners
+│       ├── intermediate/ # Mid-level activities
+│       └── advanced/     # Advanced activities (formerly "Senior")
+├── docs/                 # Documentation and legal pages
+│   ├── about.html
+│   ├── privacy-policy.html
+│   └── terms-of-service.html
+├── build/                # Build configuration
+│   ├── tailwind.config.js
+│   └── app.manifest
+├── dist/                 # Built application (gitignored)
+└── README.md
 ```
 
 ## Configuration Notes
@@ -132,10 +157,14 @@ npm run dist
 Artifacts are generated in the `dist/` folder (dmg/zip for macOS, exe/nsis for Windows, AppImage for Linux as configured).
 
 ### Scripts Overview
-- `npm start`: Runs Electron in production mode pointing at local files
-- `npm run dev`: (If added later) can be used for live dev tooling
+- `npm start`: Runs Electron in production mode
+- `npm run dev`: Runs Electron in development mode
+- `npm run build:css`: Builds CSS using Tailwind
 - `npm run package`: Creates unpackaged Electron bundles
-- `npm run dist`: Creates distributable installers via electron-builder
+- `npm run dist`: Creates distributable installers
+- `npm run dist:win`: Creates Windows installers
+- `npm run dist:win32`: Creates Windows 32-bit installers
+- `npm run dist:win64`: Creates Windows 64-bit installers
 
 ### Updating Branding / Theme
 A unified theme file (planned: `twootle-theme.css`) will centralize colors and typography. Include it in all primary pages for consistent look. Tailwind CDN may later be replaced with a local build for full offline use.

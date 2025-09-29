@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Is, Am, Are? The Verb Game!</title>
+    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../src/output.css" />
+    <link rel="stylesheet" href="../../twootle-theme.css" />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .title-font {
+        font-family: "Bubblegum Sans", cursive;
+      }
+      /* Custom animation for feedback */
+      @keyframes pop-in {
+        0% {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+        80% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .pop-in {
+        animation: pop-in 0.4s ease-out forwards;
+      }
+      /* Button press effect */
+      .btn-press:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease-in-out;
+      }
+    </style>
+  </head>
+  <body class="bg-sky-100 flex items-center justify-center min-h-screen p-4">
+    <div
+      id="game-container"
+      class="w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-6 sm:p-8 text-center transition-all duration-300"
+    >
+      <header class="mb-6 flex justify-between items-start">
+        <div>
+          <h1 class="title-font text-4xl sm:text-5xl text-sky-600 text-left">
+            Is, Am, or Are?
+          </h1>
+          <p class="text-gray-500 mt-2 text-lg text-left">
+            Choose the correct word to complete the sentence!
+          </p>
+        </div>
+        <button
+          id="close-btn"
+          class="p-2 text-gray-400 hover:text-sky-600 transition-colors"
+          title="Close Game"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </header>
+
+      <div
+        id="score-board"
+        class="bg-sky-50 rounded-lg p-2 mb-6 text-2xl font-bold text-sky-700"
+      >
+        Score: <span id="score">0</span>
+      </div>
+
+      <div
+        id="sentence-container"
+        class="bg-gray-100 rounded-lg p-6 my-6 h-32 flex items-center justify-center"
+      >
+        <p
+          id="sentence"
+          class="text-2xl sm:text-3xl font-semibold text-gray-800 tracking-wide"
+        ></p>
+      </div>
+
+      <div
+        id="choices-container"
+        class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6"
+      >
+        <button
+          data-choice="is"
+          class="choice-btn btn-press text-2xl font-bold p-4 rounded-xl shadow-md transition-all duration-200 bg-emerald-400 hover:bg-emerald-500 text-white"
+        >
+          is
+        </button>
+        <button
+          data-choice="am"
+          class="choice-btn btn-press text-2xl font-bold p-4 rounded-xl shadow-md transition-all duration-200 bg-amber-400 hover:bg-amber-500 text-white"
+        >
+          am
+        </button>
+        <button
+          data-choice="are"
+          class="choice-btn btn-press text-2xl font-bold p-4 rounded-xl shadow-md transition-all duration-200 bg-rose-400 hover:bg-rose-500 text-white"
+        >
+          are
+        </button>
+      </div>
+
+      <div
+        id="feedback-container"
+        class="h-10 mb-4 flex items-center justify-center"
+      >
+        <p id="feedback-message" class="text-2xl font-bold"></p>
+      </div>
+
+      <div id="controls-container" class="h-14">
+        <button
+          id="next-btn"
+          class="hidden btn-press w-full sm:w-auto px-10 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xl rounded-xl shadow-md transition-all duration-200"
+        >
+          Next Question
+        </button>
+      </div>
+
+      <div id="final-screen" class="hidden text-center">
+        <h2 class="title-font text-4xl text-emerald-500 mb-4">Great Job!</h2>
+        <p class="text-2xl text-gray-700 mb-6">
+          You finished the game! Your final score is:
+        </p>
+        <div
+          class="bg-yellow-200 text-yellow-800 text-5xl font-bold rounded-full w-32 h-32 flex items-center justify-center mx-auto mb-8 shadow-inner"
+        >
+          <span id="final-score">0</span>
+        </div>
+        <button
+          id="play-again-btn"
+          class="btn-press w-full sm:w-auto px-10 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xl rounded-xl shadow-md transition-all duration-200"
+        >
+          Play Again!
+        </button>
+      </div>
+    </div>
+
+    <audio id="success-sound" src="../../media/audio/brass.mp3" preload="auto"></audio>
+
+    <script>
+      const questions = [
+        { part1: "I", part2: " a happy kid.", answer: "am" },
+        { part1: "She", part2: " my best friend.", answer: "is" },
+        { part1: "They", part2: " playing in the garden.", answer: "are" },
+        { part1: "He", part2: " very tall.", answer: "is" },
+        { part1: "You", part2: " a wonderful singer.", answer: "are" },
+        {
+          part1: "The little cat",
+          part2: " sleeping on the mat.",
+          answer: "is",
+        },
+        { part1: "We", part2: " going to the beach.", answer: "are" },
+        { part1: "This", part2: " my favorite book.", answer: "is" },
+        { part1: "I", part2: " excited for my birthday!", answer: "am" },
+        { part1: "The colorful birds", part2: " flying high.", answer: "are" },
+        { part1: "My dad", part2: " baking cookies.", answer: "is" },
+        { part1: "You and I", part2: " a great team.", answer: "are" },
+        { part1: "It", part2: " a sunny day today.", answer: "is" },
+        { part1: "My shoes", part2: " under the bed.", answer: "are" },
+      ];
+
+      const correctSound = new Audio("./media/aha.mp3");
+      const wrongSoundIs = new Audio("./media/oh.mp3");
+      const wrongSoundAm = new Audio("./media/oh.mp3");
+      const wrongSoundAre = new Audio("media/oh.mp3");
+
+      // --- DOM Elements (Added closeBtn and successSound) ---
+      const gameContainer = document.getElementById("game-container");
+      const scoreDisplay = document.getElementById("score");
+      const sentenceEl = document.getElementById("sentence");
+      const choicesContainer = document.getElementById("choices-container");
+      const choiceBtns = document.querySelectorAll(".choice-btn");
+      const feedbackContainer = document.getElementById("feedback-container");
+      const feedbackMessage = document.getElementById("feedback-message");
+      const nextBtn = document.getElementById("next-btn");
+      const finalScreen = document.getElementById("final-screen");
+      const finalScoreDisplay = document.getElementById("final-score");
+      const playAgainBtn = document.getElementById("play-again-btn");
+      const closeBtn = document.getElementById("close-btn"); // New
+      const successSound = document.getElementById("success-sound"); // New
+
+      // Game State
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let shuffledQuestions = [];
+
+      // --- NEW: Animation function for the reward ---
+      function triggerReward() {
+        const emojiEl = document.createElement("div");
+        emojiEl.textContent = "🏆"; // Trophy emoji for winning
+        emojiEl.style.position = "fixed";
+        emojiEl.style.top = "50%";
+        emojiEl.style.left = "50%";
+        emojiEl.style.zIndex = "100";
+        emojiEl.style.fontSize = "150px";
+        emojiEl.style.opacity = "0";
+        emojiEl.style.transform = "translate(-50%, -50%) scale(0)";
+        emojiEl.style.transition =
+          "transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s";
+
+        document.body.appendChild(emojiEl);
+
+        setTimeout(() => {
+          emojiEl.style.opacity = "1";
+          emojiEl.style.transform = "translate(-50%, -70%) scale(1)";
+        }, 100);
+
+        setTimeout(() => {
+          emojiEl.style.opacity = "0";
+          emojiEl.style.transform = "translate(-50%, -50%) scale(0.5)";
+        }, 2200);
+
+        setTimeout(() => {
+          emojiEl.remove();
+        }, 2800);
+      }
+
+      // --- NEW: Function to close the window ---
+      function closeWindow() {
+        window.location.href = '../../index.html';
+      }
+
+      function startGame() {
+        // Reset state
+        currentQuestionIndex = 0;
+        score = 0;
+        shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
+
+        // Reset UI
+        scoreDisplay.textContent = score;
+        finalScreen.classList.add("hidden");
+        document.getElementById("score-board").classList.remove("hidden");
+        document
+          .getElementById("sentence-container")
+          .classList.remove("hidden");
+        choicesContainer.classList.remove("hidden");
+        feedbackContainer.classList.remove("hidden");
+        document
+          .getElementById("controls-container")
+          .classList.remove("hidden");
+
+        displayQuestion();
+      }
+
+      function displayQuestion() {
+        // Reset from previous question
+        feedbackMessage.textContent = "";
+        feedbackMessage.classList.remove(
+          "pop-in",
+          "text-green-500",
+          "text-red-500"
+        );
+        nextBtn.classList.add("hidden");
+        choiceBtns.forEach((btn) => {
+          btn.disabled = false;
+          btn.classList.remove("opacity-50", "cursor-not-allowed");
+        });
+
+        // Check if game is over
+        if (currentQuestionIndex >= shuffledQuestions.length) {
+          endGame();
+          return;
+        }
+
+        // Display new question
+        const question = shuffledQuestions[currentQuestionIndex];
+        sentenceEl.innerHTML = `${question.part1} <span class="text-sky-600 font-bold">___</span> ${question.part2}`;
+      }
+
+      function handleChoice(e) {
+        const selectedChoice = e.target.dataset.choice;
+        if (!selectedChoice) return;
+
+        const correctAnswer = shuffledQuestions[currentQuestionIndex].answer;
+
+        // Disable all buttons after a choice is made
+        choiceBtns.forEach((btn) => {
+          btn.disabled = true;
+          btn.classList.add("opacity-50", "cursor-not-allowed");
+        });
+
+        if (selectedChoice === correctAnswer) {
+          score++;
+          scoreDisplay.textContent = score;
+          feedbackMessage.textContent = "Correct! 🎉";
+          feedbackMessage.className =
+            "text-2xl font-bold pop-in text-green-500";
+          correctSound.play();
+        } else {
+          feedbackMessage.textContent = "Try again! 🤔";
+          feedbackMessage.className = "text-2xl font-bold pop-in text-red-500";
+          switch (selectedChoice) {
+            case "is":
+              wrongSoundIs.play();
+              break;
+            case "am":
+              wrongSoundAm.play();
+              break;
+            case "are":
+              wrongSoundAre.play();
+              break;
+          }
+        }
+
+        nextBtn.classList.remove("hidden");
+      }
+
+      function handleNextQuestion() {
+        currentQuestionIndex++;
+        displayQuestion();
+      }
+
+      // --- MODIFIED: Added success sound and animation trigger ---
+      function endGame() {
+        // Hide game elements
+        document.getElementById("score-board").classList.add("hidden");
+        document.getElementById("sentence-container").classList.add("hidden");
+        choicesContainer.classList.add("hidden");
+        feedbackContainer.classList.add("hidden");
+        document.getElementById("controls-container").classList.add("hidden");
+
+        // Show final screen
+        finalScoreDisplay.textContent = score;
+        finalScreen.classList.remove("hidden");
+
+        // Play success sound and show animation!
+        if (successSound) {
+          successSound.play();
+        }
+        triggerReward();
+      }
+
+      // --- Event Listeners (Added listener for close button) ---
+      choiceBtns.forEach((btn) => btn.addEventListener("click", handleChoice));
+      nextBtn.addEventListener("click", handleNextQuestion);
+      playAgainBtn.addEventListener("click", startGame);
+      closeBtn.addEventListener("click", closeWindow); // New
+
+      // Initial game start
+      startGame();
+    </script>
+  </body>
+</html>

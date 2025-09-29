@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sort School and Home Words</title>
+    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../fonts/Pacifico-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../src/output.css" />
+    <link rel="stylesheet" href="../../twootle-theme.css" />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #e8f5e9; /* Light green background */
+        color: #1e293b;
+        overflow-x: hidden;
+      }
+      .game-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+      }
+      .card {
+        background-color: #ffffff;
+        border-radius: 1.5rem;
+        padding: 2rem;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        text-align: center;
+        width: 100%;
+        max-width: 1000px;
+        border: 1px solid #c8e6c9;
+      }
+      #word-bank {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-bottom: 2.5rem;
+        padding: 1rem;
+        background-color: #c8e6c9;
+        border-radius: 1rem;
+        min-height: 100px;
+      }
+      .word {
+        background-color: #388e3c;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px; /* Pill shape */
+        cursor: grab;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        font-weight: 600;
+      }
+      .word.dragging {
+        opacity: 0.5;
+        transform: scale(1.1);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+      .word.correct {
+        background-color: #22c55e;
+      }
+      .word.incorrect {
+        background-color: #ef4444;
+      }
+      #categories {
+        display: flex;
+        justify-content: space-around;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .category-circle {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 1.5rem;
+        border-width: 4px;
+        border-style: dashed;
+        transition: all 0.3s ease;
+      }
+      .category-circle h2 {
+        font-family: "Pacifico", cursive;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        pointer-events: none;
+      }
+      .category-circle.drag-over {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+      #school-circle {
+        border-color: #388e3c;
+        color: #388e3c;
+        background-color: #e8f5e9;
+      }
+      #school-circle.drag-over {
+        border-color: #388e3c;
+        background-color: #c8e6c9;
+      }
+      #home-circle {
+        border-color: #6d4c41;
+        color: #6d4c41;
+        background-color: #efebe9;
+      }
+      #home-circle.drag-over {
+        border-color: #6d4c41;
+        background-color: #d7ccc8;
+      }
+      .dropped-words-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0.5rem;
+        height: 150px;
+        overflow-y: auto;
+      }
+
+      .btn {
+        padding: 0.75rem 2rem;
+        border-radius: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: none;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .btn-primary {
+        background-color: #388e3c;
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #2e7d32;
+        transform: translateY(-2px);
+      }
+      .btn-secondary {
+        background-color: #f3f4f6;
+        color: #374151;
+      }
+      .btn-secondary:hover {
+        background-color: #e5e7eb;
+        transform: translateY(-2px);
+      }
+      #feedback {
+        margin-top: 1.5rem;
+        font-weight: 600;
+        height: 24px;
+        font-size: 1.1rem;
+      }
+      .correct-feedback {
+        color: #22c55e;
+      }
+      .incorrect-feedback {
+        color: #ef4444;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="card">
+        <div class="flex justify-between items-start mb-2">
+          <div class="text-left">
+            <h1
+              class="text-4xl font-bold text-slate-800"
+              style="font-family: 'Pacifico', cursive"
+            >
+              Sort School and Home Words
+            </h1>
+            <p class="mb-6 text-lg text-slate-500">
+              Drag each word from the word bank into its correct category
+              circle.
+            </p>
+          </div>
+          <button
+            id="close-btn"
+            class="p-2 text-gray-400 hover:text-green-800 transition-colors"
+            title="Close Game"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div id="word-bank"></div>
+
+        <div id="categories">
+          <div
+            id="school-circle"
+            class="category-circle"
+            data-category="School"
+          >
+            <h2>School</h2>
+            <div class="dropped-words-container"></div>
+          </div>
+          <div id="home-circle" class="category-circle" data-category="Home">
+            <h2>Home</h2>
+            <div class="dropped-words-container"></div>
+          </div>
+        </div>
+
+        <div id="feedback"></div>
+
+        <div class="mt-8 flex justify-center space-x-4">
+          <button id="reset-btn" class="btn btn-secondary">Try Again</button>
+          <button id="check-btn" class="btn btn-primary">Check Answers</button>
+        </div>
+      </div>
+    </div>
+
+    <audio id="success-sound" src="../../media/audio/brass.mp3" preload="auto"></audio>
+    <script>
+      // --- Game Data ---
+      const wordsData = [
+        { word: "Books", category: "School" },
+        { word: "Teacher", category: "School" },
+        { word: "Students", category: "School" },
+        { word: "Desk", category: "School" },
+        { word: "Backpack", category: "School" },
+        { word: "Classroom", category: "School" },
+        { word: "Playground", category: "School" },
+        { word: "Homework", category: "School" },
+        { word: "Couch", category: "Home" },
+        { word: "Family", category: "Home" },
+        { word: "Kitchen", category: "Home" },
+        { word: "Bed", category: "Home" },
+        { word: "Dinner", category: "Home" },
+        { word: "Television", category: "Home" },
+        { word: "Toys", category: "Home" },
+        { word: "Chores", category: "Home" },
+      ];
+
+      // --- DOM Elements ---
+      const wordBank = document.getElementById("word-bank");
+      const checkBtn = document.getElementById("check-btn");
+      const resetBtn = document.getElementById("reset-btn");
+      const feedbackDiv = document.getElementById("feedback");
+      const categoryCircles = document.querySelectorAll(".category-circle");
+      // NEW: Selecting new elements
+      const closeBtn = document.getElementById("close-btn");
+      const successSound = document.getElementById("success-sound");
+      // REMOVED: Canvas element selection
+
+      // --- Game State ---
+      let draggedWord = null;
+
+      // --- NEW: Animation and Window Functions ---
+      function triggerReward() {
+        const emojiEl = document.createElement("div");
+        emojiEl.textContent = "🏆";
+        emojiEl.style.position = "fixed";
+        emojiEl.style.top = "50%";
+        emojiEl.style.left = "50%";
+        emojiEl.style.zIndex = "100";
+        emojiEl.style.fontSize = "150px";
+        emojiEl.style.opacity = "0";
+        emojiEl.style.transform = "translate(-50%, -50%) scale(0)";
+        emojiEl.style.transition =
+          "transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s";
+        document.body.appendChild(emojiEl);
+        setTimeout(() => {
+          emojiEl.style.opacity = "1";
+          emojiEl.style.transform = "translate(-50%, -70%) scale(1)";
+        }, 100);
+        setTimeout(() => {
+          emojiEl.style.opacity = "0";
+          emojiEl.style.transform = "translate(-50%, -50%) scale(0.5)";
+        }, 2200);
+        setTimeout(() => {
+          emojiEl.remove();
+        }, 2800);
+      }
+
+      function closeWindow() {
+        window.location.href = '../../index.html';
+      }
+
+      // --- Initialization ---
+      function initializeGame() {
+        wordBank.innerHTML = "";
+        feedbackDiv.textContent = "";
+        feedbackDiv.className = "";
+        checkBtn.disabled = false;
+
+        categoryCircles.forEach((circle) => {
+          circle.querySelector(".dropped-words-container").innerHTML = "";
+        });
+
+        const shuffledWords = [...wordsData].sort(() => Math.random() - 0.5);
+        shuffledWords.forEach((item) => {
+          const wordEl = document.createElement("div");
+          wordEl.className = "word";
+          wordEl.textContent = item.word;
+          wordEl.draggable = true;
+          wordEl.dataset.category = item.category;
+          wordBank.appendChild(wordEl);
+        });
+
+        addDragAndDropListeners();
+      }
+
+      // --- Drag and Drop Logic ---
+      function addDragAndDropListeners() {
+        const words = document.querySelectorAll(".word");
+        words.forEach((word) => {
+          word.addEventListener("dragstart", handleDragStart);
+          word.addEventListener("dragend", handleDragEnd);
+        });
+
+        categoryCircles.forEach((circle) => {
+          circle.addEventListener("dragover", handleDragOver);
+          circle.addEventListener("dragleave", handleDragLeave);
+          circle.addEventListener("drop", handleDrop);
+        });
+
+        wordBank.addEventListener("dragover", handleDragOver);
+        wordBank.addEventListener("dragleave", handleDragLeave);
+        wordBank.addEventListener("drop", handleDrop);
+      }
+
+      function handleDragStart(e) {
+        draggedWord = e.target;
+        setTimeout(() => e.target.classList.add("dragging"), 0);
+      }
+
+      function handleDragEnd(e) {
+        e.target.classList.remove("dragging");
+      }
+
+      function handleDragOver(e) {
+        e.preventDefault();
+        const dropTarget =
+          e.target.closest(".category-circle") ||
+          e.target.closest("#word-bank");
+        if (dropTarget) {
+          dropTarget.classList.add("drag-over");
+        }
+      }
+
+      function handleDragLeave(e) {
+        const dropTarget =
+          e.target.closest(".category-circle") ||
+          e.target.closest("#word-bank");
+        if (dropTarget) {
+          dropTarget.classList.remove("drag-over");
+        }
+      }
+
+      function handleDrop(e) {
+        e.preventDefault();
+        const dropTarget =
+          e.target.closest(".category-circle") ||
+          e.target.closest("#word-bank");
+        if (dropTarget && draggedWord) {
+          dropTarget.classList.remove("drag-over");
+
+          const container =
+            dropTarget.id === "word-bank"
+              ? wordBank
+              : dropTarget.querySelector(".dropped-words-container");
+          container.appendChild(draggedWord);
+          draggedWord = null;
+        }
+      }
+
+      // --- Answer Checking and Rewards ---
+      function checkAnswers() {
+        let correctCount = 0;
+        let placedWordsCount = 0;
+
+        categoryCircles.forEach((circle) => {
+          const correctCategory = circle.dataset.category;
+          const droppedWords = circle.querySelectorAll(".word");
+          placedWordsCount += droppedWords.length;
+
+          droppedWords.forEach((word) => {
+            word.classList.remove("correct", "incorrect");
+            if (word.dataset.category === correctCategory) {
+              word.classList.add("correct");
+              correctCount++;
+            } else {
+              word.classList.add("incorrect");
+            }
+          });
+        });
+
+        displayFeedback(correctCount, placedWordsCount);
+        checkBtn.disabled = true;
+      }
+
+      function displayFeedback(correct, totalPlaced) {
+        if (totalPlaced === 0) {
+          feedbackDiv.textContent = "Drag some words into the circles first!";
+          feedbackDiv.className = "incorrect-feedback";
+          return;
+        }
+
+        const totalWords = wordsData.length;
+
+        if (correct === totalWords && wordBank.children.length === 0) {
+          feedbackDiv.textContent =
+            "Perfect! You sorted all the words correctly!";
+          feedbackDiv.className = "correct-feedback";
+          // NEW: Play sound and show animation on perfect score
+          if (successSound) {
+            successSound.play();
+          }
+          triggerReward();
+        } else if (correct > 0) {
+          feedbackDiv.textContent = `Nice job! You got ${correct} correct so far.`;
+          feedbackDiv.className = "correct-feedback";
+        } else {
+          feedbackDiv.textContent = "Have another try! You can do it.";
+          feedbackDiv.className = "incorrect-feedback";
+        }
+      }
+
+      // REMOVED: Old canvas animation logic
+
+      // --- Event Listeners ---
+      checkBtn.addEventListener("click", checkAnswers);
+      resetBtn.addEventListener("click", initializeGame);
+      // NEW: Added listener for close button
+      closeBtn.addEventListener("click", closeWindow);
+      // REMOVED: window.resize listener
+
+      // --- Initial Load ---
+      window.onload = () => {
+        // REMOVED: resizeCanvas() call
+        initializeGame();
+      };
+    </script>
+  </body>
+</html>

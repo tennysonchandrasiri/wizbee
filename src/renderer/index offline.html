@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twootle English School</title>
+    <link rel="stylesheet" href="twootle-theme.css" />
+    <style>
+      /* --- EMBEDDED GOOGLE FONTS CSS (font files are still external) --- */
+      /* Inter font for body (kept for secondary text) */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FzDAsj6_rFq_Twg7hVlExE.woff2)
+          format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+          U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v13/UcC73FzDAsj6_rFq_Twg7hVlExdpPnY.woff2)
+          format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+          U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/inter/v13/UcC73FzDAsj6_rFq_Twg7hVlExdpGnY.woff2)
+          format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+          U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      /* Bubblegum Sans for titles (kept for playfulness) */
+      @font-face {
+        font-family: "Bubblegum Sans";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/bubblegumsans/v17/AYBUMTItSgHqYyZzEtrjdmN-U.woff2)
+          format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+          U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      /* --- CUSTOM STYLES (ENHANCED) --- */
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f0f4f8; /* Softer light background */
+      }
+      .kiddie-title {
+        font-family: "Bubblegum Sans", cursive;
+        color: var(--twootle-color-primary);
+        text-shadow: 2px 2px 0px rgba(254, 240, 138, 0.8); /* Yellow shadow */
+      }
+      .senior-kiddie-title {
+        font-family: "Bubblegum Sans", cursive;
+        color: var(--twootle-color-secondary);
+        text-shadow: 2px 2px 0px rgba(253, 230, 138, 0.8); /* Orange shadow */
+      }
+      .topic-heading {
+        color: var(--twootle-color-primary);
+        font-weight: 700;
+        border-bottom: 2px solid var(--twootle-color-primary-accent);
+        display: inline-block;
+        padding-bottom: 0.15rem;
+      }
+      .link-style {
+        color: #3b82f6; /* Default link blue */
+        transition: color 0.2s ease, transform 0.1s ease,
+          background-color 0.2s ease;
+        text-decoration: none;
+      }
+      .link-style:hover {
+        color: #ef4444; /* Bright Red on hover */
+        background-color: #fef9c3; /* Pale yellow background */
+        border-radius: 4px;
+        padding: 0 2px;
+        transform: translateY(-1px); /* Slight lift effect */
+      }
+      .list-item {
+        margin-bottom: 0.2rem;
+      }
+      .section-box {
+        position: relative;
+        padding-bottom: 1rem;
+      }
+      .section-box::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        background-color: var(--twootle-color-secondary);
+        border-bottom-left-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+      }
+      /* Twootle Kids section gets a different bottom color */
+      .tootle-kids-section::after {
+        background-color: var(--twootle-color-primary);
+      }
+
+      /* --- EMBEDDED TAILWIND CSS (Utilities used in HTML) --- */
+      /* Preserved necessary Tailwind utilities for layout */
+      *,
+      ::before,
+      ::after {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+        border-color: #e5e7eb;
+      }
+      ::before,
+      ::after {
+        --tw-content: "";
+      }
+      html {
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      }
+      body {
+        margin: 0;
+        line-height: inherit;
+      }
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: inherit;
+        font-weight: inherit;
+      }
+
+      .antialiased {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .text-gray-800 {
+        --tw-text-opacity: 1;
+        color: rgb(31 41 55 / var(--tw-text-opacity));
+      }
+      .text-white {
+        --tw-text-opacity: 1;
+        color: rgb(255 255 255 / var(--tw-text-opacity));
+      }
+      .text-gray-600 {
+        --tw-text-opacity: 1;
+        color: rgb(75 85 99 / var(--tw-text-opacity));
+      }
+      .bg-blue-600 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+      }
+      .bg-white {
+        --tw-bg-opacity: 1;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+      }
+      .bg-gray-800 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+      }
+      .shadow-lg {
+        --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .shadow-md {
+        --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+          var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+      }
+      .rounded-b-xl {
+        border-bottom-right-radius: 0.75rem;
+        border-bottom-left-radius: 0.75rem;
+      }
+      .rounded-lg {
+        border-radius: 0.5rem;
+      }
+      .border {
+        border-width: 1px;
+      }
+      .border-gray-200 {
+        --tw-border-opacity: 1;
+        border-color: rgb(229 231 235 / var(--tw-border-opacity));
+      }
+      .border-b {
+        border-bottom-width: 1px;
+      }
+      .min-h-screen {
+        min-height: 100vh;
+      }
+      .flex {
+        display: flex;
+      }
+      .flex-col {
+        flex-direction: column;
+      }
+      .flex-grow {
+        flex-grow: 1;
+      }
+      .items-center {
+        align-items: center;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .justify-between {
+        justify-content: space-between;
+      }
+      .w-full {
+        width: 100%;
+      }
+      .container {
+        width: 100%;
+      }
+      .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .p-6 {
+        padding: 1.5rem;
+      }
+      .p-4 {
+        padding: 1rem;
+      }
+      .mt-8 {
+        margin-top: 2rem;
+      }
+      .mt-1 {
+        margin-top: 0.25rem;
+      }
+      .mt-12 {
+        margin-top: 3rem;
+      }
+      .mb-4 {
+        margin-bottom: 1rem;
+      }
+      .mb-2 {
+        margin-bottom: 0.5rem;
+      }
+      .mb-1 {
+        margin-bottom: 0.25rem;
+      }
+      .pb-2 {
+        padding-bottom: 0.5rem;
+      }
+      .space-y-8 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+      }
+      .space-y-1 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+      }
+      .space-x-6 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-x-reverse: 0;
+        margin-right: calc(1.5rem * var(--tw-space-x-reverse));
+        margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
+      }
+      .space-y-4 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-y-reverse: 0;
+        margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+        margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+      }
+      .gap-8 {
+        gap: 2rem;
+      }
+      .gap-6 {
+        gap: 1.5rem;
+      }
+      .grid {
+        display: grid;
+      }
+      .grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+      .text-3xl {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+      }
+      .text-4xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+      }
+      .text-lg {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+      }
+      .text-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+      }
+      .font-extrabold {
+        font-weight: 800;
+      }
+      .font-bold {
+        font-weight: 700;
+      }
+      .font-medium {
+        font-weight: 500;
+      }
+      .font-semibold {
+        font-weight: 600;
+      }
+      .tracking-tight {
+        letter-spacing: -0.025em;
+      }
+      .italic {
+        font-style: italic;
+      }
+      .opacity-90 {
+        opacity: 0.9;
+      }
+      .list-none {
+        list-style-type: none;
+      }
+      .mr-2 {
+        margin-right: 0.5rem;
+      }
+      .transition {
+        transition-property: color, background-color, border-color,
+          text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+          filter, backdrop-filter;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      .duration-300 {
+        transition-duration: 300ms;
+      }
+      .text-center {
+        text-align: center;
+      }
+
+      @media (min-width: 640px) {
+        .sm\:grid-cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (min-width: 768px) {
+        .md\:p-8 {
+          padding: 2rem;
+        }
+        .md\:p-6 {
+          padding: 1.5rem;
+        }
+        .md\:text-4xl {
+          font-size: 2.25rem;
+          line-height: 2.5rem;
+        }
+        .md\:flex-row {
+          flex-direction: row;
+        }
+        .md\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
+          --tw-space-y-reverse: 0;
+          margin-top: calc(0rem * calc(1 - var(--tw-space-y-reverse)));
+          margin-bottom: calc(0rem * var(--tw-space-y-reverse));
+        }
+        .md\:grid-cols-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .md\:text-left {
+          text-align: left;
+        }
+      }
+      @media (min-width: 1024px) {
+        .lg\:grid-cols-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+      .hover\:text-blue-300:hover {
+        --tw-text-opacity: 1;
+        color: rgb(147 197 253 / var(--tw-text-opacity));
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col antialiased text-gray-800">
+    <header class="bg-blue-600 text-white p-6 md:p-8 shadow-lg rounded-b-xl">
+      <div class="container mx-auto flex items-center justify-center">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+            Twootle English School
+          </h1>
+          <p class="text-lg mt-1 font-medium italic opacity-90 text-center">
+            The eye to see the world through
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow container mx-auto p-4 md:p-6 mt-8 space-y-8">
+      <div class="grid grid-cols-1 gap-8">
+        <section
+          class="bg-white p-6 rounded-lg shadow-md border border-gray-200 section-box tootle-kids-section"
+        >
+          <h2 class="kiddie-title text-3xl font-bold mb-4 border-b pb-2">
+            Twootle Kids
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div>
+              <h3 class="topic-heading text-lg font-semibold mb-2">
+                <span class="mr-2">🏫</span>SCHOOL
+              </h3>
+              <ul class="list-none space-y-1 text-gray-600">
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/greeting.html"
+                    class="link-style"
+                    target="_blank"
+                    >Greeting-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/greeting-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Greeting-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/pencilcase.html"
+                    class="link-style"
+                    target="_blank"
+                    >Pencil Box-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/pencil case-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Pencil Box-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/schoolbag.html"
+                    class="link-style"
+                    target="_blank"
+                    >School bag-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/schoolbag-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >School bag-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/classroom.html"
+                    class="link-style"
+                    target="_blank"
+                    >Classroom-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/classroom-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >School bag-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/canteen.html"
+                    class="link-style"
+                    target="_blank"
+                    >Canteen-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/canteen-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Canteen-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/assembly.html"
+                    class="link-style"
+                    target="_blank"
+                    >Assembly-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/assembly-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Assembly-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/playground.html"
+                    class="link-style"
+                    target="_blank"
+                    >Playground-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/playground-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Playgound-02</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="topic-heading text-lg font-semibold mb-2">
+                <span class="mr-2">🏠</span>HOME
+              </h3>
+              <ul class="list-none space-y-1 text-gray-600">
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/family.html"
+                    class="link-style"
+                    target="_blank"
+                    >Family-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/family-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Family-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/home.html"
+                    class="link-style"
+                    target="_blank"
+                    >House-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/home-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >House-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/garden.html"
+                    class="link-style"
+                    target="_blank"
+                    >Garden-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/garden-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Garden-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/bathroom.html"
+                    class="link-style"
+                    target="_blank"
+                    >Bedroom-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/bedroom-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Bedroom-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/bathroom.html"
+                    class="link-style"
+                    target="_blank"
+                    >Bathroom-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/bathroom-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Bathroom-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/kitchen.html"
+                    class="link-style"
+                    target="_blank"
+                    >Kitchen-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/kitchen-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Kitchen-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/renew.html"
+                    class="link-style"
+                    target="_blank"
+                    >Renew-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/renew-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Renew-02</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="topic-heading text-lg font-semibold mb-2">
+                <span class="mr-2">🌳</span>ENVIRONMENT
+              </h3>
+              <ul class="list-none space-y-1 text-gray-600">
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/market.html"
+                    class="link-style"
+                    target="_blank"
+                    >Market-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/market-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Market-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/camping.html"
+                    class="link-style"
+                    target="_blank"
+                    >Camping-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/camping-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Camping-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/forest.html"
+                    class="link-style"
+                    target="_blank"
+                    >Forest-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/forest-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Forest-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/earth.html"
+                    class="link-style"
+                    target="_blank"
+                    >The earth-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/earth-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >The Earth-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/ocean.html"
+                    class="link-style"
+                    target="_blank"
+                    >In the Ocean-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/ocean-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >In the Ocean-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/northpole.html"
+                    class="link-style"
+                    target="_blank"
+                    >North Pole-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/northpole-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >North Pole 02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/activities/vocabulary/desert.html"
+                    class="link-style"
+                    target="_blank"
+                    >Desert-01</a
+                  >
+                  |
+                  <a
+                    href="../content/activities/sentences/desert-b.html"
+                    class="link-style"
+                    target="_blank"
+                    >Desert-02</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-8">
+            <h3 class="topic-heading text-lg font-semibold mb-2">
+              <span class="mr-2">🧒</span>KID'S EXTRA
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              <div>
+                <h4 class="topic-heading font-medium mb-1">
+                  <span class="mr-2">📝</span>WORDS:
+                </h4>
+                <ul class="list-none space-y-1 text-gray-600">
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/sort-colors-numbers.html"
+                      class="link-style"
+                      target="_blank"
+                      >Colours-Numbers</a
+                    >
+                  </li>
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/sort-school-home.html"
+                      class="link-style"
+                      target="_blank"
+                      >School-Home</a
+                    >
+                  </li>
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/sort-fruit-veges-drinks.html"
+                      class="link-style"
+                      target="_blank"
+                      >Fruits-Vegetables</a
+                    >
+                  </li>
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/sort-bathroom-kitchen.html"
+                      class="link-style"
+                      target="_blank"
+                      >Bathroom-Kitchen</a
+                    >
+                  </li>
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/sort-vehicles.html"
+                      class="link-style"
+                      target="_blank"
+                      >Vehicles</a
+                    >
+                  </li>
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/sort-animals-farm-forest.html"
+                      class="link-style"
+                      target="_blank"
+                      >Farm-Forest</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="topic-heading font-medium mb-1">
+                  <span class="mr-2">📚</span>GRAMMAR:
+                </h4>
+                <ul class="list-none space-y-1 text-gray-600">
+                  <li class="list-item">
+                    <a
+                      href="more activities/kids/"
+                      class="link-style"
+                      target="_blank"
+                      >Is, am, are</a
+                    >
+                  </li>
+                  <li class="list-item">
+                    <a href="#" class="link-style" target="_blank">has, have</a>
+                  </li>
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/present-continuous-kids1.html"
+                      class="link-style"
+                      target="_blank"
+                      >Present Continuous Tense</a
+                    >
+                  </li>
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/simple-present-kids1.html"
+                      class="link-style"
+                      target="_blank"
+                      >Simple Present Tense</a
+                    >
+                  </li>
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/present-perfect -kids1.html"
+                      class="link-style"
+                      target="_blank"
+                      >Present Perfect Tense</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="topic-heading font-medium mb-1">
+                  <span class="mr-2">📖</span>STORIES:
+                </h4>
+                <ul class="list-none space-y-1 text-gray-600">
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/story-catepilar.html"
+                      class="link-style"
+                      target="_blank"
+                      >The Caterpillar</a
+                    >
+                  </li>
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/story-lost dog.html"
+                      class="link-style"
+                      target="_blank"
+                      >A Lost Dog</a
+                    >
+                  </li>
+                  <li class="list-item">
+                    <a
+                      href="../content/levels/kids/story-muddy boot.html"
+                      class="link-style"
+                      target="_blank"
+                      >The Muddy Boots</a
+                    >
+                  </li>
+                  <li class="list-item">
+                    <a href="#" class="link-style" target="_blank">Story 1</a>
+                  </li>
+                  <li class="list-item">
+                    <a href="#" class="link-style" target="_blank">Story 2</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="bg-white p-6 rounded-lg shadow-md border border-gray-200 section-box"
+        >
+          <h2 class="senior-kiddie-title text-3xl font-bold mb-4 border-b pb-2">
+            Senior Twootle Kids
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <h3 class="topic-heading text-lg font-semibold mb-2">
+                <span class="mr-2">📚</span>GRAMMAR
+              </h3>
+              <ul class="list-none space-y-1 text-gray-600">
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/grammar-be verbs.html"
+                    class="link-style"
+                    target="_blank"
+                    >Be Versbs</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/grammar-Present-Continuos-Tense.html"
+                    class="link-style"
+                    target="_blank"
+                    >Present Continuous Tense</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/grammar-simple-present.html"
+                    class="link-style"
+                    target="_blank"
+                    >Simple Present Tense</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="more activities/Senior/"
+                    class="link-style"
+                    target="_blank"
+                    >Simple Past Tense</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a href="#" class="link-style" target="_blank"
+                    >Has, Have and Had</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a href="#" class="link-style" target="_blank"
+                    >Perfect Tenses</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/grammar-simple-future-ing-future.html"
+                    class="link-style"
+                    target="_blank"
+                    >Future Forms</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/grammar-passive-voice.html"
+                    class="link-style"
+                    target="_blank"
+                    >Passive Voice</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/grammar-Mixed tenses-Negative.html"
+                    class="link-style"
+                    target="_blank"
+                    >Negative Forms</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a href="#" class="link-style" target="_blank"
+                    >Question forms</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="topic-heading text-lg font-semibold mb-2">
+                <span class="mr-2">✍️</span>VOCABULARY
+              </h3>
+              <ul class="list-none space-y-1 text-gray-600">
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/sort-games.html"
+                    class="link-style"
+                    target="_blank"
+                    >Games</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/sort-metal-wooden-paper.html"
+                    class="link-style"
+                    target="_blank"
+                    >Metal, Wooden, Paper</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/sort-singular-plural.html"
+                    class="link-style"
+                    target="_blank"
+                    >Singular, Plural</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/sort-nouns-verbs.html"
+                    class="link-style"
+                    target="_blank"
+                    >Nouns ,Verbs</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a href="#" class="link-style" target="_blank"
+                    >Past, Presents</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/sort-nouns-countable-uncountable.html"
+                    class="link-style"
+                    target="_blank"
+                    >Countable, Uncountable</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/sort-living-nonliving.html"
+                    class="link-style"
+                    target="_blank"
+                    >Living, Non-Living</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/sort-light-heavy.html"
+                    class="link-style"
+                    target="_blank"
+                    >Light, Heavy</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/sort-modern-ancient.html"
+                    class="link-style"
+                    target="_blank"
+                    >Modern, Ancient</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/sort-natural-artificial.html"
+                    class="link-style"
+                    target="_blank"
+                    >Natural, Artificial</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="topic-heading text-lg font-semibold mb-2">
+                <span class="mr-2">🧩</span>PICTURE DESCRIPTIONS
+              </h3>
+              <ul class="list-none space-y-1 text-gray-600">
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/picdes-family.html"
+                    class="link-style"
+                    target="_blank"
+                    >Family</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/picdes-cleaning.html"
+                    class="link-style"
+                    target="_blank"
+                    >Cleaning</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/picdes-garden.html"
+                    class="link-style"
+                    target="_blank"
+                    >Garden</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/picdes-markets.html"
+                    class="link-style"
+                    target="_blank"
+                    >Market</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/picdes-beach.html"
+                    class="link-style"
+                    target="_blank"
+                    >Beach</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/picdes-playground.html"
+                    class="link-style"
+                    target="_blank"
+                    >Playground</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/picdes-room-1.html"
+                    class="link-style"
+                    target="_blank"
+                    >Room-01</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/picdes-room-2.html"
+                    class="link-style"
+                    target="_blank"
+                    >Room-02</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/picdes-street.html"
+                    class="link-style"
+                    target="_blank"
+                    >Street</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/picdes-town.html"
+                    class="link-style"
+                    target="_blank"
+                    >Town</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="topic-heading text-lg font-semibold mb-2">
+                <span class="mr-2">🧩</span>STORIES
+              </h3>
+              <ul class="list-none space-y-1 text-gray-600">
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/story-The Crow and the Pitcher Story.html"
+                    class="link-style"
+                    target="_blank"
+                    >The Crow And The Pitcher</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/story-The Ant and the Grasshopper Story.html"
+                    class="link-style"
+                    target="_blank"
+                    >The Ant And The Grasshopper</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/story-The Ant and the Pegion Story.html"
+                    class="link-style"
+                    target="_blank"
+                    >The Ant And The Pegion</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/story-The Country Mouse And Town Mouse story.html"
+                    class="link-style"
+                    target="_blank"
+                    >The Country Mouse And The Town Mouse</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/story-The Country Mouse And Town Mouse story.html"
+                    class="link-style"
+                    target="_blank"
+                    >The Lion And The Mouse</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/story-The Ugly Duckling Story.html"
+                    class="link-style"
+                    target="_blank"
+                    >The Ugly Duckling</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/story-The Boy Who Cried Tiger.html"
+                    class="link-style"
+                    target="_blank"
+                    >The Boy Who Cried Tiger</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/story2-The Dog and the Shadow.html"
+                    class="link-style"
+                    target="_blank"
+                    >The Dog and The Shadow</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/story2-The Wolf in Sheep Clothing.html"
+                    class="link-style"
+                    target="_blank"
+                    >The Wolf In The Sheep's Clothe</a
+                  >
+                </li>
+                <li class="list-item">
+                  <a
+                    href="../content/levels/advanced/story2-The Goose that Laid the Golden Eggs.html"
+                    class="link-style"
+                    target="_blank"
+                    >The Goose That Laid A Golden Egg</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white p-6 mt-12">
+      <div
+        class="container mx-auto flex flex-col items-center text-sm space-y-4"
+      >
+        <div class="text-center md:text-left">
+          <p>
+            The contents of this site were designed by the Regional English
+            Support Center, Ampara and was funded by the General Education
+            Modernization Project of Ministry of Education Sri Lanka
+          </p>
+        </div>
+        <div
+          class="flex flex-col md:flex-row justify-between items-center w-full space-y-4 md:space-y-0"
+        >
+          <p>&copy; 2025 Twootle English School. All rights reserved.</p>
+          <div class="flex space-x-6">
+            <a
+              href="privacy-policy.html"
+              class="hover:text-blue-300 transition duration-300"
+              >Privacy Policy</a
+            >
+            <a
+              href="terms-of-service.html"
+              class="hover:text-blue-300 transition duration-300"
+              >Terms of Service</a
+            >
+            <a
+              href="contact.html"
+              class="hover:text-blue-300 transition duration-300"
+              >Contact Us</a
+            >
+            <a
+              href="about.html"
+              class="hover:text-blue-300 transition duration-300"
+              >About Us</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

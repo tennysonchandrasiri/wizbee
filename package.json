@@ -2,11 +2,11 @@
   "name": "twootle-desktop",
   "version": "0.7.8",
   "description": "Twootle English School - Desktop Electron App",
-  "main": "electron-main.js",
+  "main": "src/main/electron-main.js",
   "scripts": {
     "start": "electron .",
     "dev": "electron .",
-    "build:css": "tailwindcss -i src/tailwind.css -o tailwind.css --minify",
+    "build:css": "tailwindcss -i src/renderer/input.css -o src/renderer/tailwind.css --config build/tailwind.config.js --minify",
     "package": "electron-builder --dir",
     "dist": "electron-builder",
     "dist:win": "electron-builder --win",
@@ -16,7 +16,7 @@
   "build": {
     "appId": "org.twootle.app",
     "productName": "Twootle",
-    "icon": "src/icon.png",
+    "icon": "src/assets/icon.png",
     "directories": {
       "output": "dist"
     },
@@ -26,7 +26,7 @@
       "!node_modules/.cache"
     ],
     "extraMetadata": {
-      "main": "electron-main.js"
+      "main": "src/main/electron-main.js"
     },
     "mac": {
       "category": "public.app-category.education"
@@ -48,7 +48,7 @@
       "artifactName": "${productName}-${version}-${arch}.${ext}",
       "extraFiles": [
         {
-          "from": "app.manifest",
+          "from": "build/app.manifest",
           "to": "app.manifest"
         }
       ]

@@ -1,5 +1,14 @@
+# Dependencies
 /node_modules
-.env
 
-dist
+# Build artifacts
+/dist
+
+# Mac specific
+.DS_Store
+
+# Media files
 **/media/
+
+# Environment variables
+.env

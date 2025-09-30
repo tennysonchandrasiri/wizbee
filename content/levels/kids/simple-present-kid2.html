@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../src/output.css">
-    <link rel="stylesheet" href="../../twootle-theme.css">
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css">
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css">
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -210,22 +210,22 @@
       const actions = [
         {
           name: "bloom",
-          image: "media/bloom.png",
+          image: "../../../content/media/images/bloom.png",
           sentence: "Flowers bloom in the morning.",
         },
         {
           name: "waters",
-          image: "media/waters.png",
+          image: "../../../content/media/images/waters.png",
           sentence: "She waters the plants every day.",
         },
         {
           name: "reads",
-          image: "media/reads.png",
+          image: "../../../content/media/images/reads.png",
           sentence: "She reads a book in the evening.",
         },
         {
           name: "sing",
-          image: "media/sing.png",
+          image: "../../../content/media/images/sing.png",
           sentence: "The birds sing in the morning.",
         },
       ];
@@ -258,7 +258,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Game Logic ---

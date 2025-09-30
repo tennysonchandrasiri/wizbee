@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -208,32 +208,32 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "This is my house": "media/my-house.mp3",
-        "This is my bed room": "media/my-bedroom.mp3",
-        "This is our kitchen": "media/our-kitchen.mp3",
-        "This is our living room": "media/our-living.mp3",
+        "This is my house": "../../media/audio/my-house.mp3",
+        "This is my bed room": "../../media/audio/my-bedroom.mp3",
+        "This is our kitchen": "../../media/audio/our-kitchen.mp3",
+        "This is our living room": "../../media/audio/our-living.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           name: "my-house",
-          image: "media/my-house.png",
+          image: "../../media/images/my-house.png",
           sentence: "This is my house",
         },
         {
           name: "my-bedroom",
-          image: "media/my-bedroom.png",
+          image: "../../media/images/my-bedroom.png",
           sentence: "This is my bed room",
         },
         {
           name: "our-kitchen",
-          image: "media/our-kitchen.png",
+          image: "../../media/images/our-kitchen.png",
           sentence: "This is our kitchen",
         },
         {
           name: "our-living",
-          image: "media/our-living.png",
+          image: "../../media/images/our-living.png",
           sentence: "This is our living room",
         },
       ];
@@ -409,7 +409,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

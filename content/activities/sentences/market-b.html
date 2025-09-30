@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Correct the Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -212,43 +212,43 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "Mother, I want a lollipop.": "media/lollypop.mp3",
-        "First we buy rice and vegetables.": "media/rice-veges.mp3",
-        "How much money for this rice?": "media/how-much.mp3",
-        "Madam, the rice is 200 rupees.": "media/rice-price.mp3",
+        "Mother, I want a lollipop.": "../../media/audio/lollypop.mp3",
+        "First we buy rice and vegetables.": "../../media/audio/rice-veges.mp3",
+        "How much money for this rice?": "../../media/audio/how-much.mp3",
+        "Madam, the rice is 200 rupees.": "../../media/audio/rice-price.mp3",
         "Good. How much for this basket of vegetables?":
-          "media/basket-fruit.mp3",
+          "../../media/audio/basket-fruit.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           id: "lollypop",
-          image: "media/lollypop.png",
+          image: "../../media/images/lollypop.png",
           correctSentence: "Mother, I want a lollipop.",
           mistakeSentence: "Mother, i want a lollypop.",
         },
         {
           id: "rice-veges",
-          image: "media/rice-veges.png",
+          image: "../../media/images/rice-veges.png",
           correctSentence: "First we buy rice and vegetables.",
           mistakeSentence: "First we buyed rice and vegetabels.",
         },
         {
           id: "how-much",
-          image: "media/how-much.png",
+          image: "../../media/images/how-much.png",
           correctSentence: "How much money for this rice?",
           mistakeSentence: "How much many for this rice.",
         },
         {
           id: "rice-price",
-          image: "media/rice-price.png",
+          image: "../../media/images/rice-price.png",
           correctSentence: "Madam, the rice is 200 rupees.",
           mistakeSentence: "madam, the rice is 200 rupies.",
         },
         {
           id: "basket-fruit",
-          image: "media/basket-fruit.png",
+          image: "../../media/images/basket-fruit.png",
           correctSentence: "Good. How much for this basket of vegetables?",
           mistakeSentence: "Good! how much for this basket of fruit?",
         },
@@ -304,7 +304,7 @@
           itemDiv.dataset.id = action.id;
 
           const img = document.createElement("img");
-          img.src = `media/${action.id}.png`;
+          img.src = `../../media/images/${action.id}.png`;
           img.alt = action.id;
           img.className = "action-image";
           img.onerror = function () {
@@ -423,7 +423,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../src/output.css" />
-    <link rel="stylesheet" href="../../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -208,22 +208,22 @@
       const actions = [
         {
           name: "reading",
-          image: "media/reading.png",
+          image: "../../../content/media/images/reading.png",
           sentence: "The girl is reading a book.",
         },
         {
           name: "playing",
-          image: "media/playing.png",
+          image: "../../../content/media/images/playing.png",
           sentence: "The boy is playing football.",
         },
         {
           name: "walking",
-          image: "media/walking.png",
+          image: "../../../content/media/images/walking.png",
           sentence: "The man is walking the dog.",
         },
         {
           name: "speaking",
-          image: "media/speaking.png",
+          image: "../../../content/media/images/speaking.png",
           sentence: "The woman is speaking loudly.",
         },
       ];
@@ -259,7 +259,7 @@
 
       // Function to close the window.
       function closeWindow() {
-        window.location.href = '../../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Game Logic ---

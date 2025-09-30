@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Drag & Drop Food and Drinks</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -231,12 +231,12 @@
       // Ensure these MP3 files are in your 'media' folder.
       const audioMap = {
         "Can I please have a sandwich and a cup of tea?":
-          "media/sandwich-tea.mp3",
+          "../../media/audio/sandwich-tea.mp3",
         "May I have a pancake and a glass of orange juice, please?":
-          "media/pancake-orange.mp3",
-        "I would like a bun and a cup of tea, please.": "media/bun-tea.mp3",
+          "../../media/audio/pancake-orange.mp3",
+        "I would like a bun and a cup of tea, please.": "../../media/audio/bun-tea.mp3",
         "Can I get a sandwich and a glass of water, please?":
-          "media/sandwich-water.mp3",
+          "../../media/audio/sandwich-water.mp3",
       };
 
       function playAudio(sentence) {
@@ -252,22 +252,22 @@
       const actions = [
         {
           id: "sandwich-tea",
-          image: "media/sandwich-tea.png",
+          image: "../../media/images/sandwich-tea.png",
           sentence: "Can I please have a sandwich and a cup of tea?",
         },
         {
           id: "pancake-orange",
-          image: "media/pancake-orange.png",
+          image: "../../media/images/pancake-orange.png",
           sentence: "May I have a pancake and a glass of orange juice, please?",
         },
         {
           id: "bun-tea",
-          image: "media/bun-tea.png",
+          image: "../../media/images/bun-tea.png",
           sentence: "I would like a bun and a cup of tea, please.",
         },
         {
           id: "sandwich-water",
-          image: "media/sandwich-water.png",
+          image: "../../media/images/sandwich-water.png",
           sentence: "Can I get a sandwich and a glass of water, please?",
         },
       ];
@@ -470,7 +470,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mixed Tense Verb Practice</title>
-    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../src/output.css" />
-    <link rel="stylesheet" href="../../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <link
       rel="stylesheet"
     />
@@ -227,7 +227,7 @@
     </div>
 
     <canvas id="reward-canvas"></canvas>
-    <audio id="success-sound" src="../../Vocabulary/success.mp3" preload="auto"></audio>
+    <audio id="success-sound" src="../../media/audio/success.mp3" preload="auto"></audio>
 
     <script>
       // --- Game Data ---
@@ -701,7 +701,7 @@
       }
 
       // --- Event Listeners ---
-      closeBtn.addEventListener("click", () => window.location.href = '../../index.html');
+      closeBtn.addEventListener("click", () => window.location.href = '../../../src/renderer/index.html');
       checkBtn.addEventListener("click", checkAnswers);
       resetBtn.addEventListener("click", initializeGame);
       window.addEventListener("resize", resizeCanvas);

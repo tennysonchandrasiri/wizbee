@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Correct the Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -212,50 +212,50 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "A desert is a hot, dry place with lots of sand.": "media/desert.mp3",
-        "Mountains are big and tall like giant hills.": "media/mountains.mp3",
-        "The ocean is a big water place where fish live.": "media/ocean.mp3",
-        "The sky is up high and holds clouds and the sun.": "media/sky.mp3",
-        "Land is where we walk, play, and grow plants.": "media/land.mp3",
+        "A desert is a hot, dry place with lots of sand.": "../../media/audio/desert.mp3",
+        "Mountains are big and tall like giant hills.": "../../media/audio/mountains.mp3",
+        "The ocean is a big water place where fish live.": "../../media/audio/ocean.mp3",
+        "The sky is up high and holds clouds and the sun.": "../../media/audio/sky.mp3",
+        "Land is where we walk, play, and grow plants.": "../../media/audio/land.mp3",
         "The solar system is the sun and all the planets around it.":
-          "media/solar-system.mp3",
+          "../../media/audio/solar-system.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           id: "desert",
-          image: "media/desert.png",
+          image: "../../media/images/desert.png",
           correctSentence: "A desert is a hot, dry place with lots of sand.",
           mistakeSentence: "A dessert is a hot, dry place with lots of sand.",
         },
         {
           id: "mountains",
-          image: "media/mountains.png",
+          image: "../../media/images/mountains.png",
           correctSentence: "Mountains are big and tall like giant hills.",
           mistakeSentence: "Mountain are big and tall like jiant hills.",
         },
         {
           id: "ocean",
-          image: "media/ocean.png",
+          image: "../../media/images/ocean.png",
           correctSentence: "The ocean is a big water place where fish live.",
           mistakeSentence: "The occean is a big water place were fish live.",
         },
         {
           id: "sky",
-          image: "media/sky.png",
+          image: "../../media/images/sky.png",
           correctSentence: "The sky is up high and holds clouds and the sun.",
           mistakeSentence: "The sky are up high and hold clouds and the sun.",
         },
         {
           id: "land",
-          image: "media/land.png",
+          image: "../../media/images/land.png",
           correctSentence: "Land is where we walk, play, and grow plants.",
           mistakeSentence: "Lend is where we walk, play, and grow plants.",
         },
         {
           id: "solar-system",
-          image: "media/solar-system.png",
+          image: "../../media/images/solar-system.png",
           correctSentence:
             "The solar system is the sun and all the planets around it.",
           mistakeSentence:
@@ -313,7 +313,7 @@
           itemDiv.dataset.id = action.id;
 
           const img = document.createElement("img");
-          img.src = `media/${action.id}.png`;
+          img.src = `../../media/images/${action.id}.png`;
           img.alt = action.id;
           img.className = "action-image";
           img.onerror = function () {
@@ -432,7 +432,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Correct the Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -212,45 +212,45 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "A desert is a dry place with little rain.": "media/gp-desert.mp3",
-        "The desert has lots of soft sand.": "media/gp-dunes.mp3",
+        "A desert is a dry place with little rain.": "../../media/audio/gp-desert.mp3",
+        "The desert has lots of soft sand.": "../../media/audio/gp-dunes.mp3",
         "An oasis is a green place with water and plants.":
-          "media/gp-oasis.mp3",
+          "../../media/audio/gp-oasis.mp3",
         "Cactuses grow in deserts and keep water inside.":
-          "media/gp-cactus.mp3",
+          "../../media/audio/gp-cactus.mp3",
         "Camels can walk far in the desert without much water.":
-          "media/gp-camel.mp3",
+          "../../media/audio/gp-camel.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           id: "gp-desert",
-          image: "media/gp-desert.png",
+          image: "../../media/images/gp-desert.png",
           correctSentence: "A desert is a dry place with little rain.",
           mistakeSentence: "A desurt is a dry place with little rain.",
         },
         {
           id: "gp-dunes",
-          image: "media/gp-dunes.png",
+          image: "../../media/images/gp-dunes.png",
           correctSentence: "The desert has lots of soft sand.",
           mistakeSentence: "The dessert has lots of soft sand.",
         },
         {
           id: "gp-oasis",
-          image: "media/gp-oasis.png",
+          image: "../../media/images/gp-oasis.png",
           correctSentence: "An oasis is a green place with water and plants.",
           mistakeSentence: "An oisis is a green place with water and plants.",
         },
         {
           id: "gp-cactus",
-          image: "media/gp-cactus.png",
+          image: "../../media/images/gp-cactus.png",
           correctSentence: "Cactuses grow in deserts and keep water inside.",
           mistakeSentence: "Cactuses grows in deserts and keep water inside.",
         },
         {
           id: "gp-camel",
-          image: "media/gp-camel.png",
+          image: "../../media/images/gp-camel.png",
           correctSentence:
             "Camels can walk far in the desert without much water.",
           mistakeSentence:
@@ -308,7 +308,7 @@
           itemDiv.dataset.id = action.id;
 
           const img = document.createElement("img");
-          img.src = `media/${action.id}.png`;
+          img.src = `../../media/images/${action.id}.png`;
           img.alt = action.id;
           img.className = "action-image";
           img.onerror = function () {
@@ -427,7 +427,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

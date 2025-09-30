@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Correct the Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -212,53 +212,53 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "Look! That monkey is jumping from tree to tree!": "media/monkies.mp3",
-        "Wow, these flowers are so bright and colorful!": "media/flowers.mp3",
+        "Look! That monkey is jumping from tree to tree!": "../../media/audio/monkies.mp3",
+        "Wow, these flowers are so bright and colorful!": "../../media/audio/flowers.mp3",
         "See that butterfly? Its wings shine in the sunlight!":
-          "media/butterfly.mp3",
+          "../../media/audio/butterfly.mp3",
         "That big tree looks like it is touching the sky!":
-          "media/big-tree.mp3",
-        "Oh! So many ants are carrying food together.": "media/ants.mp3",
-        "These leaves are in many shapes and colors!": "media/leaves.mp3",
+          "../../media/audio/big-tree.mp3",
+        "Oh! So many ants are carrying food together.": "../../media/audio/ants.mp3",
+        "These leaves are in many shapes and colors!": "../../media/audio/leaves.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           id: "monkies",
-          image: "media/monkies.png",
+          image: "../../media/images/monkies.png",
           correctSentence: "Look! That monkey is jumping from tree to tree!",
           mistakeSentence: "Look! That monkies are jumping from tree to tre!",
         },
         {
           id: "flowers",
-          image: "media/flowers.png",
+          image: "../../media/images/flowers.png",
           correctSentence: "Wow, these flowers are so bright and colorful!",
           mistakeSentence: "Wow, this flowers are so bright and colorfull!",
         },
         {
           id: "butterfly",
-          image: "media/butterfly.png",
+          image: "../../media/images/butterfly.png",
           correctSentence:
             "See that butterfly? Its wings shine in the sunlight!",
           mistakeSentence: "See that butterfly? It wings shine in the sunlite!",
         },
         {
           id: "big-tree",
-          image: "media/big-tree.png",
+          image: "../../media/images/big-tree.png",
           correctSentence: "That big tree looks like it is touching the sky!",
           mistakeSentence:
             "That big tree looking like it is touching the skie!",
         },
         {
           id: "ants",
-          image: "media/ants.png",
+          image: "../../media/images/ants.png",
           correctSentence: "Oh! So many ants are carrying food together.",
           mistakeSentence: "Oh! So much ants is carrying food together.",
         },
         {
           id: "leaves",
-          image: "media/leaves.png",
+          image: "../../media/images/leaves.png",
           correctSentence: "These leaves are in many shapes and colors!",
           mistakeSentence: "Those leaf are in many shapes and color!",
         },
@@ -314,7 +314,7 @@
           itemDiv.dataset.id = action.id;
 
           const img = document.createElement("img");
-          img.src = `media/${action.id}.png`;
+          img.src = `../../media/images/${action.id}.png`;
           img.alt = action.id;
           img.className = "action-image";
           img.onerror = function () {
@@ -433,7 +433,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

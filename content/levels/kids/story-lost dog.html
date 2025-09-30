@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Story Building Game</title>
-    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../src/output.css" />
-    <link rel="stylesheet" href="../../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -230,32 +230,32 @@
       const storySteps = [
         {
           id: 1,
-          image: "media/dog1.png",
+          image: "../../../content/media/images/dog1.png",
           sentence: "A little puppy was lost.",
         },
         {
           id: 2,
-          image: "media/dog2.png",
+          image: "../../../content/media/images/dog2.png",
           sentence: "A kind girl named Lily found him.",
         },
         {
           id: 3,
-          image: "media/dog3.png",
+          image: "../../../content/media/images/dog3.png",
           sentence: "She looked at the tag on his collar.",
         },
         {
           id: 4,
-          image: "media/dog4.png",
+          image: "../../../content/media/images/dog4.png",
           sentence: "Lily called the number on the tag.",
         },
         {
           id: 5,
-          image: "media/dog5.png",
+          image: "../../../content/media/images/dog5.png",
           sentence: "She took the puppy back to his owner.",
         },
         {
           id: 6,
-          image: "media/dog6.png",
+          image: "../../../content/media/images/dog6.png",
           sentence: "The happy puppy licked her hand.",
         },
       ];
@@ -264,7 +264,7 @@
 
       // --- NEW: Window Close Function ---
       function closeWindow() {
-        window.location.href = '../../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Drag and Drop Logic ---

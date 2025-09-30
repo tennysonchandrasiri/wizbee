@@ -5,10 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Correct the Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -213,52 +213,52 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "This is an igloo. People live in it.": "media/uncle-igloo.mp3",
+        "This is an igloo. People live in it.": "../../media/audio/uncle-igloo.mp3",
         "These are Inuits. They live in the North Pole.":
-          "media/uncle-inuits.mp3",
-        "That is a polar bear. It is very strong.": "media/uncle-polar.mp3",
-        "These are reindeer. They pull sleds.": "media/uncle-reindeer.mp3",
+          "../../media/audio/uncle-inuits.mp3",
+        "That is a polar bear. It is very strong.": "../../media/audio/uncle-polar.mp3",
+        "These are reindeer. They pull sleds.": "../../media/audio/uncle-reindeer.mp3",
         "This is sledding. People travel on snow like this.":
-          "media/uncle-sled.mp3",
-        "That is a glacier. It is made of ice.": "media/uncle-glacier.mp3",
+          "../../media/audio/uncle-sled.mp3",
+        "That is a glacier. It is made of ice.": "../../media/audio/uncle-glacier.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           id: "uncle-igloo",
-          image: "media/uncle-igloo.png",
+          image: "../../media/images/uncle-igloo.png",
           correctSentence: "This is an igloo. People live in it.",
           mistakeSentence: "This are an igloo. People live in it.",
         },
         {
           id: "uncle-inuits",
-          image: "media/uncle-inuits.png",
+          image: "../../media/images/uncle-inuits.png",
           correctSentence: "These are Inuits. They live in the North Pole.",
           mistakeSentence: "These are live in the North Pole.",
         },
         {
           id: "uncle-polar",
-          image: "media/uncle-polar.png",
+          image: "../../media/images/uncle-polar.png",
           correctSentence: "That is a polar bear. It is very strong.",
           mistakeSentence: "That are a polar bear. It is very strong.",
         },
         {
           id: "uncle-reindeer",
-          image: "media/uncle-reindeer.png",
+          image: "../../media/images/uncle-reindeer.png",
           correctSentence: "These are reindeer. They pull sleds.",
           mistakeSentence: "This is reindeer. They pull sleds.",
         },
         {
           id: "uncle-sled",
-          image: "media/uncle-sled.png",
+          image: "../../media/images/uncle-sled.png",
           correctSentence: "This is sledding. People travel on snow like this.",
           mistakeSentence:
             "This are sledding. People travel on snow like this.",
         },
         {
           id: "uncle-glacier",
-          image: "media/uncle-glacier.png",
+          image: "../../media/images/uncle-glacier.png",
           correctSentence: "That is a glacier. It is made of ice.",
           mistakeSentence: "That are a glacer. It is made of ice.",
         },
@@ -314,7 +314,7 @@
           itemDiv.dataset.id = action.id;
 
           const img = document.createElement("img");
-          img.src = `media/${action.id}.png`;
+          img.src = `../../media/images/${action.id}.png`;
           img.alt = action.id;
           img.className = "action-image";
           img.onerror = function () {
@@ -433,7 +433,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

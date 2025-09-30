@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Story Building Game</title>
-    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../src/output.css" />
-    <link rel="stylesheet" href="../../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -230,32 +230,32 @@
       const storySteps = [
         {
           id: 1,
-          image: "media/butterfly1.png",
+          image: "../../../content/media/images/butterfly1.png",
           sentence: "A tiny caterpillar sat on a green leaf.",
         },
         {
           id: 2,
-          image: "media/butterfly2.png",
+          image: "../../../content/media/images/butterfly2.png",
           sentence: "He was very, very hungry.",
         },
         {
           id: 3,
-          image: "media/butterfly3.png",
+          image: "../../../content/media/images/butterfly3.png",
           sentence: "He ate the green leaf all day long.",
         },
         {
           id: 4,
-          image: "media/butterfly4.png",
+          image: "../../../content/media/images/butterfly4.png",
           sentence: "Soon, he was a big, fat caterpillar.",
         },
         {
           id: 5,
-          image: "media/butterfly5.png",
+          image: "../../../content/media/images/butterfly5.png",
           sentence: "He built a small house called a chrysalis.",
         },
         {
           id: 6,
-          image: "media/butterfly6.png",
+          image: "../../../content/media/images/butterfly6.png",
           sentence: "He came out as a beautiful butterfly.",
         },
       ];
@@ -290,7 +290,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Drag and Drop Logic ---

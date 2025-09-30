@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../src/output.css" />
-    <link rel="stylesheet" href="../../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -210,22 +210,22 @@
       const actions = [
         {
           name: "drinks",
-          image: "media/drinks.png",
+          image: "../../../content/media/images/drinks.png",
           sentence: "My cat drinks milk.",
         },
         {
           name: "eat",
-          image: "media/eat.png",
+          image: "../../../content/media/images/eat.png",
           sentence: "We eat lunch together.",
         },
         {
           name: "walks",
-          image: "media/walks.png",
+          image: "../../../content/media/images/walks.png",
           sentence: "He walks to school.",
         },
         {
           name: "gets-up",
-          image: "media/gets-up.png",
+          image: "../../../content/media/images/gets-up.png",
           sentence: "He gets up at 6 o’clock.",
         },
       ];
@@ -258,7 +258,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Game Logic ---

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Drag & Drop Greetings</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -228,10 +228,10 @@
       // --- Audio Mapping ---
       // Ensure these MP3 files are in your 'media' folder.
       const audioMap = {
-        "Good morning!": "media/good-morning.mp3",
-        "Good afternoon, teacher": "media/good-afternoon.mp3",
-        "Good evening, aunty": "media/good-evening.mp3",
-        "Good night, mom": "media/good-night.mp3",
+        "Good morning!": "../../media/audio/good-morning.mp3",
+        "Good afternoon, teacher": "../../media/audio/good-afternoon.mp3",
+        "Good evening, aunty": "../../media/audio/good-evening.mp3",
+        "Good night, mom": "../../media/audio/good-night.mp3",
       };
 
       function playAudio(sentence) {
@@ -247,22 +247,22 @@
       const actions = [
         {
           id: "good-morning",
-          image: "media/good-morning.png",
+          image: "../../media/images/good-morning.png",
           sentence: "Good morning!",
         },
         {
           id: "good-afternoon",
-          image: "media/good-afternoon.png",
+          image: "../../media/images/good-afternoon.png",
           sentence: "Good afternoon, teacher",
         },
         {
           id: "good-evening",
-          image: "media/good-evening.png",
+          image: "../../media/images/good-evening.png",
           sentence: "Good evening, aunty",
         },
         {
           id: "good-night",
-          image: "media/good-night.png",
+          image: "../../media/images/good-night.png",
           sentence: "Good night, mom",
         },
       ];
@@ -465,7 +465,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

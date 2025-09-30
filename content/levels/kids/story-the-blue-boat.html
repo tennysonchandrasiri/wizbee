@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Story Building Game - The Blue Boat</title>
-    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../src/output.css" />
-    <link rel="stylesheet" href="../../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -228,42 +228,42 @@
       const storySteps = [
         {
           id: 1,
-          image: "media/blueboat1.png",
+          image: "../../../content/media/images/blueboat1.png",
           sentence:
             "A small, bright blue boat floats gently on a calm, sparkling lake.",
           audio: "media/blueboat1.mp3",
         },
         {
           id: 2,
-          image: "media/blueboat2.png",
+          image: "../../../content/media/images/blueboat2.png",
           sentence:
             "A friendly yellow duck swims up to the little blue boat, quacking hello.",
           audio: "media/blueboat2.mp3",
         },
         {
           id: 3,
-          image: "media/blueboat3.png",
+          image: "../../../content/media/images/blueboat3.png",
           sentence:
             "A little girl with a red hat reaches her hand out to gently touch the duck's soft feathers.",
           audio: "media/blueboat3.mp3",
         },
         {
           id: 4,
-          image: "media/blueboat4.png",
+          image: "../../../content/media/images/blueboat4.png",
           sentence:
             "The little blue boat begins to move slowly across the water, with the duck swimming alongside.",
           audio: "media/blueboat4.mp3",
         },
         {
           id: 5,
-          image: "media/blueboat5.png",
+          image: "../../../content/media/images/blueboat5.png",
           sentence:
             "They pass by some colorful water lilies with big green leaves floating on the surface.",
           audio: "media/blueboat5.mp3",
         },
         {
           id: 6,
-          image: "media/blueboat6.png",
+          image: "../../../content/media/images/blueboat6.png",
           sentence:
             "The little blue boat and the yellow duck return to the shore as the sun begins to set, painting the sky with orange and pink.",
           audio: "media/blueboat6.mp3",
@@ -300,7 +300,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Drag and Drop Logic ---

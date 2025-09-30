@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Correct the Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -212,44 +212,44 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "We saw big waves splashing near the boat!": "media/waves.mp3",
-        "I found a shiny sea-shell on the beach.": "media/sea-shells.mp3",
+        "We saw big waves splashing near the boat!": "../../media/audio/waves.mp3",
+        "I found a shiny sea-shell on the beach.": "../../media/audio/sea-shells.mp3",
         "A dolphin jumped out of the water—it was amazing!":
-          "media/dolphin.mp3",
+          "../../media/audio/dolphin.mp3",
         "We dived into the sea and swam near coral reefs.":
-          "media/coral-reefs.mp3",
-        "An octopus peeked out from behind a rock!": "media/octopus.mp3",
+          "../../media/audio/coral-reefs.mp3",
+        "An octopus peeked out from behind a rock!": "../../media/audio/octopus.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           id: "waves",
-          image: "media/waves.png",
+          image: "../../media/images/waves.png",
           correctSentence: "We saw big waves splashing near the boat!",
           mistakeSentence: "We see big waves splaching near the boat!",
         },
         {
           id: "sea-shells",
-          image: "media/sea-shells.png",
+          image: "../../media/images/sea-shells.png",
           correctSentence: "I found a shiny sea-shell on the beach.",
           mistakeSentence: "I finds a shiny sea-sheel on the beach.",
         },
         {
           id: "dolphin",
-          image: "media/dolphin.png",
+          image: "../../media/images/dolphin.png",
           correctSentence: "A dolphin jumped out of the water—it was amazing!",
           mistakeSentence: "A dolphin jump out of the water—it was amazing!",
         },
         {
           id: "coral-reefs",
-          image: "media/coral-reefs.png",
+          image: "../../media/images/coral-reefs.png",
           correctSentence: "We dived into the sea and swam near coral reefs.",
           mistakeSentence: "We dive into the sea and swum near coral reafs.",
         },
         {
           id: "octopus",
-          image: "media/octopus.png",
+          image: "../../media/images/octopus.png",
           correctSentence: "An octopus peeked out from behind a rock!",
           mistakeSentence: "An octopus peek out from behaind a rock!",
         },
@@ -305,7 +305,7 @@
           itemDiv.dataset.id = action.id;
 
           const img = document.createElement("img");
-          img.src = `media/${action.id}.png`;
+          img.src = `../../media/images/${action.id}.png`;
           img.alt = action.id;
           img.className = "action-image";
           img.onerror = function () {
@@ -424,7 +424,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Drag & Drop Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -227,10 +227,10 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "Kick the ball!": "media/kick.mp3",
-        "Catch the ball!": "media/catch.mp3",
-        "Hit the ball!": "media/hit.mp3",
-        "Throw the ball!": "media/throw.mp3",
+        "Kick the ball!": "../../media/audio/kick.mp3",
+        "Catch the ball!": "../../media/audio/catch.mp3",
+        "Hit the ball!": "../../media/audio/hit.mp3",
+        "Throw the ball!": "../../media/audio/throw.mp3",
       };
 
       function playAudio(sentence) {
@@ -245,22 +245,22 @@
       const actions = [
         {
           id: "kick",
-          image: "media/kick.png",
+          image: "../../media/images/kick.png",
           sentence: "Kick the ball!",
         },
         {
           id: "catch",
-          image: "media/catch.png",
+          image: "../../media/images/catch.png",
           sentence: "Catch the ball!",
         },
         {
           id: "hit",
-          image: "media/hit.png",
+          image: "../../media/images/hit.png",
           sentence: "Hit the ball!",
         },
         {
           id: "throw",
-          image: "media/throw.png",
+          image: "../../media/images/throw.png",
           sentence: "Throw the ball!",
         },
       ];
@@ -463,7 +463,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

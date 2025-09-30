@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -208,32 +208,32 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "I brush my teeth in the morning and at night.": "media/my-brush.mp3",
-        "I dry my hands and face with a towel.": "media/my-towel.mp3",
-        "I look in the mirror.": "media/my-mirror.mp3",
-        "I wear slippers in the bathroom.": "media/my-slippers.mp3",
+        "I brush my teeth in the morning and at night.": "../../media/audio/my-brush.mp3",
+        "I dry my hands and face with a towel.": "../../media/audio/my-towel.mp3",
+        "I look in the mirror.": "../../media/audio/my-mirror.mp3",
+        "I wear slippers in the bathroom.": "../../media/audio/my-slippers.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           name: "my-brush",
-          image: "media/my-brush.png",
+          image: "../../media/images/my-brush.png",
           sentence: "I brush my teeth in the morning and at night.",
         },
         {
           name: "my-towel",
-          image: "media/my-towel.png",
+          image: "../../media/images/my-towel.png",
           sentence: "I dry my hands and face with a towel.",
         },
         {
           name: "my-mirror",
-          image: "media/my-mirror.png",
+          image: "../../media/images/my-mirror.png",
           sentence: "I look in the mirror.",
         },
         {
           name: "my-slippers",
-          image: "media/my-slippers.png",
+          image: "../../media/images/my-slippers.png",
           sentence: "I wear slippers in the bathroom.",
         },
       ];
@@ -408,7 +408,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

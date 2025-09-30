@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -208,38 +208,38 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "This is my mother.": "media/my-mother.mp3",
-        "This is my father.": "media/my-father.mp3",
-        "This is my sister.": "media/my-sister.mp3",
-        "This is my brother.": "media/my-brother.mp3",
-        "This is my family.": "media/my-family.mp3",
+        "This is my mother.": "../../media/audio/my-mother.mp3",
+        "This is my father.": "../../media/audio/my-father.mp3",
+        "This is my sister.": "../../media/audio/my-sister.mp3",
+        "This is my brother.": "../../media/audio/my-brother.mp3",
+        "This is my family.": "../../media/audio/my-family.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           name: "my-mother",
-          image: "media/my-mother.png",
+          image: "../../media/images/my-mother.png",
           sentence: "This is my mother.",
         },
         {
           name: "my-father",
-          image: "media/my-father.png",
+          image: "../../media/images/my-father.png",
           sentence: "This is my father.",
         },
         {
           name: "my-sister",
-          image: "media/my-sister.png",
+          image: "../../media/images/my-sister.png",
           sentence: "This is my sister.",
         },
         {
           name: "my-brother",
-          image: "media/my-brother.png",
+          image: "../../media/images/my-brother.png",
           sentence: "This is my brother.",
         },
         {
           name: "my-family",
-          image: "media/my-family.png",
+          image: "../../media/images/my-family.png",
           sentence: "This is my family.",
         },
       ];
@@ -414,7 +414,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

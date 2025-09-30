@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../src/output.css">
-    <link rel="stylesheet" href="../../twootle-theme.css">
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css">
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css">
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -238,22 +238,22 @@
       const actions = [
         {
           name: "cooks",
-          image: "media/cooks.png",
+          image: "../../../content/media/images/cooks.png",
           sentence: "My mother cooks delicious meals.",
         },
         {
           name: "play",
-          image: "media/play.png",
+          image: "../../../content/media/images/play.png",
           sentence: "They play cricket in the afternoon.",
         },
         {
           name: "rises",
-          image: "media/rises.png",
+          image: "../../../content/media/images/rises.png",
           sentence: "The sun rises in the east.",
         },
         {
           name: "works",
-          image: "media/works.png",
+          image: "../../../content/media/images/works.png",
           sentence: "The farmer works on the farm all day.",
         },
       ];
@@ -434,7 +434,7 @@
       checkBtn.addEventListener("click", checkAnswers);
       tryAgainBtn.addEventListener("click", resetGame);
       closeBtn.addEventListener("click", () => {
-        window.location.href = '../../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       });
       window.addEventListener("resize", resizeCanvas);
 

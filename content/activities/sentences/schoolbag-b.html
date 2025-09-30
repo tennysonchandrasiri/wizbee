@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Drag & Drop Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -227,10 +227,10 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "Put your water bottle in your bag": "media/put-water-bottle.mp3",
-        "Put your umbrella in your bag": "media/put-umbrella.mp3",
-        "Put your lunch box in your bag": "media/put-lunch-box.mp3",
-        "Put your pencil case in your bag": "media/put-pencil-case.mp3",
+        "Put your water bottle in your bag": "../../media/audio/put-water-bottle.mp3",
+        "Put your umbrella in your bag": "../../media/audio/put-umbrella.mp3",
+        "Put your lunch box in your bag": "../../media/audio/put-lunch-box.mp3",
+        "Put your pencil case in your bag": "../../media/audio/put-pencil-case.mp3",
       };
 
       function playAudio(sentence) {
@@ -245,22 +245,22 @@
       const actions = [
         {
           id: "water-bottle",
-          image: "media/put-water-bottle.png",
+          image: "../../media/images/put-water-bottle.png",
           sentence: "Put your water bottle in your bag",
         },
         {
           id: "umbrella",
-          image: "media/put-umbrella.png",
+          image: "../../media/images/put-umbrella.png",
           sentence: "Put your umbrella in your bag",
         },
         {
           id: "lunch-box",
-          image: "media/put-lunch-box.png",
+          image: "../../media/images/put-lunch-box.png",
           sentence: "Put your lunch box in your bag",
         },
         {
           id: "pencil-case",
-          image: "media/put-pencil-case.png",
+          image: "../../media/images/put-pencil-case.png",
           sentence: "Put your pencil case in your bag",
         },
       ];
@@ -463,7 +463,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

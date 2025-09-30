@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -208,33 +208,33 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "Be careful with the knife.": "media/mother-knife.mp3",
-        "Take a plate and put your food on it.": "media/mother-plate.mp3",
-        "Use the spoon to eat your food.": "media/mother-spoon.mp3",
+        "Be careful with the knife.": "../../media/audio/mother-knife.mp3",
+        "Take a plate and put your food on it.": "../../media/audio/mother-plate.mp3",
+        "Use the spoon to eat your food.": "../../media/audio/mother-spoon.mp3",
         "Take what you need from the fridge and close it.":
-          "media/mother-fridge.mp3",
+          "../../media/audio/mother-fridge.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           name: "mother-knife",
-          image: "media/mother-knife.png",
+          image: "../../media/images/mother-knife.png",
           sentence: "Be careful with the knife.",
         },
         {
           name: "mother-plate",
-          image: "media/mother-plate.png",
+          image: "../../media/images/mother-plate.png",
           sentence: "Take a plate and put your food on it.",
         },
         {
           name: "mother-spoon",
-          image: "media/mother-spoon.png",
+          image: "../../media/images/mother-spoon.png",
           sentence: "Use the spoon to eat your food.",
         },
         {
           name: "mother-fridge",
-          image: "media/mother-fridge.png",
+          image: "../../media/images/mother-fridge.png",
           sentence: "Take what you need from the fridge and close it.",
         },
       ];
@@ -409,7 +409,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

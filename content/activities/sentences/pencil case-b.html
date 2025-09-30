@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Drag & Drop Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -227,10 +227,10 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "This is my pencil.": "media/my-pencil.mp3",
-        "This is my ruler.": "media/my-ruler.mp3",
-        "This is my eraser.": "media/my-eraser.mp3",
-        "This is my pen.": "media/my-pen.mp3",
+        "This is my pencil.": "../../media/audio/my-pencil.mp3",
+        "This is my ruler.": "../../media/audio/my-ruler.mp3",
+        "This is my eraser.": "../../media/audio/my-eraser.mp3",
+        "This is my pen.": "../../media/audio/my-pen.mp3",
       };
 
       function playAudio(sentence) {
@@ -245,22 +245,22 @@
       const actions = [
         {
           id: "pencil",
-          image: "media/my-pencil.png",
+          image: "../../media/images/my-pencil.png",
           sentence: "This is my pencil.",
         },
         {
           id: "ruler",
-          image: "media/my-ruler.png",
+          image: "../../media/images/my-ruler.png",
           sentence: "This is my ruler.",
         },
         {
           id: "eraser",
-          image: "media/my-eraser.png",
+          image: "../../media/images/my-eraser.png",
           sentence: "This is my eraser.",
         },
         {
           id: "pen",
-          image: "media/my-pen.png",
+          image: "../../media/images/my-pen.png",
           sentence: "This is my pen.",
         },
       ];
@@ -463,7 +463,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

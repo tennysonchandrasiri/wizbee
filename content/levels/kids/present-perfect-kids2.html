@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../src/output.css">
-    <link rel="stylesheet" href="../../twootle-theme.css">
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css">
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css">
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -216,32 +216,32 @@
       const actions = [
         {
           name: "boy_made_kite",
-          image: "media/made.png",
+          image: "../../../content/media/images/made.png",
           sentence: "The boy has made a kite.",
         },
         {
           name: "eaten_breakfast",
-          image: "media/eaten.png",
+          image: "../../../content/media/images/eaten.png",
           sentence: "They have eaten breakfast.",
         },
         {
           name: "boy_painted_picture",
-          image: "media/painted.png",
+          image: "../../../content/media/images/painted.png",
           sentence: "The boy has painted a picture.",
         },
         {
           name: "done_homework",
-          image: "media/done.png",
+          image: "../../../content/media/images/done.png",
           sentence: "He has done homework.",
         },
         {
           name: "made_cake",
-          image: "media/made-cake.png",
+          image: "../../../content/media/images/made-cake.png",
           sentence: "She has made a cake.",
         },
         {
           name: "cooked_dinner",
-          image: "media/cooked.png",
+          image: "../../../content/media/images/cooked.png",
           sentence: "The had cooked dinner.",
         },
       ];
@@ -277,7 +277,7 @@
 
       // Function to close the window.
       function closeWindow() {
-        window.location.href = '../../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Game Logic ---

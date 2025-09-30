@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Correct the Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -212,49 +212,49 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "Put the backpacks on the ground here.": "media/backpacks.mp3",
-        "Keep the tents near the big tree.": "media/tents.mp3",
-        "Place the torches inside the box.": "media/torches.mp3",
-        "Keep the first aid box on the table.": "media/firstaids.mp3",
-        "Put the dried wood near the fireplace.": "media/campfire.mp3",
-        "Arrange all the items neatly in one place.": "media/place-things.mp3",
+        "Put the backpacks on the ground here.": "../../media/audio/backpacks.mp3",
+        "Keep the tents near the big tree.": "../../media/audio/tents.mp3",
+        "Place the torches inside the box.": "../../media/audio/torches.mp3",
+        "Keep the first aid box on the table.": "../../media/audio/firstaids.mp3",
+        "Put the dried wood near the fireplace.": "../../media/audio/campfire.mp3",
+        "Arrange all the items neatly in one place.": "../../media/audio/place-things.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           id: "backpacks",
-          image: "media/backpacks.png",
+          image: "../../media/images/backpacks.png",
           correctSentence: "Put the backpacks on the ground here.",
           mistakeSentence: "Put the backpackes in the ground here.",
         },
         {
           id: "tents",
-          image: "media/tents.png",
+          image: "../../media/images/tents.png",
           correctSentence: "Keep the tents near the big tree.",
           mistakeSentence: "Kept the tents near the big tre.",
         },
         {
           id: "torches",
-          image: "media/torches.png",
+          image: "../../media/images/torches.png",
           correctSentence: "Place the torches inside the box.",
           mistakeSentence: "Place the torces onside the box.",
         },
         {
           id: "firstaids",
-          image: "media/firstaids.png",
+          image: "../../media/images/firstaids.png",
           correctSentence: "Keep the first aid box on the table.",
           mistakeSentence: "Keep the firstaide box in the table.",
         },
         {
           id: "campfire",
-          image: "media/campfire.png",
+          image: "../../media/images/campfire.png",
           correctSentence: "Put the dried wood near the fireplace.",
           mistakeSentence: "Put the dried wood near the fireplece.",
         },
         {
           id: "place-things",
-          image: "media/place-things.png",
+          image: "../../media/images/place-things.png",
           correctSentence: "Arrange all the items neatly in one place.",
           mistakeSentence: "Arrange all the items neatli in one place.",
         },
@@ -310,7 +310,7 @@
           itemDiv.dataset.id = action.id;
 
           const img = document.createElement("img");
-          img.src = `media/${action.id}.png`;
+          img.src = `../../media/images/${action.id}.png`;
           img.alt = action.id;
           img.className = "action-image";
           img.onerror = function () {
@@ -429,7 +429,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

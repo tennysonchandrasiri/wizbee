@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -208,32 +208,32 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "This is our garden": "media/our-garden.mp3",
-        "This is a mango tree": "media/our-mango-tree.mp3",
-        "I pick flowers": "media/pick-flowers.mp3",
-        "I water the plants": "media/water-plants.mp3",
+        "This is our garden": "../../media/audio/our-garden.mp3",
+        "This is a mango tree": "../../media/audio/our-mango-tree.mp3",
+        "I pick flowers": "../../media/audio/pick-flowers.mp3",
+        "I water the plants": "../../media/audio/water-plants.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           name: "our-garden",
-          image: "media/our-garden.png",
+          image: "../../media/images/our-garden.png",
           sentence: "This is our garden",
         },
         {
           name: "our-mango-tree",
-          image: "media/our-mango-tree.png",
+          image: "../../media/images/our-mango-tree.png",
           sentence: "This is a mango tree",
         },
         {
           name: "pick-flowers",
-          image: "media/pick-flowers.png",
+          image: "../../media/images/pick-flowers.png",
           sentence: "I pick flowers",
         },
         {
           name: "water-plants",
-          image: "media/water-plants.png",
+          image: "../../media/images/water-plants.png",
           sentence: "I water the plants",
         },
       ];
@@ -409,7 +409,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

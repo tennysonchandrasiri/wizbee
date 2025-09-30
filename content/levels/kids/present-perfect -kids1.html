@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../../src/output.css">
-    <link rel="stylesheet" href="../../twootle-theme.css">
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css">
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css">
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -216,32 +216,32 @@
       const actions = [
         {
           name: "broken_glass",
-          image: "media/has_broken.png",
+          image: "../../../content/media/images/has_broken.png",
           sentence: "The girl has broken the glass.",
         },
         {
           name: "fallen_boy",
-          image: "media/has_fallen.png",
+          image: "../../../content/media/images/has_fallen.png",
           sentence: "The boy has fallen from the bicycle.",
         },
         {
           name: "caught_thief",
-          image: "media/has_caught.png",
+          image: "../../../content/media/images/has_caught.png",
           sentence: "The police has caught the thief.",
         },
         {
           name: "torn_newspaper",
-          image: "media/has_torn.png",
+          image: "../../../content/media/images/has_torn.png",
           sentence: "The dog has torn the newspaper.",
         },
         {
           name: "spilled_milk",
-          image: "media/has_spilled.png",
+          image: "../../../content/media/images/has_spilled.png",
           sentence: "The baby has spilled the milk.",
         },
         {
           name: "drawn_wall",
-          image: "media/has_drawn.png",
+          image: "../../../content/media/images/has_drawn.png",
           sentence: "The boy has drawn on the wall.",
         },
       ];
@@ -277,7 +277,7 @@
 
       // Function to close the window.
       function closeWindow() {
-        window.location.href = '../../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Game Logic ---

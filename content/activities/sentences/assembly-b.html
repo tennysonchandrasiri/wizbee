@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Drag & Drop Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -235,10 +235,10 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "Amma, Tharaka sang a song.": "media/song.mp3",
-        "Madumee talked about good habits.": "media/speech.mp3",
-        "The teachers clapped.": "media/clap.mp3",
-        "The principal said good.": "media/thank.mp3",
+        "Amma, Tharaka sang a song.": "../../media/audio/song.mp3",
+        "Madumee talked about good habits.": "../../media/audio/speech.mp3",
+        "The teachers clapped.": "../../media/audio/clap.mp3",
+        "The principal said good.": "../../media/audio/thank.mp3",
       };
 
       function playAudio(sentence) {
@@ -253,22 +253,22 @@
       const actions = [
         {
           id: "song",
-          image: "media/speech.png",
+          image: "../../media/images/speech.png",
           sentence: "Amma, Tharaka sang a song.",
         },
         {
           id: "speech",
-          image: "media/song.png",
+          image: "../../media/images/song.png",
           sentence: "Madumee talked about good habits.",
         },
         {
           id: "clap",
-          image: "media/clap.png",
+          image: "../../media/images/clap.png",
           sentence: "The teachers clapped.",
         },
         {
           id: "thank",
-          image: "media/thank.png",
+          image: "../../media/images/thank.png",
           sentence: "The principal said good.",
         },
       ];
@@ -469,7 +469,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

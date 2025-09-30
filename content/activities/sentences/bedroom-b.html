@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sentence Scramble Game</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -208,32 +208,32 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "I do my homework and draw pictures on my table.": "media/my-table.mp3",
-        "I sleep on my bed.": "media/my-bed.mp3",
-        "I wipe my feet on the door mat.": "media/my-doormat.mp3",
-        "I switch on my lamp to read books at night.": "media/my-lamp.mp3",
+        "I do my homework and draw pictures on my table.": "../../media/audio/my-table.mp3",
+        "I sleep on my bed.": "../../media/audio/my-bed.mp3",
+        "I wipe my feet on the door mat.": "../../media/audio/my-doormat.mp3",
+        "I switch on my lamp to read books at night.": "../../media/audio/my-lamp.mp3",
       };
 
       // --- Game State ---
       const actions = [
         {
           name: "my-table",
-          image: "media/my-table.png",
+          image: "../../media/images/my-table.png",
           sentence: "I do my homework and draw pictures on my table.",
         },
         {
           name: "my-bed",
-          image: "media/my-bed.png",
+          image: "../../media/images/my-bed.png",
           sentence: "I sleep on my bed.",
         },
         {
           name: "my-doormat",
-          image: "media/my-doormat.png",
+          image: "../../media/images/my-doormat.png",
           sentence: "I wipe my feet on the door mat.",
         },
         {
           name: "my-lamp",
-          image: "media/my-lamp.png",
+          image: "../../media/images/my-lamp.png",
           sentence: "I switch on my lamp to read books at night.",
         },
       ];
@@ -408,7 +408,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

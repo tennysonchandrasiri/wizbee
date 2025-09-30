@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chore Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -209,10 +209,10 @@
       // --- Audio Mapping ---
       // This object maps the correct sentence to its corresponding MP3 file.
       const audioMap = {
-        "I’m cleaning the windows.": "media/cleaning.mp3",
-        "I’m painting the walls.": "media/painting.mp3",
-        "I’m dusting the tables and chairs.": "media/dusting.mp3",
-        "I’m sweeping the floor.": "media/sweeping.mp3",
+        "I’m cleaning the windows.": "../../media/audio/cleaning.mp3",
+        "I’m painting the walls.": "../../media/audio/painting.mp3",
+        "I’m dusting the tables and chairs.": "../../media/audio/dusting.mp3",
+        "I’m sweeping the floor.": "../../media/audio/sweeping.mp3",
       };
 
       // --- Game State ---
@@ -221,22 +221,22 @@
       const actions = [
         {
           name: "cleaning",
-          image: "media/cleaning.png",
+          image: "../../media/images/cleaning.png",
           sentence: "I’m cleaning the windows.",
         },
         {
           name: "painting",
-          image: "media/painting.png",
+          image: "../../media/images/painting.png",
           sentence: "I’m painting the walls.",
         },
         {
           name: "dusting",
-          image: "media/dusting.png",
+          image: "../../media/images/dusting.png",
           sentence: "I’m dusting the tables and chairs.",
         },
         {
           name: "sweeping",
-          image: "media/sweeping.png",
+          image: "../../media/images/sweeping.png",
           sentence: "I’m sweeping the floor.",
         },
       ];
@@ -411,7 +411,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

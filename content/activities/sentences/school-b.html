@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Drag & Drop Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -228,13 +228,13 @@
       // --- Audio Mapping ---
       const audioMap = {
         "“This is our assembly hall. We gather here every morning.”":
-          "media/assembly-hall.mp3",
+          "../../media/audio/assembly-hall.mp3",
         "“This is the playground. You can play here with your friends.”":
-          "media/playground.mp3",
+          "../../media/audio/playground.mp3",
         "“This is the canteen. You can buy food and drinks here.”":
-          "media/canteen.mp3",
+          "../../media/audio/canteen.mp3",
         "“This is the principal’s office. The principal works here.”":
-          "media/principals-office.mp3",
+          "../../media/audio/principals-office.mp3",
       };
 
       function playAudio(sentence) {
@@ -249,24 +249,24 @@
       const actions = [
         {
           id: "assembly-hall",
-          image: "media/assembly-hall.png",
+          image: "../../media/images/assembly-hall.png",
           sentence:
             "“This is our assembly hall. We gather here every morning.”",
         },
         {
           id: "playground",
-          image: "media/playground.png",
+          image: "../../media/images/playground.png",
           sentence:
             "“This is the playground. You can play here with your friends.”",
         },
         {
           id: "canteen",
-          image: "media/canteen.png",
+          image: "../../media/images/canteen.png",
           sentence: "“This is the canteen. You can buy food and drinks here.”",
         },
         {
           id: "principals-office",
-          image: "media/principals-office.png",
+          image: "../../media/images/principals-office.png",
           sentence:
             "“This is the principal’s office. The principal works here.”",
         },
@@ -470,7 +470,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Drag & Drop Sentences</title>
-    <link rel="preload" href="../fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="../fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../src/output.css" />
-    <link rel="stylesheet" href="../twootle-theme.css" />
+    <link rel="preload" href="../../../src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../src/assets/fonts/BubblegumSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../../../src/renderer/output.css" />
+    <link rel="stylesheet" href="../../../src/renderer/twootle-theme.css" />
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -227,11 +227,11 @@
 
       // --- Audio Mapping ---
       const audioMap = {
-        "This smartboard helps you learn lessons .": "media/t-smartboard.mp3",
-        "These chairs help you sit and study.": "media/t-chairs.mp3",
-        "This timetable helps you know each subject.": "media/t-timetable.mp3",
+        "This smartboard helps you learn lessons .": "../../media/audio/t-smartboard.mp3",
+        "These chairs help you sit and study.": "../../media/audio/t-chairs.mp3",
+        "This timetable helps you know each subject.": "../../media/audio/t-timetable.mp3",
         "These tables help you keep your books and write.":
-          "media/t-tables.mp3",
+          "../../media/audio/t-tables.mp3",
       };
 
       function playAudio(sentence) {
@@ -246,22 +246,22 @@
       const actions = [
         {
           id: "smartboard",
-          image: "media/t-smartboard.png",
+          image: "../../media/images/t-smartboard.png",
           sentence: "This smartboard helps you learn lessons .",
         },
         {
           id: "chairs",
-          image: "media/t-chairs.png",
+          image: "../../media/images/t-chairs.png",
           sentence: "These chairs help you sit and study.",
         },
         {
           id: "timetable",
-          image: "media/t-timetable.png",
+          image: "../../media/images/t-timetable.png",
           sentence: "This timetable helps you know each subject.",
         },
         {
           id: "tables",
-          image: "media/t-tables.png",
+          image: "../../media/images/t-tables.png",
           sentence: "These tables help you keep your books and write.",
         },
       ];
@@ -464,7 +464,7 @@
       }
 
       function closeWindow() {
-        window.location.href = '../index.html';
+        window.location.href = '../../../src/renderer/index.html';
       }
 
       // --- Event Listeners ---

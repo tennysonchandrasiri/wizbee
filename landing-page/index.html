@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wizbee English School - Download</title>
+    <meta name="description" content="Download Wizbee English School - Interactive English learning app for kids. Available for Windows and Mac." />
+    <link rel="icon" type="image/png" href="../src/assets/icon.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              honey: {
+                50: '#FFF8E1',
+                100: '#FFECB3',
+                200: '#FFE082',
+                300: '#FFD54F',
+                400: '#FFCA28',
+                500: '#FFC107',
+                600: '#FFB300',
+                700: '#FFA000',
+                800: '#FF8F00',
+                900: '#FF6F00',
+              },
+              pooh: {
+                brown: '#795548',
+                darkBrown: '#5D4037',
+              }
+            },
+            fontFamily: {
+              'bubblegum': ['"Bubblegum Sans"', 'cursive'],
+              'inter': ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .title-font {
+        font-family: 'Bubblegum Sans', cursive;
+      }
+      .honeycomb-bg {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffc107' fill-opacity='0.08'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+      .bee-float {
+        animation: float 3s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-honey-50 honeycomb-bg" x-data="{ showModal: false, platform: '' }">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-honey-600 via-honey-500 to-honey-600 text-gray-800 shadow-lg">
+      <div class="container mx-auto px-4 py-6">
+        <div class="flex items-center justify-center gap-4">
+          <img src="../src/assets/icon.png" alt="Wizbee Mascot" class="w-16 h-16 bee-float" />
+          <div class="text-center">
+            <h1 class="title-font text-4xl md:text-5xl font-bold text-white drop-shadow-md">
+              Wizbee English School
+            </h1>
+            <p class="text-lg mt-1 font-medium italic text-honey-900 opacity-90">
+              The eye to see the world through
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="container mx-auto px-4 py-12">
+      <div class="max-w-4xl mx-auto">
+        <!-- Hero Card -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-honey-200">
+          <div class="bg-gradient-to-br from-honey-100 to-honey-50 p-8 md:p-12 text-center">
+            <div class="mb-6">
+              <span class="text-6xl">🐝</span>
+            </div>
+            <h2 class="title-font text-3xl md:text-4xl text-honey-800 mb-4">
+              Learn English the Fun Way!
+            </h2>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto mb-8">
+              Interactive vocabulary games, engaging stories, and grammar exercises designed especially for young learners. Start your child's English journey today!
+            </p>
+            
+            <!-- Download Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <!-- Windows Download -->
+              <a href="https://github.com/tennysonchandrasiri/wizbee/releases/latest/download/Wizbee-Setup.exe" 
+                 class="group flex items-center gap-3 bg-gradient-to-r from-honey-500 to-honey-600 hover:from-honey-600 hover:to-honey-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+                </svg>
+                <div class="text-left">
+                  <div class="text-sm opacity-90">Download for</div>
+                  <div class="text-xl">Windows</div>
+                </div>
+              </a>
+
+              <!-- Mac Download -->
+              <a href="https://github.com/tennysonchandrasiri/wizbee/releases/latest/download/Wizbee.dmg" 
+                 class="group flex items-center gap-3 bg-gradient-to-r from-pooh-brown to-pooh-darkBrown hover:from-pooh-darkBrown hover:to-gray-800 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                <div class="text-left">
+                  <div class="text-sm opacity-90">Download for</div>
+                  <div class="text-xl">macOS</div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Version Info -->
+            <p class="text-gray-500 text-sm mt-6">
+              Version 0.7.8 | Free for everyone
+            </p>
+          </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-xl shadow-md border border-honey-100 hover:shadow-lg transition-shadow">
+            <div class="text-4xl mb-4">📚</div>
+            <h3 class="title-font text-xl text-honey-700 mb-2">Interactive Lessons</h3>
+            <p class="text-gray-600">Vocabulary building, sentence construction, and grammar exercises made fun!</p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-md border border-honey-100 hover:shadow-lg transition-shadow">
+            <div class="text-4xl mb-4">📖</div>
+            <h3 class="title-font text-xl text-honey-700 mb-2">Engaging Stories</h3>
+            <p class="text-gray-600">Classic tales and original stories to develop reading comprehension.</p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-md border border-honey-100 hover:shadow-lg transition-shadow">
+            <div class="text-4xl mb-4">🎮</div>
+            <h3 class="title-font text-xl text-honey-700 mb-2">Learning Games</h3>
+            <p class="text-gray-600">Sorting games, picture descriptions, and interactive quizzes.</p>
+          </div>
+        </div>
+
+        <!-- Screenshots/Preview -->
+        <div class="mt-12 bg-white p-8 rounded-xl shadow-md border border-honey-100">
+          <h3 class="title-font text-2xl text-center text-honey-700 mb-6">What's Inside?</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="p-4 bg-honey-50 rounded-lg">
+              <span class="text-3xl">🏫</span>
+              <p class="text-sm text-gray-600 mt-2">School Topics</p>
+            </div>
+            <div class="p-4 bg-honey-50 rounded-lg">
+              <span class="text-3xl">🏠</span>
+              <p class="text-sm text-gray-600 mt-2">Home & Family</p>
+            </div>
+            <div class="p-4 bg-honey-50 rounded-lg">
+              <span class="text-3xl">🌳</span>
+              <p class="text-sm text-gray-600 mt-2">Environment</p>
+            </div>
+            <div class="p-4 bg-honey-50 rounded-lg">
+              <span class="text-3xl">✍️</span>
+              <p class="text-sm text-gray-600 mt-2">Grammar</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Requirements -->
+        <div class="mt-12 bg-white p-8 rounded-xl shadow-md border border-honey-100" x-data="{ tab: 'windows' }">
+          <h3 class="title-font text-2xl text-center text-honey-700 mb-6">System Requirements</h3>
+          
+          <!-- Tabs -->
+          <div class="flex justify-center gap-4 mb-6">
+            <button @click="tab = 'windows'" 
+                    :class="tab === 'windows' ? 'bg-honey-500 text-white' : 'bg-honey-100 text-honey-700'"
+                    class="px-6 py-2 rounded-lg font-medium transition-colors">
+              Windows
+            </button>
+            <button @click="tab = 'mac'" 
+                    :class="tab === 'mac' ? 'bg-pooh-brown text-white' : 'bg-honey-100 text-honey-700'"
+                    class="px-6 py-2 rounded-lg font-medium transition-colors">
+              macOS
+            </button>
+          </div>
+
+          <!-- Windows Requirements -->
+          <div x-show="tab === 'windows'" class="text-gray-600">
+            <ul class="space-y-2">
+              <li class="flex items-center gap-2">
+                <span class="text-honey-500">&#10003;</span> Windows 10 or later (64-bit or 32-bit)
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-honey-500">&#10003;</span> 4 GB RAM minimum
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-honey-500">&#10003;</span> 500 MB available disk space
+              </li>
+            </ul>
+          </div>
+
+          <!-- Mac Requirements -->
+          <div x-show="tab === 'mac'" class="text-gray-600">
+            <ul class="space-y-2">
+              <li class="flex items-center gap-2">
+                <span class="text-honey-500">&#10003;</span> macOS 10.13 (High Sierra) or later
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-honey-500">&#10003;</span> Apple Silicon or Intel processor
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-honey-500">&#10003;</span> 4 GB RAM minimum
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-honey-500">&#10003;</span> 500 MB available disk space
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+      <div class="container mx-auto px-4">
+        <div class="text-center space-y-4">
+          <p class="text-gray-400 text-sm">
+            The contents of this app were designed by the Regional English Support Center, Ampara<br>
+            and was funded by the General Education Modernization Project of Ministry of Education Sri Lanka
+          </p>
+          <div class="flex justify-center gap-6 text-sm">
+            <a href="../docs/privacy-policy.html" class="text-honey-400 hover:text-honey-300 transition-colors">Privacy Policy</a>
+            <a href="../docs/terms-of-service.html" class="text-honey-400 hover:text-honey-300 transition-colors">Terms of Service</a>
+            <a href="../docs/about.html" class="text-honey-400 hover:text-honey-300 transition-colors">About Us</a>
+            <a href="https://github.com/tennysonchandrasiri/wizbee" class="text-honey-400 hover:text-honey-300 transition-colors">GitHub</a>
+          </div>
+          <p class="text-gray-500 text-sm">
+            &copy; 2025 Wizbee English School. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

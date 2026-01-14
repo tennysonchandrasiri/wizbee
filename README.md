@@ -1,8 +1,8 @@
-# Wizbee English School 🐝
+# Wizbee English School
 
 Welcome to **Wizbee English School**, an interactive and fun English learning experience designed specifically for young learners in Sri Lanka!
 
-![Wizbee Mascot](src/assets/mascot.png)
+<img src="src/assets/mascot.png" alt="Wizbee Mascot" width="200" />
 
 ## About Wizbee
 

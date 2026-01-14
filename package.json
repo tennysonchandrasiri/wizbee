@@ -1,7 +1,7 @@
 {
-  "name": "twootle-desktop",
+  "name": "wizbee-desktop",
   "version": "0.7.8",
-  "description": "Twootle English School - Desktop Electron App",
+  "description": "Wizbee English School - Desktop Electron App",
   "main": "src/main/electron-main.js",
   "scripts": {
     "start": "electron .",
@@ -14,8 +14,8 @@
     "dist:win64": "electron-builder --win --x64"
   },
   "build": {
-    "appId": "org.twootle.app",
-    "productName": "Twootle",
+    "appId": "org.wizbee.app",
+    "productName": "Wizbee",
     "icon": "src/assets/icon.png",
     "directories": {
       "output": "dist"
@@ -42,7 +42,7 @@
           "arch": ["x64", "ia32"]
         }
       ],
-      "publisherName": "Twootle",
+      "publisherName": "Wizbee",
       "verifyUpdateCodeSignature": false,
       "requestedExecutionLevel": "asInvoker",
       "artifactName": "${productName}-${version}-${arch}.${ext}",
@@ -59,7 +59,7 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Twootle",
+      "shortcutName": "Wizbee",
       "runAfterFinish": true,
       "perMachine": false
     },
@@ -68,7 +68,7 @@
       "category": "Education"
     }
   },
-  "author": "Twootle",
+  "author": "Wizbee",
   "license": "UNLICENSED",
   "devDependencies": {
     "electron": "^31.2.0",

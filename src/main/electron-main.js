@@ -25,7 +25,7 @@ function createWindow(initialFile = 'index.html') {
 function setAppMenu() {
   const template = [
     ...(process.platform === 'darwin' ? [{
-      label: 'Twootle',
+      label: 'Wizbee',
       submenu: [
         { role: 'about' },
         { type: 'separator' },

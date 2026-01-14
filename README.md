@@ -2,7 +2,7 @@
 
 Welcome to **Wizbee English School**, an interactive and fun English learning experience designed specifically for young learners in Sri Lanka!
 
-![Wizbee Mascot](src/assets/icon.png)
+![Wizbee Mascot](src/assets/mascot.png)
 
 ## About Wizbee
 

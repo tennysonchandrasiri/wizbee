@@ -1,6 +1,6 @@
 {
   "name": "wizbee-desktop",
-  "version": "0.7.8",
+  "version": "0.8.0",
   "description": "Wizbee English School - Desktop Electron App",
   "main": "src/main/electron-main.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "build": {
     "appId": "org.wizbee.app",
     "productName": "Wizbee",
-    "icon": "src/assets/icon.png",
+    "icon": "src/assets/wizbee.png",
     "directories": {
       "output": "dist"
     },

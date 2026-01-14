@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wizbee English School - Download</title>
     <meta name="description" content="Download Wizbee English School - Interactive English learning app for kids. Available for Windows and Mac." />
-    <link rel="icon" type="image/png" href="../src/assets/wizbee.png" />
+    <link rel="icon" type="image/png" href="wizbee.png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +65,7 @@
     <header class="bg-gradient-to-r from-honey-600 via-honey-500 to-honey-600 text-gray-800 shadow-lg">
       <div class="container mx-auto px-4 py-6">
         <div class="flex items-center justify-center gap-4">
-          <img src="../src/assets/mascot.png" alt="Wizbee Mascot" class="w-16 h-16 bee-float" />
+          <img src="mascot.png" alt="Wizbee Mascot" class="w-16 h-16 bee-float" />
           <div class="text-center">
             <h1 class="title-font text-4xl md:text-5xl font-bold text-white drop-shadow-md">
               Wizbee English School
@@ -172,55 +172,62 @@
           </div>
         </div>
 
-        <!-- System Requirements -->
-        <div class="mt-12 bg-white p-8 rounded-xl shadow-md border border-honey-100" x-data="{ tab: 'windows' }">
-          <h3 class="title-font text-2xl text-center text-honey-700 mb-6">System Requirements</h3>
-          
-          <!-- Tabs -->
-          <div class="flex justify-center gap-4 mb-6">
-            <button @click="tab = 'windows'" 
-                    :class="tab === 'windows' ? 'bg-honey-500 text-white' : 'bg-honey-100 text-honey-700'"
-                    class="px-6 py-2 rounded-lg font-medium transition-colors">
-              Windows
-            </button>
-            <button @click="tab = 'mac'" 
-                    :class="tab === 'mac' ? 'bg-pooh-brown text-white' : 'bg-honey-100 text-honey-700'"
-                    class="px-6 py-2 rounded-lg font-medium transition-colors">
-              macOS
-            </button>
+        <!-- Perfect For Section -->
+        <div class="mt-12 bg-white p-8 rounded-xl shadow-md border border-honey-100">
+          <h3 class="title-font text-2xl text-center text-honey-700 mb-6">Perfect For</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex items-start gap-4 p-4 bg-honey-50 rounded-lg">
+              <span class="text-3xl">👧</span>
+              <div>
+                <h4 class="font-semibold text-honey-800">Young Learners</h4>
+                <p class="text-gray-600 text-sm">Students aged 6-12 building their English foundation with colorful, engaging content.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-honey-50 rounded-lg">
+              <span class="text-3xl">👨‍👩‍👧</span>
+              <div>
+                <h4 class="font-semibold text-honey-800">Parents</h4>
+                <p class="text-gray-600 text-sm">Help your child learn English at home with safe, ad-free educational content.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-honey-50 rounded-lg">
+              <span class="text-3xl">👩‍🏫</span>
+              <div>
+                <h4 class="font-semibold text-honey-800">Teachers</h4>
+                <p class="text-gray-600 text-sm">Supplement classroom teaching with interactive digital resources and exercises.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-honey-50 rounded-lg">
+              <span class="text-3xl">🏫</span>
+              <div>
+                <h4 class="font-semibold text-honey-800">Schools</h4>
+                <p class="text-gray-600 text-sm">Deploy across computer labs with content aligned to Sri Lankan English curriculum.</p>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <!-- Windows Requirements -->
-          <div x-show="tab === 'windows'" class="text-gray-600">
-            <ul class="space-y-2">
-              <li class="flex items-center gap-2">
-                <span class="text-honey-500">&#10003;</span> Windows 10 or later (64-bit or 32-bit)
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-honey-500">&#10003;</span> 4 GB RAM minimum
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-honey-500">&#10003;</span> 500 MB available disk space
-              </li>
-            </ul>
-          </div>
-
-          <!-- Mac Requirements -->
-          <div x-show="tab === 'mac'" class="text-gray-600">
-            <ul class="space-y-2">
-              <li class="flex items-center gap-2">
-                <span class="text-honey-500">&#10003;</span> macOS 10.13 (High Sierra) or later
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-honey-500">&#10003;</span> Apple Silicon or Intel processor
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-honey-500">&#10003;</span> 4 GB RAM minimum
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-honey-500">&#10003;</span> 500 MB available disk space
-              </li>
-            </ul>
+        <!-- How to Get Started -->
+        <div class="mt-12 bg-gradient-to-br from-honey-100 to-honey-50 p-8 rounded-xl shadow-md border border-honey-200">
+          <h3 class="title-font text-2xl text-center text-honey-700 mb-6">Get Started in 3 Easy Steps</h3>
+          <div class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-honey-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3">1</div>
+              <p class="font-medium text-honey-800">Download</p>
+              <p class="text-gray-600 text-sm">Choose Windows or Mac</p>
+            </div>
+            <div class="hidden md:block text-honey-400 text-3xl">&#8594;</div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-honey-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3">2</div>
+              <p class="font-medium text-honey-800">Install</p>
+              <p class="text-gray-600 text-sm">Run the installer</p>
+            </div>
+            <div class="hidden md:block text-honey-400 text-3xl">&#8594;</div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-honey-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-3">3</div>
+              <p class="font-medium text-honey-800">Learn!</p>
+              <p class="text-gray-600 text-sm">Start exploring lessons</p>
+            </div>
           </div>
         </div>
       </div>

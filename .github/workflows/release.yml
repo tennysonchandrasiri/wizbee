@@ -31,8 +31,6 @@ jobs:
 
       - name: Build macOS app
         run: npm run dist
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload macOS artifacts
         uses: actions/upload-artifact@v4
@@ -59,8 +57,6 @@ jobs:
 
       - name: Build Windows app
         run: npm run dist:win
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
@@ -115,8 +111,7 @@ jobs:
             
             | Platform | Download |
             |----------|----------|
-            | Windows (64-bit) | `Wizbee-Setup.exe` |
-            | Windows (32-bit) | `Wizbee-Setup-ia32.exe` |
+            | Windows | `Wizbee-Setup.exe` |
             | macOS | `Wizbee.dmg` |
             
             ### What's New

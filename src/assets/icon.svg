@@ -1,0 +1,35 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bee Body -->
+  <ellipse cx="256" cy="280" rx="140" ry="180" fill="#FFC107" stroke="#3E2723" stroke-width="12"/>
+  
+  <!-- Stripes -->
+  <path d="M146 320 Q256 360 366 320" stroke="#3E2723" stroke-width="24" fill="none" stroke-linecap="round"/>
+  <path d="M136 240 Q256 280 376 240" stroke="#3E2723" stroke-width="24" fill="none" stroke-linecap="round"/>
+  
+  <!-- Wings -->
+  <path d="M150 200 C50 100 50 300 150 300" fill="#E1F5FE" stroke="#29B6F6" stroke-width="8" opacity="0.8"/>
+  <path d="M362 200 C462 100 462 300 362 300" fill="#E1F5FE" stroke="#29B6F6" stroke-width="8" opacity="0.8"/>
+  
+  <!-- Head -->
+  <circle cx="256" cy="140" r="100" fill="#FFC107" stroke="#3E2723" stroke-width="12"/>
+  
+  <!-- Eyes -->
+  <circle cx="220" cy="130" r="20" fill="#3E2723"/>
+  <circle cx="292" cy="130" r="20" fill="#3E2723"/>
+  <circle cx="225" cy="125" r="8" fill="#FFFFFF"/>
+  <circle cx="297" cy="125" r="8" fill="#FFFFFF"/>
+  
+  <!-- Antennae -->
+  <path d="M210 60 Q200 20 170 30" stroke="#3E2723" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <circle cx="170" cy="30" r="10" fill="#3E2723"/>
+  
+  <path d="M302 60 Q312 20 342 30" stroke="#3E2723" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <circle cx="342" cy="30" r="10" fill="#3E2723"/>
+  
+  <!-- Smile -->
+  <path d="M230 170 Q256 190 282 170" stroke="#3E2723" stroke-width="10" fill="none" stroke-linecap="round"/>
+  
+  <!-- Cheeks -->
+  <circle cx="200" cy="160" r="15" fill="#FF8A80" opacity="0.6"/>
+  <circle cx="312" cy="160" r="15" fill="#FF8A80" opacity="0.6"/>
+</svg>

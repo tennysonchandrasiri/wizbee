@@ -2,12 +2,12 @@
 
 ## Project Overview
 
-**Wizbee English School** is an interactive English language learning desktop application designed for Sri Lankan children. Built with Electron, it provides vocabulary building, sentence construction, stories, games, and educational activities across different skill levels.
+**Twootle English School** is an interactive English language learning desktop application designed for Sri Lankan children. Built with Electron, it provides vocabulary building, sentence construction, stories, games, and educational activities across different skill levels.
 
 - **Platform**: Electron desktop app (Windows & macOS)
 - **Target Audience**: Sri Lankan children learning English (ages 6-12)
 - **Technology**: Electron, HTML5, CSS3, JavaScript, Tailwind CSS
-- **Theme**: Honey bee / Winnie the Pooh inspired warm colors
+- **Theme**: Clean blue educational theme
 
 ## Setup Commands
 
@@ -30,7 +30,7 @@ npm run dist -- --publish never  # Build without publishing
 ## Project Structure
 
 ```
-wizbee/
+twootle/
 ├── .github/workflows/     # GitHub Actions (release, pages)
 ├── landing-page/          # Public website for downloads
 ├── content/               # Educational content
@@ -91,21 +91,22 @@ All paths are relative from each file's location:
 
 The project uses GitHub Actions for automated releases:
 
-1. Push a version tag (e.g., `v0.8.2`) to trigger builds
+1. Push a version tag (e.g., `v0.9.0`) to trigger builds
 2. macOS and Windows builds run in parallel
 3. Artifacts uploaded to GitHub Releases
 4. Landing page auto-deploys to GitHub Pages
 
 **Important**: Always use `--publish never` flag to prevent electron-builder from auto-publishing.
 
-## Theme Colors (Honey Bee)
+## Theme Colors (Blue)
 
 ```css
-/* Primary palette */
---honey-500: #FFC107;    /* Main honey yellow */
---honey-600: #FFB300;    /* Darker honey */
---honey-50: #FFF8E1;     /* Light cream background */
---pooh-brown: #795548;   /* Accent brown */
+/* Primary palette - defined in twootle-theme.css */
+--twootle-color-primary: #2563eb;        /* Blue-600 */
+--twootle-color-primary-accent: #3b82f6; /* Blue-500 */
+--twootle-color-primary-hover: #1d4ed8;  /* Blue-700 */
+--twootle-color-secondary: #f59e0b;      /* Amber-500 */
+--twootle-color-bg: #f5f9ff;             /* Light blue background */
 ```
 
 ## Testing Checklist
@@ -130,7 +131,7 @@ The project uses GitHub Actions for automated releases:
 ## Important Notes
 
 - Landing page is in `landing-page/` folder (deployed to GitHub Pages)
-- App icons are in `src/assets/` (mascot.png, wizbee.png)
+- App icon is in `src/assets/icon.png`
 - The app works offline once installed
 - Content designed by Regional English Support Center, Ampara
 - Funded by General Education Modernization Project, Ministry of Education Sri Lanka

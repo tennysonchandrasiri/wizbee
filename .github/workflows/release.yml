@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version tag (e.g., v0.8.0)'
+        description: 'Version tag (e.g., v0.9.0)'
         required: true
-        default: 'v0.8.0'
+        default: 'v0.9.0'
 
 permissions:
   contents: write
@@ -101,9 +101,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.version.outputs.VERSION }}
-          name: Wizbee English School ${{ steps.version.outputs.VERSION }}
+          name: Twootle English School ${{ steps.version.outputs.VERSION }}
           body: |
-            ## Wizbee English School ${{ steps.version.outputs.VERSION }}
+            ## Twootle English School ${{ steps.version.outputs.VERSION }}
             
             Interactive English learning app for kids.
             
@@ -111,17 +111,16 @@ jobs:
             
             | Platform | Download |
             |----------|----------|
-            | Windows | `Wizbee-Setup.exe` |
-            | macOS | `Wizbee.dmg` |
+            | Windows | `Twootle-Setup.exe` |
+            | macOS | `Twootle.dmg` |
             
             ### What's New
-            - New bee mascot and branding
             - Improved landing page with documentation
             - Bug fixes and performance improvements
             
             ---
             
-            **Website:** https://tennysonchandrasiri.github.io/wizbee/
+            **Website:** https://tennysonchandrasiri.github.io/twootle/
           files: |
             dist/*.dmg
             dist/*.exe

@@ -43,6 +43,12 @@
       "verifyUpdateCodeSignature": false,
       "requestedExecutionLevel": "asInvoker",
       "artifactName": "${productName}-Setup.${ext}",
+      "certificateFile": null,
+      "certificatePassword": null,
+      "certificateSubjectName": null,
+      "rfc3161TimeStampServer": "http://timestamp.digicert.com",
+      "timeStampServer": "http://timestamp.digicert.com",
+      "signDlls": false,
       "extraFiles": [
         {
           "from": "build/app.manifest",
